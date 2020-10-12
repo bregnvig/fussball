@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "f1-serverless",
+    "production": "f1-2020-9dec0"
+  },
+  "targets": {
+    "f1-serverless": {
+      "hosting": {
+        "ui": [
+          "f1-serverless"
+        ]
+      }
+    },
+    "f1-2020-9dec0": {
+      "hosting": {
+        "ui": [
+          "f1-2020-9dec0"
+        ]
+      }
+    }
+  }
+}

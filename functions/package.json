@@ -1,0 +1,40 @@
+{
+  "name": "functions",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "test": "jest ./src -o --verbose=false --watch --runInBand",
+    "test:livereload": "firebase emulators:exec --only firestore \"jest ./src --watchAll --verbose=false\"",
+    "postinstall": "ln -sf ../../../libs/data/src/lib/model/ src/lib/model"
+  },
+  "engines": {
+    "node": "10"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^8.13.0",
+    "firebase-functions": "^3.11.0",
+    "luxon": "^1.22.2",
+    "nodemailer": "^6.4.10"
+  },
+  "devDependencies": {
+    "@firebase/firestore-types": "^1.10.1",
+    "@firebase/testing": "^0.19.0",
+    "@types/jest": "^25.2.1",
+    "@types/nodemailer": "^6.4.0",
+    "@types/nodemailer-smtp-transport": "^2.7.4",
+    "clone": "^2.1.2",
+    "firebase-functions-test": "^0.2.1",
+    "firebase-tools": "^8.4.3",
+    "jest": "25.2.1",
+    "ts-jest": "25.2.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.9.6"
+  },
+  "private": true
+}

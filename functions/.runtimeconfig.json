@@ -1,0 +1,12 @@
+{
+  "oauth": {
+    "client": "657968084413-rijk90qgpc6uq3objg58ug6ha21fdrja.apps.googleusercontent.com",
+    "secret": "lc8Xek7tDvDpouR5g6Cv18-_",
+    "user": "flemming@bregnvig.dk",
+    "refresh": "1//04uVpqCykDgxhCgYIARAAGAQSNwF-L9IrH2KOfZ5WTncO1OtzgyddjHLMTeka8Q_6mZsqgHaKK6ZnVulX3VRMTrL9OHUXMrU9koQ"
+  },
+  "test": true,
+  "ci": {
+    "token": "1//09XJ04D0D7JqRCgYIARAAGAkSNwF-L9IrT5OoVpGlwcQi9FBJhnH18Y-HajI6YoE15HoLTGtRdPLvvfWKdtPVmXbRQ0ZsLe1Udms"
+  }
+}

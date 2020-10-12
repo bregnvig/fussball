@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+  Om spillet
+</mat-toolbar>
+<mat-grid-list cols="2">
+  <mat-grid-tile *ngFor="let contributor of service.contributors$ | async">
+    <a [href]="contributor.url">
+      <img class="circle" [title]="contributor.login" height="80%" [src]="contributor.avatarURL">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile><a href="https://github.com/bregnvig/fussball"><img height="80%" [src]="github"></a></mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://angular.io">
+      <img height="80%" [src]="angular">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://ngrx.io/">
+      <img height="80%" [src]="ngrx">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/">
+      <img height="80%" [src]="firebase">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/products/firestore">
+      <img height="80%" [src]="firestore">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/products/functions">
+      <img height="80%" [src]="functions">
+    </a>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <a href="https://firebase.google.com/docs/cloud-messaging">
+      <img height="80%" [src]="cloudMessaging">
+    </a>
+  </mat-grid-tile>
+</mat-grid-list>

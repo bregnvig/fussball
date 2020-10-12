@@ -1,0 +1,71 @@
+{
+  "npmScope": "fussball",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*",
+    ".eslintrc.json": "*"
+  },
+  "projects": {
+    "ui": {
+      "tags": []
+    },
+    "ui-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "ui"
+      ]
+    },
+    "data": {
+      "tags": []
+    },
+    "control": {
+      "tags": []
+    },
+    "players": {
+      "tags": []
+    },
+    "shared": {
+      "tags": []
+    },
+    "player": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    },
+    "info": {
+      "tags": []
+    },
+    "tools": {
+      "tags": []
+    },
+    "firebase": {
+      "tags": []
+    },
+    "landing": {
+      "tags": []
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

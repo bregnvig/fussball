@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2019", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fussball/api": ["libs/api/src/index.ts"],
+      "@fussball/data": ["libs/data/src/index.ts"],
+      "@fussball/shared": ["libs/shared/src/index.ts"],
+      "@fussball/control": ["libs/control/src/index.ts"],
+      "@fussball/player": ["libs/player/src/index.ts"],
+      "@fussball/players": ["libs/players/src/index.ts"],
+      "@fussball/info": ["libs/info/src/index.ts"],
+      "@fussball/landing": ["libs/landing/src/index.ts"],
+      "@fussball/tools": ["libs/tools/src/index.ts"],
+      "@fussball/firebase": ["libs/firebase/src/index.ts"],
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

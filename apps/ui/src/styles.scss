@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@fortawesome/fontawesome-pro/css/all.css";
+@import "./scss/toolbar";
+@import "./scss/breakpoints";
+@import "./scss/spacing";
+
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.fixVertical {
+  flex: 1 1 100%;
+  min-height: 100vh;
+}
+
+router-outlet + * {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+button[mat-fab] {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+}
+
+@import './scss/variables';
+
+.bg-warn {
+  background-color: $warn;
+  color: white !important;
+}
+
+.warn {
+  color: $warn !important;
+}
+
+mat-card {
+
+  mat-card-actions > button, mat-card-actions > a  {
+    text-transform: uppercase;
+  }
+  margin-bottom: 16px;
+}
+
+.max-width {
+  max-width: 752px;
+  width: 100%;
+  align-self: center;
+}
+
+a {
+  color: white;
+  font-weight: bold; 
+}

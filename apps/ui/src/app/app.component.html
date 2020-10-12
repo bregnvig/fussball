@@ -1,0 +1,18 @@
+<div fxLayout="column" class="fixVertical">
+  <mat-toolbar fxLayout>
+    <span>FUSSBALL</span>
+    <!-- This fills the remaining space of the current row -->
+    <span fxFlex></span>
+    <button mat-icon-button>
+      <mat-icon aria-hidden="false" aria-label="Åbn menu" (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container fxFlex fxLayout="column">
+    <mat-sidenav #sidenav mode="over" position="end">
+      <sha-sidebar (closing)="sidenav.close()"></sha-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlex fxLayout="column">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

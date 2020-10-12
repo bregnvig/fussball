@@ -1,0 +1,8 @@
+<ng-container *ngIf="player$ | async as player; else loading">
+  <sha-card-page>
+    <!-- <fuss-what-else></fuss-what-else> -->
+  </sha-card-page>
+</ng-container>
+<ng-template #loading>
+  <sha-loading></sha-loading>
+</ng-template>

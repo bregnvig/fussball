@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <span>Spillere</span>
+</mat-toolbar>
+<mat-action-list *ngIf="players$ | async as players; else loading">
+  <mat-list-item *ngFor="let player of players" [routerLink]="[player.uid]">
+    <img matListAvatar [src]="player.photoURL">
+    <h3 matLine>{{player.displayName}}</h3>
+    <i *ngIf="isAnonymous(player)" class="far fa-fw fa-lg fa-car-crash"></i>
+    <i *ngIf="isAdmin(player)" class="far fa-lg fa-gavel"></i>
+    <i *ngIf="isPlayer(player)" class="far fa-fw fa-lg fa-user-astronaut"></i>
+  </mat-list-item>
+</mat-action-list>
+<ng-template #loading>
+  <sha-loading></sha-loading>
+</ng-template>

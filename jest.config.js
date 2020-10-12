@@ -1,0 +1,23 @@
+module.exports = {
+  projects: [
+    "<rootDir>/apps/ui",
+    "<rootDir>/apps/builder",
+    "<rootDir>/libs/data",
+    "<rootDir>/libs/ergast",
+    "<rootDir>/libs/control",
+    "<rootDir>/libs/driver",
+    "<rootDir>/libs/players",
+    "<rootDir>/libs/bank",
+    "<rootDir>/libs/shared",
+    "<rootDir>/libs/player",
+    "<rootDir>/libs/season",
+    "<rootDir>/libs/api",
+    "<rootDir>/libs/race",
+    "<rootDir>/libs/standing",
+    "<rootDir>/libs/info",
+    "<rootDir>/libs/tools",
+    "<rootDir>/libs/wbc",
+    "<rootDir>/libs/firebase",
+    "<rootDir>/libs/landing",
+  ],
+};

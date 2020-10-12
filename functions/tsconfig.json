@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "lib": ["es2017"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017"
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ],
+  "files": [
+    "node_modules/typescript/lib/lib.es6.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/test-utils",
+    "**/*.spec.ts"
+  ]
+}
