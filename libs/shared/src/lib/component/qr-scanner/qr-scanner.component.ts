@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'sha-qr-scanner',
@@ -15,6 +15,7 @@ import { Component } from '@angular/core';
 })
 export class QrScannerComponent {
 
+  @Output() scanResult = new EventEmitter<string>();
 
   scanning = true;
   availableDevices: MediaDeviceInfo[];
@@ -30,6 +31,7 @@ export class QrScannerComponent {
 
   webScanFoundItem(scanResult: string) {
     console.log('scan result: ', scanResult);
+    this.scanResult.emit(scanResult)
   }
 
 }
