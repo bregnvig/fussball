@@ -1,20 +1,20 @@
 {
   "projects": {
-    "default": "f1-serverless",
-    "production": "f1-2020-9dec0"
+    "default": "fussball-dev",
+    "production": "fussball-prod"
   },
   "targets": {
-    "f1-serverless": {
+    "fussball-dev": {
       "hosting": {
         "ui": [
-          "f1-serverless"
+          "fussball-dev"
         ]
       }
     },
-    "f1-2020-9dec0": {
+    "fussball-prod": {
       "hosting": {
         "ui": [
-          "f1-2020-9dec0"
+          "fussball-prod"
         ]
       }
     }
