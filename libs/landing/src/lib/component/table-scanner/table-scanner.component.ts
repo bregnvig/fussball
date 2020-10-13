@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { isPosition, Position } from '@fussball/data';
 
 interface TableScanResult {
@@ -21,17 +21,13 @@ function assertTableScanResult(result: TableScanResult): asserts result is Table
 @Component({
   selector: 'fuss-table-scanner',
   templateUrl: './table-scanner.component.html',
-  styleUrls: ['./table-scanner.component.scss']
+  styleUrls: ['./table-scanner.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableScannerComponent implements OnInit {
+export class TableScannerComponent {
 
   error: string;
   detailedError: string;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   tableScanResult(scanResult: string): void {
     try {
