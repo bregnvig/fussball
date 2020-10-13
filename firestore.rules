@@ -2,49 +2,6 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    match /drivers/{Drivers} {
-      allow read: if getUserData().roles.hasAny(['admin', 'player']);
-      allow update, write, delete, create: if getUserData().roles.hasAny(['admin']);
-    }
-
-    match /seasons/{Seasons} {
-      allow read: if getUserData().roles.hasAny(['admin', 'player']);
-      allow update, write, delete, create:  if getUserData().roles.hasAny(['admin']);
-    }
-    
-    match /seasons/{Seasons}/races/{Races} {
-      allow read: if getUserData().roles.hasAny(['admin', 'player']);
-      allow update, write, delete, create:  if getUserData().roles.hasAny(['admin']);
-    }
-
-    match /seasons/{Seasons}/teams/{Contructor} {
-      allow read: if getUserData().roles.hasAny(['player']);
-      allow update, write, delete, create:  if false;
-    }
-
-    match /seasons/{Seasons}/lastYear/{Country} {
-      allow read: if getUserData().roles.hasAny(['player']);
-      allow update, write, delete, create:  if false;
-    }
-
-    match /seasons/{Seasons}/races/{Races}/bids/{Bids} {
-     // allow to create bid if race is open and a bid does not already exsist 
-     allow create: if getUserData().roles.hasAny(['player']) 
-                    && get(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)).data.state == 'open' 
-                    && !exists(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)/bids/$(request.auth.uid));
-     allow update: if getUserData().roles.hasAny(['player']) 
-                    && request.auth.uid == Bids
-                    && ('submitted' in resource.data) == false
-                    && notUpdating('submitted');                    
-     // allow to read bids if races is waiting or closed - or if bid is your own - or read all bids if you have made your bid             
-     allow read: if getUserData().roles.hasAny(['player']) 
-                    && get(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)).data.state != 'open' 
-                    || getUserData().roles.hasAny(['player']) && request.auth.uid == Bids 
-                    || getUserData().roles.hasAny(['player']) 
-                    && exists(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)/bids/$(request.auth.uid))
-                    && get(/databases/$(database)/documents/seasons/$(Seasons)/races/$(Races)/bids/$(request.auth.uid)).data.submitted != false; 
-    }
-
     match /players/{Players} {
       allow read: if request.auth.uid == Players 
                     || getUserData().roles.hasAny(['admin']); 
@@ -54,11 +11,6 @@ service cloud.firestore {
       allow create: if getUserData().roles.hasAny(['admin']) || request.auth.uid != null &&  valid_create();
     }
 
-    match /transactions/{Transactions} {
-      allow read: if getUserData().roles.hasAny(['admin'])
-                   || resource.data.involved.hasAny([request.auth.uid])
-                   }  
-    
     function getUserData() {
       return get(/databases/$(database)/documents/players/$(request.auth.uid)).data
     }
