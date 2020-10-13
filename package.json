@@ -53,6 +53,7 @@
     "@ngrx/store-devtools": "^9.1.0",
     "@nrwl/angular": "10.3.0",
     "@swimlane/ngx-charts": "^16.0.0",
+    "@zxing/ngx-scanner": "^3.0.1",
     "axios": "^0.19.2",
     "core-js": "^2.5.4",
     "fast-deep-equal": "^3.1.3",
