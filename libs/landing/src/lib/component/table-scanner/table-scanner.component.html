@@ -2,5 +2,8 @@
     <h2 fxLayoutAlign="center">Scan QR kode</h2>
     <sha-qr-scanner (scanResult)="tableScanResult($event)"></sha-qr-scanner>
     <h5 fxLayoutAlign="center">Indtag din position ved at scanne QR koden ved din plads</h5>
-    <div *ngIf="error">{{error}}</div>
+    <div *ngIf="error" fxLayout="column">
+        <span fxLayoutAlign="center">{{error}}</span>
+        <small fxLayoutAlign="center">{{detailedError}}</small>
+    </div>
 </mat-card>
