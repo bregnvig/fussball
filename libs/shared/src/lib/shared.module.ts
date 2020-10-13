@@ -8,11 +8,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { PlayerApiModule } from '@fussball/api';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginComponent } from './component';
 import { CardPageComponent } from './component/card-page/card-page.component';
 import { HasRoleDirective } from './component/has-role.directive';
 import { LoadingComponent } from './component/loading/loading.component';
 import { PageComponent } from './component/page/page.component';
+import { QrScannerComponent } from './component/qr-scanner/qr-scanner.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
 import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
@@ -22,7 +24,7 @@ const materialModules = [
   MatIconModule,
   MatButtonModule,
   MatToolbarModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
 ];
 
 const exportComponents = [
@@ -31,6 +33,7 @@ const exportComponents = [
   PageComponent,
   CardPageComponent,
   SidebarComponent,
+  QrScannerComponent,
 ];
 
 const pipes = [
@@ -56,6 +59,7 @@ const pipes = [
     FlexLayoutModule,
     RouterModule,
     PlayerApiModule,
+    ZXingScannerModule,
     materialModules
   ],
 })
