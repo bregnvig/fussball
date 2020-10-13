@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 export type Position = 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence';
-
+export type GameState = 'completed' | 'cancelled' | 'ongoing' | 'preparing';
 export interface Goal {
   uid: string;
   position: Position;
@@ -23,5 +23,6 @@ export interface Match {
 export interface Game {
   latestPosition: PlayerPosition;
   numberOfMatches: number;
+  state: GameState;
   matches: Match[];
 }

@@ -1,5 +1,4 @@
 
-export const seasonsURL = 'seasons'; 
-export const racesURL = 'races';
+export const tablesURL = 'tables';
+export const tableURL = (uid: string) => `${tablesURL}/${uid}`;
 export const playersURL = 'players';
-export const transactionsURL = 'transactions';
