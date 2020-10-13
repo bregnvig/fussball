@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { Game, Match, PlayerPosition, Position } from './model/game.model';
+import { Game, Match, PlayerPosition, Position } from './model';
 
 const newMatch = () => ({ red: 0, blue: 0, goals: [] });
 const countVictories = (team: 'red' | 'blue') => (matches: Match[]) => matches.reduce((acc, match) => acc + (match[team] === 8 ? 1 : 0), 0);

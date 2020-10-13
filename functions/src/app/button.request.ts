@@ -1,11 +1,9 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { tableURL } from '../lib';
+import { Position, Table, tableURL } from '../lib';
 import { switchPosition } from '../lib/switch.service';
 import { converter } from '../lib/timestamp.converter';
-import { Table } from './../../../libs/data/src/lib/model/table.model';
 import { goal, ownGoal } from './../lib/goal.service';
-import { Position } from './../lib/model/game.model';
 
 type Operation = 'goal' | 'switch' | 'ownGoal';
 

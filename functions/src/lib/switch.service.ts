@@ -1,4 +1,4 @@
-import { PlayerPosition, Position } from "./model/game.model";
+import { PlayerPosition, Position } from "./model";
 
 export const switchPosition = (position: Position, playerPosition: PlayerPosition): PlayerPosition => {
   if ((['redDefence', 'redOffence'] as Position[]).some(p => p === position)) {
