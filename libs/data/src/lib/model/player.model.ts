@@ -1,4 +1,4 @@
-export type Role = 'player' | 'admin' | 'anonymous';
+export type Role = 'player' | 'admin' | 'viewer' | 'anonymous';
 
 export interface Player {
   uid: string;
@@ -7,5 +7,4 @@ export interface Player {
   email: string;
   roles?: Role[];
   tokens?: string[];
-  receiveReminders?: boolean;
 }
