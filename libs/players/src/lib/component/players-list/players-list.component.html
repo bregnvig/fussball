@@ -7,7 +7,8 @@
     <h3 matLine>{{player.displayName}}</h3>
     <i *ngIf="isAnonymous(player)" class="far fa-fw fa-lg fa-car-crash"></i>
     <i *ngIf="isAdmin(player)" class="far fa-lg fa-gavel"></i>
-    <i *ngIf="isPlayer(player)" class="far fa-fw fa-lg fa-user-astronaut"></i>
+    <i *ngIf="isPlayer(player)" class="far fa-fw fa-lg fa-futbol"></i>
+    <i *ngIf="isViewer(player)" class="far fa-fw fa-lg fa-eye"></i>
   </mat-list-item>
 </mat-action-list>
 <ng-template #loading>

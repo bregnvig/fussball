@@ -32,6 +32,7 @@ export class EditPlayerComponent extends AbstractSuperComponent implements OnIni
       roles: this.fb.group({
         player: [],
         admin: [],
+        viewer: [],
       }),
     });
     this.player$ = this.facade.selectedPlayer$;
@@ -52,7 +53,7 @@ export class EditPlayerComponent extends AbstractSuperComponent implements OnIni
 
   updateRoles() {
     const value = Object.values(this.fg.get('roles').value);
-    const roles: Role[] = (['player', 'admin', 'bank-admin'] as Role[]).filter((_, index) => value[index]);
+    const roles: Role[] = (['player', 'admin', 'viewer'] as Role[]).filter((_, index) => value[index]);
     this.player$.pipe(
       first(),
       switchMap(player => this.playerService.updatePlayer(player.uid, { roles: roles.length ? roles : ['anonymous'] })),

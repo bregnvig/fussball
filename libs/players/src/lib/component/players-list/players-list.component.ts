@@ -29,6 +29,10 @@ export class PlayersListComponent implements OnInit {
     return player.roles.indexOf('player') !== -1;
   }
 
+  isViewer(player: Player): boolean {
+    return player.roles.indexOf('viewer') !== -1;
+  }
+
   isAdmin(player: Player): boolean {
     return player.roles.indexOf('admin') !== -1;
   }
