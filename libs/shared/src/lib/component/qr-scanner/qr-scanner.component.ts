@@ -30,7 +30,6 @@ export class QrScannerComponent {
   }
 
   webScanFoundItem(scanResult: string) {
-    console.log('scan result: ', scanResult);
     this.scanResult.emit(scanResult)
   }
 
