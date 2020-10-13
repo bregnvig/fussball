@@ -25,7 +25,7 @@
       "@fussball/info": ["libs/info/src/index.ts"],
       "@fussball/landing": ["libs/landing/src/index.ts"],
       "@fussball/tools": ["libs/tools/src/index.ts"],
-      "@fussball/firebase": ["libs/firebase/src/index.ts"],
+      "@fussball/firebase": ["libs/firebase/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
