@@ -6,4 +6,5 @@ admin.initializeApp(functions.config().firebase);
 // export * from './app/player/new-player.trigger';
 
 export * from './app/button.request';
+export * from './app/game-close.trigger';
 

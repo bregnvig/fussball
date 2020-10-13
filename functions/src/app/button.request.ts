@@ -4,6 +4,7 @@ import { tableURL } from '../lib';
 import { switchPosition } from '../lib/switch.service';
 import { converter } from '../lib/timestamp.converter';
 import { Table } from './../../../libs/data/src/lib/model/table.model';
+import { goal, ownGoal } from './../lib/goal.service';
 import { Position } from './../lib/model/game.model';
 
 type Operation = 'goal' | 'switch' | 'ownGoal';
@@ -27,10 +28,17 @@ export const performButton = functions.region('europe-west1').https.onRequest(as
 
   if (table?.game.state !== 'ongoing') {
     res.status(409).send('Game not ongoing');
+    return;
   }
   switch (operation) {
     case 'switch':
       table.game.latestPosition = switchPosition(position, table.game.latestPosition);
+      break;
+    case 'goal':
+      table.game = goal(position, table.game);
+      break;
+    case 'ownGoal':
+      table.game = ownGoal(position, table.game);
       break;
     default: {
       console.log(`Operation ${operation} is not supported`);
@@ -38,4 +46,6 @@ export const performButton = functions.region('europe-west1').https.onRequest(as
       return;
     }
   }
+  await db.doc(tableURL(tableId)).update({ game: table.game });
+  res.sendStatus(200);
 });

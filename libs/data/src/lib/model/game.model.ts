@@ -1,10 +1,14 @@
 import { DateTime } from 'luxon';
 export type Position = 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence';
 export type GameState = 'completed' | 'cancelled' | 'ongoing' | 'preparing';
+export type Team = 'red' | 'blue';
+
 export interface Goal {
   uid: string;
   position: Position;
   time: DateTime;
+  team: Team;
+  ownGoal?: boolean;
 }
 
 export interface PlayerPosition {

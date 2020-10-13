@@ -10,6 +10,22 @@ const switchSide = (playerPosition: PlayerPosition): PlayerPosition => ({
   blueOffence: playerPosition.redOffence
 });
 
+const nextState = (match: Match, game: Game): Game => {
+  if (match.blue === 8 || match.red === 8) {
+    const requiredVictories = Math.floor((game.numberOfMatches / 2) + 1);
+    const redVictories = countVictories('red')(game.matches);
+    const blueVictories = countVictories('blue')(game.matches);
+
+    if (blueVictories === requiredVictories || redVictories === requiredVictories) {
+      game.state = 'completed';
+    } else {
+      game.matches.push(newMatch());
+      game.latestPosition = switchSide(game.latestPosition);
+    }
+  }
+  return game;
+};
+
 export const goal = (position: Position, game: Game): Game => {
 
   if (!game.matches) {
@@ -24,20 +40,30 @@ export const goal = (position: Position, game: Game): Game => {
   match.goals.push({
     uid: player,
     position,
-    time: DateTime.local()
+    time: DateTime.local(),
+    team
   });
 
-  if (match.blue === 8 || match.red === 8) {
-    const requiredVictories = Math.floor((game.numberOfMatches / 2) + 1);
-    const redVictories = countVictories('red')(game.matches);
-    const blueVictories = countVictories('blue')(game.matches);
+  return nextState(match, game);
+};
 
-    if (blueVictories === requiredVictories || redVictories === requiredVictories) {
-      game.state = 'completed';
-    } else {
-      game.matches.push(newMatch());
-      game.latestPosition = switchSide(game.latestPosition);
-    }
+export const ownGoal = (position: Position, game: Game): Game => {
+  if (!game.matches) {
+    game.matches = [newMatch()];
   }
-  return game;
+
+  const player: string = game.latestPosition[position];
+  const match: Match = game.matches[game.matches.length - 1];
+  const team: 'red' | 'blue' = (['redDefence', 'redOffence'] as Position[]).some(p => p === position) ? 'blue' : 'red';
+
+  match[team] += 1;
+  match.goals.push({
+    uid: player,
+    position,
+    time: DateTime.local(),
+    team,
+    ownGoal: true,
+  });
+
+  return nextState(match, game);
 };
