@@ -7,8 +7,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from "@angular/router";
 import { ControlModule } from '@fussball/control';
 import { SharedModule } from '@fussball/shared';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { WhatElseComponent } from './component/card/what-else/what-else.component';
 import { LandingComponent } from './component/landing/landing.component';
+import { TableScannerComponent } from './component/table-scanner/table-scanner.component';
 
 const MatModules = [
   MatCardModule,
@@ -23,6 +25,7 @@ const MatModules = [
     SharedModule,
     MatModules,
     ControlModule,
+    ZXingScannerModule,
     RouterModule.forChild([
       {
         path: '',
@@ -32,7 +35,8 @@ const MatModules = [
   ],
   declarations: [
     LandingComponent,
-    WhatElseComponent
+    WhatElseComponent,
+    TableScannerComponent,
   ],
 })
 export class LandingModule { }
