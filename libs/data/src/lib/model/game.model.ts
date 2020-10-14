@@ -6,7 +6,7 @@ export function isPosition(value: any): value is Position {
 };
 
 export type GameState = 'completed' | 'cancelled' | 'ongoing' | 'preparing';
-export type Team = 'red' | 'blue';
+export type Team = 'team1' | 'team2';
 
 export interface Goal {
   uid: string;
@@ -24,12 +24,14 @@ export interface PlayerPosition {
 }
 
 export interface Match {
-  red: number;
-  blue: number;
+  team1: number;
+  team2: number;
   goals: Goal[];
 }
 
 export interface Game {
+  team1: [string, string];
+  team2: [string, string];
   latestPosition: PlayerPosition;
   numberOfMatches: number;
   state: GameState;

@@ -7,4 +7,12 @@ export interface Player {
   email: string;
   roles?: Role[];
   tokens?: string[];
+  stat?: PlayerStat;
+}
+
+export interface PlayerStat {
+  won: number;
+  lost: number;
+  goals: number;
+  ownGoals: number;
 }
