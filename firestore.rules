@@ -11,6 +11,10 @@ service cloud.firestore {
       allow create: if getUserData().roles.hasAny(['admin']) || request.auth.uid != null &&  valid_create();
     }
 
+    match /tables/{tableId} {
+      allow read: if getUserData().roles.hasAny(['player', 'viewer']);
+    }
+
     function getUserData() {
       return get(/databases/$(database)/documents/players/$(request.auth.uid)).data
     }
@@ -23,5 +27,6 @@ service cloud.firestore {
       // prevent update of specific document data object - like roles 
       return !(field in request.resource.data) || resource.data[field] == request.resource.data[field]
     }
+
   }
 }

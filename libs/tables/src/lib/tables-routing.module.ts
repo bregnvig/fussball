@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { TableComponent } from './component/table/table.component';
-import { TablesComponent } from './component/tables/tables.component';
+import { TableComponent } from './table/table.component';
+import { TablesComponent } from './tables/tables.component';
 
 @NgModule({
   imports: [

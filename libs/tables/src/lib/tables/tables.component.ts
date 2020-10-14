@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TablesService } from '@fussball/api';
+import { Table } from '@fussball/data';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fussball-tables',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablesComponent implements OnInit {
 
-  constructor() { }
+  tables$: Observable<Table[]> = this.service.tables$;
+
+  constructor(private service: TablesService) { }
 
   ngOnInit(): void {
   }

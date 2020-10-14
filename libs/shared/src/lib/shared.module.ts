@@ -51,12 +51,12 @@ const pipes = [
     exportComponents,
     pipes,
     HasRoleDirective,
+    FlexLayoutModule,
   ],
   providers: [
   ],
   imports: [
     CommonModule,
-    FlexLayoutModule,
     RouterModule,
     PlayerApiModule,
     ZXingScannerModule,
