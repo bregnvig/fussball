@@ -46,5 +46,5 @@ export const buttonRequest = functions.region('europe-west1').https.onRequest(as
     }
   }
   await db.doc(tableURL(tableId)).update({ game: firestoreUtils.convertDateTimes(table.game) });
-  res.sendStatus(200);
+  res.sendStatus(204);
 });
