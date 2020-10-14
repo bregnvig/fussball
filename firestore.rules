@@ -16,7 +16,7 @@ service cloud.firestore {
       allow read: if getUserData().roles.hasAny(['player']) && isJoinable();
     
       function isJoinable() {
-        return resource.data.game.state != 'ongoing';
+      	return !resource.data.keys().hasAny(['state']) || resource.data.game.state != 'ongoing'
       }
     }
 
