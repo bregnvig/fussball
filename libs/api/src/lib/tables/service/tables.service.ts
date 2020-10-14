@@ -13,4 +13,8 @@ export class TablesService {
   constructor(private afs: AngularFirestore) {
   }
 
+  table(tableId: string): Observable<Table> {
+    return this.afs.doc<Table>(`${TABLES_COLLECITON}/${tableId}`).valueChanges();
+  }
+
 }

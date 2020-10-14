@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TablesService } from '@fussball/api';
+import { Table } from '@fussball/data';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fussball-table',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  tableId: string;
+  table$: Observable<Table>;
+
+  constructor(private route: ActivatedRoute, private service: TablesService) { }
 
   ngOnInit(): void {
+    this.tableId = this.route.snapshot.paramMap.get('id');
+    this.table$ = this.service.table(this.tableId);
   }
 
 }
