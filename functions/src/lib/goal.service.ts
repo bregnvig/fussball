@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
-import { Game, Match, PlayerPosition, Position } from './model';
+import { Game, Match, PlayerPosition, Position, Team } from './model';
 
-const newMatch = () => ({ red: 0, blue: 0, goals: [] });
-const countVictories = (team: 'red' | 'blue') => (matches: Match[]) => matches.reduce((acc, match) => acc + (match[team] === 8 ? 1 : 0), 0);
+const newMatch = () => ({ team1: 0, team2: 0, goals: [] });
+const countVictories = (team: 'team1' | 'team2') => (matches: Match[]) => matches.reduce((acc, match) => acc + (match[team] === 8 ? 1 : 0), 0);
 const switchSide = (playerPosition: PlayerPosition): PlayerPosition => ({
   redDefence: playerPosition.blueDefence,
   redOffence: playerPosition.blueOffence,
@@ -11,12 +11,12 @@ const switchSide = (playerPosition: PlayerPosition): PlayerPosition => ({
 });
 
 const nextState = (match: Match, game: Game): Game => {
-  if (match.blue === 8 || match.red === 8) {
+  if (match.team1 === 8 || match.team2 === 8) {
     const requiredVictories = Math.floor((game.numberOfMatches / 2) + 1);
-    const redVictories = countVictories('red')(game.matches);
-    const blueVictories = countVictories('blue')(game.matches);
+    const team1Victories = countVictories('team1')(game.matches);
+    const team2Victories = countVictories('team2')(game.matches);
 
-    if (blueVictories === requiredVictories || redVictories === requiredVictories) {
+    if (team1Victories === requiredVictories || team2Victories === requiredVictories) {
       game.state = 'completed';
     } else {
       game.matches.push(newMatch());
@@ -26,44 +26,48 @@ const nextState = (match: Match, game: Game): Game => {
   return game;
 };
 
-export const goal = (position: Position, game: Game): Game => {
+export const goal = (position: Position, game: Game, ownGoal = false): Game => {
 
-  if (!game.matches) {
+  game = { ...game };
+  if (!game.matches?.length) {
     game.matches = [newMatch()];
   }
 
   const player: string = game.latestPosition[position];
   const match: Match = game.matches[game.matches.length - 1];
-  const team: 'red' | 'blue' = (['redDefence', 'redOffence'] as Position[]).some(p => p === position) ? 'red' : 'blue';
+  const team: Team = game.team1.some(uid => uid === player) ? 'team1' : 'team2';
 
-  match[team] += 1;
+  match[!ownGoal ? team : (team === 'team1' ? 'team2' : 'team1')] += 1;
   match.goals.push({
     uid: player,
     position,
     time: DateTime.local(),
-    team
+    team,
+    ownGoal
   });
 
   return nextState(match, game);
 };
 
 export const ownGoal = (position: Position, game: Game): Game => {
-  if (!game.matches) {
-    game.matches = [newMatch()];
-  }
+  return goal(position, game, true);
+  // game = { ...game };
+  // if (!game.matches?.length) {
+  //   game.matches = [newMatch()];
+  // }
 
-  const player: string = game.latestPosition[position];
-  const match: Match = game.matches[game.matches.length - 1];
-  const team: 'red' | 'blue' = (['redDefence', 'redOffence'] as Position[]).some(p => p === position) ? 'blue' : 'red';
+  // const player: string = game.latestPosition[position];
+  // const match: Match = game.matches[game.matches.length - 1];
+  // const team: Team = game.team1.some(uid => uid === player) ? 'team1' : 'team2';
 
-  match[team] += 1;
-  match.goals.push({
-    uid: player,
-    position,
-    time: DateTime.local(),
-    team,
-    ownGoal: true,
-  });
+  // match[team === 'team1' ? 'team2' : 'team1'] += 1;
+  // match.goals.push({
+  //   uid: player,
+  //   position,
+  //   time: DateTime.local(),
+  //   team,
+  //   ownGoal: true,
+  // });
 
-  return nextState(match, game);
+  // return nextState(match, game);
 };

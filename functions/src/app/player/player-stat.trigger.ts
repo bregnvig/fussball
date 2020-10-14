@@ -8,11 +8,11 @@ const numberOf = (matches: Match[], uid: string, counter: (match: Match, uid: st
 
 const initalStat = (): PlayerStat => ({ won: 0, lost: 0, goals: 0, ownGoals: 0 });
 
-export const newPlayerTrigger = functions.region('europe-west1').firestore.document('tables/{tableId}/played/{playedId}')
+export const playerStatTrigger = functions.region('europe-west1').firestore.document('tables/{tableId}/played/{playedId}')
   .onCreate(async (snapshot: functions.firestore.DocumentSnapshot) => {
 
     const game: Game = snapshot.data() as Game;
-    const winner: Team = game.matches.reduce((acc, match) => acc + match.red === 8 ? 1 : 0, 0) === Math.floor((game.numberOfMatches / 2) + 1) ? 'red' : 'blue';
+    const winner: Team = game.matches.reduce((acc, match) => acc + match.team1 === 8 ? 1 : 0, 0) === Math.floor((game.numberOfMatches / 2) + 1) ? 'team1' : 'team2';
 
     const db = admin.firestore();
 
@@ -28,15 +28,15 @@ export const newPlayerTrigger = functions.region('europe-west1').firestore.docum
       return stat;
     };
     return db.runTransaction(async transaction => {
-      const createRedStat = createStat('red');
+      const createTeam1Stat = createStat('team1');
       teamRed.map(async uid => {
         const snap = await db.doc(playerURL(uid)).get();
-        transaction.update(snap.ref, { stat: createRedStat(snap.data() as Player) });
+        transaction.update(snap.ref, { stat: createTeam1Stat(snap.data() as Player) });
       });
-      const createBlueStat = createStat('blue');
+      const createTeam2Stat = createStat('team2');
       teamBlue.map(async uid => {
         const snap = await db.doc(playerURL(uid)).get();
-        transaction.update(snap.ref, { stat: createBlueStat(snap.data() as Player) });
+        transaction.update(snap.ref, { stat: createTeam2Stat(snap.data() as Player) });
       });
       return Promise.resolve();
     });
