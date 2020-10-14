@@ -30,8 +30,8 @@ export class TableScannerComponent {
   detailedError: string;
 
   tableScanResult(scanResult: string): void {
+    this.error = null;
     try {
-      this.error = null;
       const result: TableScanResult = JSON.parse(scanResult);
       assertTableScanResult(result);
       console.log(result);
