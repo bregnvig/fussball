@@ -11,5 +11,6 @@ module.exports = {
     "<rootDir>/libs/tools",
     "<rootDir>/libs/firebase",
     "<rootDir>/libs/landing",
+    "<rootDir>/libs/tables",
   ],
 };

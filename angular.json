@@ -124,10 +124,7 @@
               "apps/ui/tsconfig.app.json",
               "apps/ui/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ui/**/*"]
           }
         },
         "test": {
@@ -163,13 +160,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/ui-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ui-e2e/**/*"
-            ]
+            "tsConfig": ["apps/ui-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ui-e2e/**/*"]
           }
         }
       }
@@ -187,10 +179,7 @@
               "libs/data/tsconfig.lib.json",
               "libs/data/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/data/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/data/**/*"]
           }
         },
         "test": {
@@ -214,10 +203,7 @@
               "libs/control/tsconfig.lib.json",
               "libs/control/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/control/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/control/**/*"]
           }
         },
         "test": {
@@ -247,10 +233,7 @@
               "libs/players/tsconfig.lib.json",
               "libs/players/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/players/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/players/**/*"]
           }
         },
         "test": {
@@ -280,10 +263,7 @@
               "libs/shared/tsconfig.lib.json",
               "libs/shared/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/shared/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/shared/**/*"]
           }
         },
         "test": {
@@ -313,10 +293,7 @@
               "libs/player/tsconfig.lib.json",
               "libs/player/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/player/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/player/**/*"]
           }
         },
         "test": {
@@ -346,10 +323,7 @@
               "libs/api/tsconfig.lib.json",
               "libs/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/api/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/api/**/*"]
           }
         },
         "test": {
@@ -379,10 +353,7 @@
               "libs/info/tsconfig.lib.json",
               "libs/info/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/info/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/info/**/*"]
           }
         },
         "test": {
@@ -412,10 +383,7 @@
               "libs/tools/tsconfig.lib.json",
               "libs/tools/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tools/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/tools/**/*"]
           }
         },
         "test": {
@@ -440,10 +408,7 @@
               "libs/firebase/tsconfig.lib.json",
               "libs/firebase/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/firebase/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/firebase/**/*"]
           }
         },
         "test": {
@@ -473,10 +438,7 @@
               "libs/landing/tsconfig.lib.json",
               "libs/landing/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/landing/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/landing/**/*"]
           }
         },
         "test": {
@@ -489,6 +451,36 @@
       },
       "schematics": {
         "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "tables": {
+      "projectType": "library",
+      "root": "libs/tables",
+      "sourceRoot": "libs/tables/src",
+      "prefix": "fussball",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/tables/tsconfig.lib.json",
+              "libs/tables/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/tables/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tables/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
           "style": "scss"
         }
       }
