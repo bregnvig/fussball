@@ -13,6 +13,11 @@ service cloud.firestore {
 
     match /tables/{tableId} {
       allow read: if getUserData().roles.hasAny(['player', 'viewer']);
+      allow read: if getUserData().roles.hasAny(['player']) && isJoinable();
+    
+      function isJoinable() {
+        return resource.data.game.state != 'ongoing';
+      }
     }
 
     function getUserData() {

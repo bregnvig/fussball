@@ -1,19 +1,23 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TablesService } from '@fussball/api';
 import { isPosition, Position } from '@fussball/data';
+import { Subject } from 'rxjs';
+import { first, mapTo, switchMap } from 'rxjs/operators';
 
 interface TableScanResult {
-  table: string; 
+  table: string;
   pos: Position;
 }
 
 function assertTableScanResult(result: TableScanResult): asserts result is TableScanResult {
-  if(!result.table) {
+  if (!result.table) {
     throw new Error('table prop not found');
   }
-  if(!result.table) {
+  if (!result.table) {
     throw new Error('pos prop not found');
   }
-  if(!isPosition(result.pos)) {
+  if (!isPosition(result.pos)) {
     throw new Error(`pos ${result.pos} is not a valid position`);
   }
 }
@@ -24,17 +28,32 @@ function assertTableScanResult(result: TableScanResult): asserts result is Table
   styleUrls: ['./table-scanner.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableScannerComponent {
+export class TableScannerComponent implements OnInit {
 
   error: string;
   detailedError: string;
 
+  private tableScanResult$ = new Subject<TableScanResult>();
+
+  constructor(private router: Router, private service: TablesService) {
+  }
+
+  ngOnInit() {
+    this.tableScanResult$.pipe(
+      first(),
+      switchMap(result => this.service.joinGame(result.table, result.pos).pipe(mapTo(result))),
+    ).subscribe((result: TableScanResult) => {
+      this.router.navigate(['tables', result.table]);
+    });
+  }
+
   tableScanResult(scanResult: string): void {
     this.error = null;
     try {
-      const result: TableScanResult = JSON.parse(scanResult);
+      const result: TableScanResult = { table: scanResult.split('.')[0], pos: scanResult.split('.')[1] as Position };
       assertTableScanResult(result);
       console.log(result);
+      this.tableScanResult$.next(result);
     } catch (error) {
       this.error = 'Noget gik galt. Prøv at scanne igen';
       this.detailedError = error.message;
