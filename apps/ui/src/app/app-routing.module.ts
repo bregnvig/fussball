@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'info',
     loadChildren: () => import('@fussball/info').then(m => m.InfoModule),
   },
+  {
+    path: 'tables',
+    loadChildren: () => import('@fussball/tables').then(m => m.TablesModule),
+  },
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes);

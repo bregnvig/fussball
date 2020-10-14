@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { TableComponent } from './component/table/table.component';
+import { TablesComponent } from './component/tables/tables.component';
 
 @NgModule({
   imports: [
@@ -7,13 +9,13 @@ import { RouterModule } from "@angular/router";
       {
         path: '',
         pathMatch: 'full',
-        // list of tables
+        component: TablesComponent,
       },
       {
         path: ':id',
-        // table id status and players
+        component: TableComponent,
       }
     ]),
   ],
 })
-export class TablesModule { }
+export class TablesRoutingModule { }
