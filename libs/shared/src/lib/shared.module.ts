@@ -59,6 +59,7 @@ const pipes = [
     CommonModule,
     RouterModule,
     PlayerApiModule,
+    FlexLayoutModule,
     ZXingScannerModule,
     materialModules
   ],
