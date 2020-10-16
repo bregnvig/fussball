@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { TableComponent } from './table/table.component';
+import { TablesGameComponent } from './tables/component';
 import { TablesComponent } from './tables/tables.component';
 
 @NgModule({
@@ -14,6 +15,10 @@ import { TablesComponent } from './tables/tables.component';
       {
         path: ':id',
         component: TableComponent,
+      },
+      {
+        path: ':id/game',
+        component: TablesGameComponent,
       }
     ]),
   ],

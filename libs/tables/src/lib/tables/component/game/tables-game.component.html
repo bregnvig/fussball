@@ -1,1 +1,21 @@
-<p>tables-game works!</p>
+<main fxLayout fxFlex fxLayoutAlign="start stretch" class="mat-drawer-container" *ngIf="table$ | async as table">
+  <section fxFlex="50" class="p-4">
+    <div class="score" fxLayout="column" fxFlex>
+      <div fxFlex fxLayout>
+        <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
+          <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
+        </div>
+        <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
+          <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
+        </div>
+      </div>
+      <sha-game-players 
+        [left]="[table.game.latestPosition.redDefence, table.game.latestPosition.redOffence]"
+        [right]="[table.game.latestPosition.blueDefence, table.game.latestPosition.blueOffence]">
+      </sha-game-players>
+    </div>
+  </section>
+  <section fxFlex="50" class="p-4">
+    <div class="score"></div>
+  </section>
+</main>

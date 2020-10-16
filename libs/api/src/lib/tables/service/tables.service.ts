@@ -10,7 +10,7 @@ import { PlayerFacade } from '../../player/+state';
 })
 export class TablesService {
 
-  tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECITON).valueChanges({ idField: 'id' });
+  tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECITON).valueChanges();
 
   constructor(private afs: AngularFirestore, private playerFacade: PlayerFacade) {
   }

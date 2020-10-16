@@ -11,6 +11,8 @@ import { PlayerApiModule } from '@fussball/api';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginComponent } from './component';
 import { CardPageComponent } from './component/card-page/card-page.component';
+import { GamePlayersComponent } from './component/game-players/game-players.component';
+import { GameScoreComponent } from './component/game-score/game-score.component';
 import { HasRoleDirective } from './component/has-role.directive';
 import { LoadingComponent } from './component/loading/loading.component';
 import { PageComponent } from './component/page/page.component';
@@ -34,6 +36,8 @@ const exportComponents = [
   CardPageComponent,
   SidebarComponent,
   QrScannerComponent,
+  GamePlayersComponent,
+  GameScoreComponent,
 ];
 
 const pipes = [
