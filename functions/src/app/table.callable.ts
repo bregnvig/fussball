@@ -2,15 +2,9 @@ import { firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
 import { tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
-import { GameState, isPosition, Position, Table } from '../lib/model';
+import { Game, GameState, isPosition, JoinTableData, Position, Table } from '../lib/model';
 
-interface TableRequestData {
-    action: 'join';
-    tableId: string;
-    position: Position;
-}
-
-function validateData(data: TableRequestData): void {
+function validateData(data: JoinTableData): void {
     if (data.action !== 'join') {
         throw new https.HttpsError('invalid-argument', `action has to be 'join'`);
     }
@@ -22,7 +16,17 @@ function validateData(data: TableRequestData): void {
     }
 }
 
-const joinGame = (table: Table, data: TableRequestData, uid: string): Table => {
+const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'red' : 'blue'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
+
+const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
+    const teamMateUid: string | undefined = game.latestPosition[teamMatePosition];
+    if (teamMateUid) {
+        return game.team1.some(player => player === game.latestPosition[teamMatePosition]) ? 'team1' : 'team2';
+    }
+    return game.team1.length ? 'team2' : 'team1';
+};
+
+const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
     const game = table.game;
     const isFullGame = game.latestPosition && Object.keys(game.latestPosition).every(position => !!game.latestPosition[position as Position]);
     if (isFullGame) {
@@ -34,23 +38,38 @@ const joinGame = (table: Table, data: TableRequestData, uid: string): Table => {
         throw new https.HttpsError('failed-precondition', `Position '${data.position}' is already taken`);
     }
 
-    return { ...table, game: { ...game, latestPosition: { ...game.latestPosition, [data.position]: uid } } };
+    const teamId = getTeamId(game, getTeamMatePosition(data));
+    const team = Array.from(new Set([...game[teamId], uid]).values());
+
+    return {
+        ...table,
+        game: {
+            ...game,
+            latestPosition: {
+                ...game.latestPosition,
+                [data.position]: uid,
+            },
+            [teamId]: team,
+        }
+    };
 };
 
 const defaultNumberOfMatches = 3;
-const createGame = (table: Table, data: TableRequestData, uid: string): Table => {
+const createGame = (table: Table, data: JoinTableData, uid: string): Table => {
     return {
         ...table,
         game: {
             latestPosition: { [data.position]: uid },
             matches: [],
             numberOfMatches: defaultNumberOfMatches,
+            team1: [uid],
+            team2: [],
             state: 'preparing',
         }
     };
 };
 
-async function joinTable(uid: string, data: TableRequestData): Promise<void> {
+async function joinTable(uid: string, data: JoinTableData): Promise<void> {
     const tableRef = firestore().doc(tableURL(data.tableId));
     return firestore().runTransaction(transaction => {
         return transaction.get(tableRef).then(tableDoc => {
@@ -72,11 +91,9 @@ async function joinTable(uid: string, data: TableRequestData): Promise<void> {
     });
 }
 
-export const tableCallable = region('europe-west1').https.onCall(async (data: TableRequestData, context: https.CallableContext) => {
-
+export const tableCallable = region('europe-west1').https.onCall(async (data: JoinTableData, context: https.CallableContext) => {
     const uid = getUid(context);
     validateData(data);
 
     await joinTable(uid, data);
-
 });

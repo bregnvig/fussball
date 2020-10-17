@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { isPosition, Position } from '@fussball/data';
-import { Subject } from 'rxjs';
-import { first, mapTo, switchMap } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { catchError, debounceTime, filter, mapTo, switchMap } from 'rxjs/operators';
 
 interface TableScanResult {
   table: string;
@@ -40,11 +40,16 @@ export class TableScannerComponent implements OnInit {
 
   ngOnInit() {
     this.tableScanResult$.pipe(
-      first(),
-      switchMap(result => this.service.joinGame(result.table, result.pos).pipe(mapTo(result))),
-    ).subscribe((result: TableScanResult) => {
-      this.router.navigate(['tables', result.table]);
-    });
+      debounceTime(200),
+      switchMap(result => this.service.joinTable(result.table, result.pos).pipe(
+        mapTo(result),
+        catchError((error) => {
+          console.error('error', error);
+          return of(null);
+        })
+      )),
+      filter(x => !!x),
+    ).subscribe((result: TableScanResult) => this.router.navigate(['tables', result.table]));
   }
 
   tableScanResult(scanResult: string): void {

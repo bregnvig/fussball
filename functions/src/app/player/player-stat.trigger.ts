@@ -10,7 +10,6 @@ const initalStat = (): PlayerStat => ({ won: 0, lost: 0, goals: 0, ownGoals: 0 }
 
 export const playerStatTrigger = functions.region('europe-west1').firestore.document('tables/{tableId}/played/{playedId}')
   .onCreate(async (snapshot: functions.firestore.DocumentSnapshot) => {
-
     const game: Game = snapshot.data() as Game;
     const winner: Team = game.matches.reduce((acc, match) => acc + match.team1 === 8 ? 1 : 0, 0) === Math.floor((game.numberOfMatches / 2) + 1) ? 'team1' : 'team2';
 
@@ -30,12 +29,12 @@ export const playerStatTrigger = functions.region('europe-west1').firestore.docu
     return db.runTransaction(async transaction => {
       const createTeam1Stat = createStat('team1');
       teamRed.map(async uid => {
-        const snap = await db.doc(playerURL(uid)).get();
+        const snap = await db.doc(playerURL(uid as string)).get();
         transaction.update(snap.ref, { stat: createTeam1Stat(snap.data() as Player) });
       });
       const createTeam2Stat = createStat('team2');
       teamBlue.map(async uid => {
-        const snap = await db.doc(playerURL(uid)).get();
+        const snap = await db.doc(playerURL(uid as string)).get();
         transaction.update(snap.ref, { stat: createTeam2Stat(snap.data() as Player) });
       });
       return Promise.resolve();

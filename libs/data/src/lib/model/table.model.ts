@@ -1,4 +1,4 @@
-import { Game } from './game.model';
+import { Game, Position } from './game.model';
 
 export const TABLES_COLLECTION = 'tables';
 
@@ -14,4 +14,10 @@ export interface Table {
   name: string;
   game: Game;
   qrCodes: TableQrCodes;
+}
+
+export interface JoinTableData {
+  action: 'join';
+  tableId: string;
+  position: Position;
 }
