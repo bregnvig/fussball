@@ -33,7 +33,7 @@ export const goal = (position: Position, game: Game, ownGoal = false): Game => {
     clonedGame.matches = [newMatch()];
   }
 
-  const player: string = clonedGame.latestPosition[position];
+  const player: string = clonedGame.latestPosition[position] as string;
   const match: Match = clonedGame.matches[clonedGame.matches.length - 1];
   const team: Team = clonedGame.team1.some(uid => uid === player) ? 'team1' : 'team2';
 
