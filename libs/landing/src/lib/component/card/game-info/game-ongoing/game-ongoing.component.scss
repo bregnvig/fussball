@@ -1,0 +1,12 @@
+.field {
+  height: 200px;
+  border: white solid 3px;
+  border-radius: 6px;
+  font-size: 12rem;
+  .left-field {
+    background-color: darkred;
+  }
+  .right-field {
+    background-color: midnightblue;
+  }
+}

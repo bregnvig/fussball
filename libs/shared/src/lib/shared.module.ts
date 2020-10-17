@@ -11,12 +11,16 @@ import { PlayerApiModule } from '@fussball/api';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginComponent } from './component';
 import { CardPageComponent } from './component/card-page/card-page.component';
+import { GamePlayersComponent } from './component/game-players/game-players.component';
+import { GameScoreComponent } from './component/game-score/game-score.component';
 import { HasRoleDirective } from './component/has-role.directive';
 import { LoadingComponent } from './component/loading/loading.component';
 import { PageComponent } from './component/page/page.component';
 import { QrScannerComponent } from './component/qr-scanner/qr-scanner.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
+import { DisplayNamePipe } from './pipe/display-name.pipe';
+import { PhotoURLPipe } from './pipe/photo-url.pipe';
 import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
 
 const materialModules = [
@@ -34,10 +38,14 @@ const exportComponents = [
   CardPageComponent,
   SidebarComponent,
   QrScannerComponent,
+  GamePlayersComponent,
+  GameScoreComponent,
 ];
 
 const pipes = [
   RelativeToNowPipe,
+  PhotoURLPipe,
+  DisplayNamePipe,
 ];
 
 @NgModule({
@@ -59,6 +67,7 @@ const pipes = [
     CommonModule,
     RouterModule,
     PlayerApiModule,
+    FlexLayoutModule,
     ZXingScannerModule,
     materialModules
   ],

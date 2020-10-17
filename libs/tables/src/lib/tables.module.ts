@@ -6,6 +6,7 @@ import { SharedModule } from '@fussball/shared';
 import { TableComponent } from './table/table.component';
 import { TablesComponent, TablesGameComponent, TablesTableComponent } from './tables';
 import { TablesRoutingModule } from './tables-routing.module';
+import { GameGoalsComponent } from './tables/component/game/game-goals/game-goals.component';
 
 const matModules = [
   MatCardModule
@@ -17,6 +18,7 @@ const matModules = [
     TableComponent,
     TablesTableComponent,
     TablesGameComponent,
+    GameGoalsComponent,
   ],
   imports: [
     TablesRoutingModule,

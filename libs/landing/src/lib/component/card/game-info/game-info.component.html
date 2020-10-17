@@ -1,0 +1,7 @@
+<ng-container *ngFor="let table of tables$ | async; trackBy: trackById">
+  <ng-container [ngSwitch]="table.game.state">
+    <span *ngSwitchCase="'completed'">Resultat</span>
+    <fuss-game-ongoing [table]="table" *ngSwitchCase="'ongoing'"></fuss-game-ongoing>
+    <span *ngSwitchDefault>Under oprettelse</span>
+  </ng-container>
+</ng-container>

@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { JoinTableData, Position, Table, TABLES_COLLECTION } from '@fussball/data';
+import { firestoreUtils, JoinTableData, Position, Table, TABLES_COLLECTION } from '@fussball/data';
 import { GoogleFunctions } from '@fussball/firebase';
 import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PlayerFacade } from '../../player/+state';
 
 @Injectable({
@@ -10,7 +11,7 @@ import { PlayerFacade } from '../../player/+state';
 })
 export class TablesService {
 
-  tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECTION).valueChanges({ idField: 'id' });
+  tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECTION).valueChanges().pipe(map(firestoreUtils.convertTimestamps));
 
   constructor(
     private afs: AngularFirestore,
@@ -20,7 +21,7 @@ export class TablesService {
   }
 
   table(tableId: string): Observable<Table> {
-    return this.afs.doc<Table>(`${TABLES_COLLECTION}/${tableId}`).valueChanges();
+    return this.afs.doc<Table>(`${TABLES_COLLECTION}/${tableId}`).valueChanges().pipe(map(firestoreUtils.convertTimestamps));
   }
 
   joinTable(tableId: string, position: Position): Observable<any> {

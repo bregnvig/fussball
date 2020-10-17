@@ -11,6 +11,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { WhatElseComponent } from './component/card/what-else/what-else.component';
 import { LandingComponent } from './component/landing/landing.component';
 import { TableScannerComponent } from './component/table-scanner/table-scanner.component';
+import { GameInfoComponent } from './component/card/game-info/game-info.component';
+import { GameOngoingComponent } from './component/card/game-info/game-ongoing/game-ongoing.component';
 
 const MatModules = [
   MatCardModule,
@@ -37,6 +39,8 @@ const MatModules = [
     LandingComponent,
     WhatElseComponent,
     TableScannerComponent,
+    GameInfoComponent,
+    GameOngoingComponent,
   ],
 })
 export class LandingModule { }

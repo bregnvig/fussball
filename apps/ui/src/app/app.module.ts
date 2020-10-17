@@ -13,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { PlayerActions, PlayerApiModule, PlayerFacade } from '@fussball/api';
+import { PlayerActions, PlayerApiModule, PlayerFacade, PlayersApiModule } from '@fussball/api';
 import { FirebaseModule } from '@fussball/firebase';
 import { SharedModule } from '@fussball/shared';
 import { EffectsModule } from '@ngrx/effects';
@@ -51,6 +51,7 @@ const materialModule = [
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     PlayerApiModule,
+    PlayersApiModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     StoreModule.forRoot(reducers, {

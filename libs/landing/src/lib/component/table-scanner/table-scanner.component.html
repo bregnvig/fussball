@@ -1,9 +1,14 @@
 <mat-card fxLayout="column">
-    <h2 fxLayoutAlign="center">Scan QR kode</h2>
+  <mat-card-header>
+    <i class="fas fa-qrcode fa-2x" mat-card-avatar></i>
+    <mat-card-title>Scan QR kode</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <sha-qr-scanner (scanResult)="tableScanResult($event)"></sha-qr-scanner>
     <h5 fxLayoutAlign="center">Indtag din position ved at scanne QR koden ved din plads</h5>
     <div *ngIf="error" fxLayout="column">
         <span fxLayoutAlign="center">{{error}}</span>
         <small fxLayoutAlign="center">{{detailedError}}</small>
     </div>
+  </mat-card-content>
 </mat-card>

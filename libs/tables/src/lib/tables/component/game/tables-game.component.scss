@@ -1,0 +1,25 @@
+main {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  .score {
+    height: 100%;
+    border: white solid 3px;
+    border-radius: 6px;
+    font-size: 16rem;
+    .left-field {
+      background-color: darkred;
+    }
+    .right-field {
+      background-color: midnightblue;
+    }
+  }
+  sha-game-players {
+    font-size: 2rem;
+    position: absolute;
+    bottom: 64px;
+    width: calc(50vw - 3rem);
+    left: 1.5rem;
+  }
+}

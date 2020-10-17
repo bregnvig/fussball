@@ -1,0 +1,25 @@
+  <mat-card>
+    <mat-card-header>
+      <i class="fas fa-futbol fa-2x" mat-card-avatar></i>
+      <mat-card-title>
+        <span *ngIf="severalTables">{{table.name}} - </span>
+        <span>{{table.game.matches?.length || 1 }}. match</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="column">
+        <div fxLayout class="field">
+          <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
+            <sha-game-score side="red" [match]="match"></sha-game-score>
+          </div>
+          <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
+            <sha-game-score side="blue" [match]="match"></sha-game-score>
+          </div>
+        </div>
+        <sha-game-players 
+          [left]="[table.game.latestPosition.redDefence, table.game.latestPosition.redOffence]"
+          [right]="[table.game.latestPosition.blueDefence, table.game.latestPosition.blueOffence]">
+        </sha-game-players>
+      </div>
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,20 @@
+<sha-card-page>
+  <mat-card *ngFor="let match of matches; index as i">
+    <mat-card-header>
+      <mat-card-title>{{matches.length - i}} match</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ul>
+        <li *ngFor="let goal of match.goals">
+          <div fxLayout>
+            {{goal.uid}}
+            {{goal.team}}
+            {{goal.position}}
+            {{goal.ownGoal}}
+            {{goal.time}}
+          </div>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</sha-card-page>
