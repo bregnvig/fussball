@@ -4,7 +4,6 @@ import { firestoreUtils, JoinTableData, Position, Table, TABLES_COLLECTION } fro
 import { GoogleFunctions } from '@fussball/firebase';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PlayerFacade } from '../../player/+state';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,6 @@ export class TablesService {
 
   constructor(
     private afs: AngularFirestore,
-    private playerFacade: PlayerFacade,
     @Inject(GoogleFunctions) private functions: firebase.functions.Functions,
   ) {
   }
