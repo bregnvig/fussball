@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Game, PlayerPosition, Position, Table, TABLES_COLLECTION } from '@fussball/data';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { JoinTableData, Position, Table, TABLES_COLLECTION } from '@fussball/data';
+import { GoogleFunctions } from '@fussball/firebase';
+import { from, Observable } from 'rxjs';
 import { PlayerFacade } from '../../player/+state';
 
 @Injectable({
@@ -12,27 +12,20 @@ export class TablesService {
 
   tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECTION).valueChanges({ idField: 'id' });
 
-  constructor(private afs: AngularFirestore, private playerFacade: PlayerFacade) {
+  constructor(
+    private afs: AngularFirestore,
+    private playerFacade: PlayerFacade,
+    @Inject(GoogleFunctions) private functions: firebase.functions.Functions,
+  ) {
   }
 
   table(tableId: string): Observable<Table> {
     return this.afs.doc<Table>(`${TABLES_COLLECTION}/${tableId}`).valueChanges();
   }
 
-  joinGame(tableId: string, position: Position): Observable<any> {
-    return this.playerFacade.player$.pipe(
-      switchMap(player => {
-        return this.afs
-          .doc<Table>(`${TABLES_COLLECTION}/${tableId}`)
-          .update({
-            game: {
-              latestPosition: { [position]: player.uid } as any as PlayerPosition
-            } as any as Game
-          });
-
-      }),
-    );
-
+  joinTable(tableId: string, position: Position): Observable<any> {
+    const data: JoinTableData = { tableId, position, action: 'join' };
+    return from(this.functions.httpsCallable('tableCallable')(data));
   }
 
 }

@@ -2,7 +2,7 @@ import { firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
 import { tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
-import { GameState, isPosition, JoinTableData, Position, Table } from '../lib/model';
+import { Game, GameState, isPosition, JoinTableData, Position, Table } from '../lib/model';
 
 function validateData(data: JoinTableData): void {
     if (data.action !== 'join') {
@@ -16,6 +16,16 @@ function validateData(data: JoinTableData): void {
     }
 }
 
+const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'red' : 'blue'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
+
+const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
+    const teamMateUid: string | undefined = game.latestPosition[teamMatePosition];
+    if (teamMateUid) {
+        return game.team1.some(player => player === game.latestPosition[teamMatePosition]) ? 'team1' : 'team2';
+    }
+    return game.team1.length ? 'team2' : 'team1';
+};
+
 const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
     const game = table.game;
     const isFullGame = game.latestPosition && Object.keys(game.latestPosition).every(position => !!game.latestPosition[position as Position]);
@@ -28,7 +38,20 @@ const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
         throw new https.HttpsError('failed-precondition', `Position '${data.position}' is already taken`);
     }
 
-    return { ...table, game: { ...game, latestPosition: { ...game.latestPosition, [data.position]: uid } } };
+    const teamId = getTeamId(game, getTeamMatePosition(data));
+    const team = Array.from(new Set([...game[teamId], uid]).values());
+
+    return {
+        ...table,
+        game: {
+            ...game,
+            latestPosition: {
+                ...game.latestPosition,
+                [data.position]: uid,
+            },
+            [teamId]: team,
+        }
+    };
 };
 
 const defaultNumberOfMatches = 3;
@@ -39,6 +62,8 @@ const createGame = (table: Table, data: JoinTableData, uid: string): Table => {
             latestPosition: { [data.position]: uid },
             matches: [],
             numberOfMatches: defaultNumberOfMatches,
+            team1: [uid],
+            team2: [],
             state: 'preparing',
         }
     };

@@ -16,7 +16,7 @@ export interface Goal {
   ownGoal?: boolean;
 }
 
-export type PlayerPosition = {[K in Position]: string};
+export type PlayerPosition = Partial<{[K in Position]: string}>;
 
 export interface Match {
   team1: number;
@@ -25,8 +25,8 @@ export interface Match {
 }
 
 export interface Game {
-  team1: [string, string];
-  team2: [string, string];
+  team1: string[];
+  team2: string[];
   latestPosition: PlayerPosition;
   numberOfMatches: number;
   state: GameState;

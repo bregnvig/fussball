@@ -41,10 +41,11 @@ export class TableScannerComponent implements OnInit {
   ngOnInit() {
     this.tableScanResult$.pipe(
       first(),
-      switchMap(result => this.service.joinGame(result.table, result.pos).pipe(mapTo(result))),
-    ).subscribe((result: TableScanResult) => {
-      this.router.navigate(['tables', result.table]);
-    });
+      switchMap(result => this.service.joinTable(result.table, result.pos).pipe(mapTo(result))),
+    ).subscribe(
+      (result: TableScanResult) => this.router.navigate(['tables', result.table]),
+      (error) => console.error('error', error)
+    );
   }
 
   tableScanResult(scanResult: string): void {
