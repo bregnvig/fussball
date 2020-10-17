@@ -28,7 +28,9 @@ const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' =>
 
 const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
     const game = table.game;
-    const isFullGame = game.latestPosition && Object.keys(game.latestPosition).every(position => !!game.latestPosition[position as Position]);
+    game.latestPosition
+    const allPositions: Position[] = ['blueDefence', 'blueOffence', 'redDefence', 'redOffence'];
+    const isFullGame = game.latestPosition && allPositions.every(position => !!game.latestPosition[position]);
     if (isFullGame) {
         throw new https.HttpsError('failed-precondition', 'Game is full');
     }
