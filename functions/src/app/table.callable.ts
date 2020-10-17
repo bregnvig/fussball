@@ -73,10 +73,8 @@ async function joinTable(uid: string, data: TableRequestData): Promise<void> {
 }
 
 export const tableCallable = region('europe-west1').https.onCall(async (data: TableRequestData, context: https.CallableContext) => {
-
     const uid = getUid(context);
     validateData(data);
 
     await joinTable(uid, data);
-
 });
