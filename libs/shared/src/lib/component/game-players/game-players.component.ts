@@ -11,4 +11,5 @@ export class GamePlayersComponent {
   @Input() left: [string, string];
   @Input() right: [string, string];
 
+  @Input() avatarClass: 'avatar' | 'gameAvatar' = 'gameAvatar';
 }
