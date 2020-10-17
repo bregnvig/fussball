@@ -21,7 +21,9 @@ import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
 import { DisplayNamePipe } from './pipe/display-name.pipe';
 import { PhotoURLPipe } from './pipe/photo-url.pipe';
+import { PositionPipe } from './pipe/position.pipe';
 import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
+import { TeamNamePipe } from './pipe/team-name.pipe';
 
 const materialModules = [
   MatListModule,
@@ -46,6 +48,8 @@ const pipes = [
   RelativeToNowPipe,
   PhotoURLPipe,
   DisplayNamePipe,
+  TeamNamePipe,
+  PositionPipe,
 ];
 
 @NgModule({

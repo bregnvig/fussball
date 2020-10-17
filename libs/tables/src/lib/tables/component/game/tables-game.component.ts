@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { Match, Table } from '@fussball/data';
+import { shareLatest } from '@fussball/tools';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { shareLatest } from './../../../../../../tools/src/lib/rxjs-utils';
 
 @Component({
   selector: 'fussball-tables-game',
