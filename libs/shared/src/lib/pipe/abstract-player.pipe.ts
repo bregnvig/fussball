@@ -1,8 +1,8 @@
-import { PipeTransform } from '@angular/core';
+import { ChangeDetectorRef, PipeTransform } from '@angular/core';
 import { PlayersFacade } from '@fussball/api';
 import { Player } from '@fussball/data';
 import { truthy } from '@fussball/tools';
-import { first, map } from 'rxjs/operators';
+import { filter, first, map } from 'rxjs/operators';
 
 export type PlayerProperty = keyof Pick<Player, 'displayName' | 'photoURL' | 'email'>;
 
@@ -11,7 +11,7 @@ export abstract class AbstractPlayerPipe implements PipeTransform {
   private value: string;
   private previousUID: string;
 
-  constructor(private facade: PlayersFacade) {
+  constructor(private facade: PlayersFacade, private ref: ChangeDetectorRef) {
   }
 
   transform(uid: string): string | null {
@@ -22,10 +22,14 @@ export abstract class AbstractPlayerPipe implements PipeTransform {
     if (this.previousUID !== uid) {
       this.previousUID = uid;
       this.facade.allPlayers$.pipe(
-        first(),
+        filter(players => !!(players && players.length)),
         map(players => players.find(p => p.uid === uid)),
-        truthy()
-      ).subscribe(player => this.value = player[this.getProperty()]);
+        truthy(),
+        first(),
+      ).subscribe(player => {
+        this.value = player[this.getProperty()];
+        this.ref.markForCheck();
+      });
     }
     return null;
   }
