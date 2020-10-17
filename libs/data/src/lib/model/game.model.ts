@@ -16,12 +16,7 @@ export interface Goal {
   ownGoal?: boolean;
 }
 
-export interface PlayerPosition {
-  redDefence: string;
-  redOffence: string;
-  blueDefence: string;
-  blueOffence: string;
-}
+export type PlayerPosition = {[K in Position]: string};
 
 export interface Match {
   team1: number;

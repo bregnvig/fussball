@@ -8,4 +8,6 @@ admin.initializeApp(functions.config().firebase);
 export * from './app/button.request';
 export * from './app/game-close.trigger';
 export * from './app/player/player-stat.trigger';
+export * from './app/table.callable';
+
 

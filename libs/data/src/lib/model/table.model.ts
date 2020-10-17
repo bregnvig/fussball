@@ -1,6 +1,6 @@
 import { Game } from './game.model';
 
-export const TABLES_COLLECITON = 'tables';
+export const TABLES_COLLECTION = 'tables';
 
 export interface TableQrCodes {
   redDefence: string;
