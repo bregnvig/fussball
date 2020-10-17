@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { isPosition, Position } from '@fussball/data';
 import { of, Subject } from 'rxjs';
-import { catchError, debounceTime, filter, mapTo, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, filter, mapTo, switchMap, take } from 'rxjs/operators';
 
 interface TableScanResult {
   table: string;
@@ -46,9 +46,10 @@ export class TableScannerComponent implements OnInit {
         catchError((error) => {
           console.error('error', error);
           return of(null);
-        })
+        }),
       )),
       filter(x => !!x),
+      take(1),
     ).subscribe((result: TableScanResult) => this.router.navigate(['tables', result.table]));
   }
 
