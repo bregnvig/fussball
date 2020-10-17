@@ -2,6 +2,10 @@
   <mat-card *ngFor="let match of matches; index as i; trackBy: trackByDate">
     <mat-card-header>
       <mat-card-title>{{matches.length - i}}. match</mat-card-title>
+      <mat-card-subtitle>
+        <ng-container *ngIf="winningTeam(match) as team; else beingPlayed">{{team | teamName}} vandt</ng-container>
+        <ng-template #beingPlayed>Spilles</ng-template>
+      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <table mat-table fxFlex [trackBy]="trackByIndex" [dataSource]="match.goals" class="mat-elevation-z0">
