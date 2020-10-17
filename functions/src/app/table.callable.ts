@@ -10,7 +10,7 @@ interface TableRequestData {
     position: Position;
 }
 
-function validateData(data: TableRequestData): asserts data is TableRequestData {
+function validateData(data: TableRequestData): void {
     if (data.action !== 'join') {
         throw new https.HttpsError('invalid-argument', `action has to be 'join'`);
     }
@@ -27,9 +27,20 @@ async function joinTable(uid: string, data: TableRequestData): Promise<void> {
     return firestore().runTransaction(transaction => {
         return transaction.get(tableRef).then(tableDoc => {
             const table = tableDoc.data() as Table;
-            if(table.game.state === 'ongoing') {
+            const game = table.game;
+            const state = game.state;
+
+            const gameOngoing = state === 'ongoing';
+            const preparing = state === 'preparing';
+            const full = game.latestPosition && Object.keys(game.latestPosition).every(position => !!game.latestPosition[position as Position]);
+
+            if([gameOngoing, preparing && full].some(x => !!x)) {
                 throw new https.HttpsError('failed-precondition', 'A game is already being played on this table')
             }
+            if(state === 'preparing' && game.latestPosition[data.position]) {
+                throw new https.HttpsError('failed-precondition', `Position '${data.position}' is already taken`)
+            }
+
         })
     })
 }
