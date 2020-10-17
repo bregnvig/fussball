@@ -19,6 +19,8 @@ import { PageComponent } from './component/page/page.component';
 import { QrScannerComponent } from './component/qr-scanner/qr-scanner.component';
 import { SidebarComponent } from './component/sidebar/sidebar.component';
 import { SidenavButtonComponent } from './component/sidebar/sidenav-button/sidenav-button.component';
+import { DisplayNamePipe } from './pipe/display-name.pipe';
+import { PhotoURLPipe } from './pipe/photo-url.pipe';
 import { RelativeToNowPipe } from './pipe/relative-to-now.pipe';
 
 const materialModules = [
@@ -42,6 +44,8 @@ const exportComponents = [
 
 const pipes = [
   RelativeToNowPipe,
+  PhotoURLPipe,
+  DisplayNamePipe,
 ];
 
 @NgModule({
