@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-import { PlayerFacade } from '@fussball/api';
+import { PlayerFacade, PlayersActions, PlayersFacade } from '@fussball/api';
 import { Player } from '@fussball/data';
 import { GoogleMessaging } from '@fussball/firebase';
 import { truthy } from '@fussball/tools';
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(GoogleMessaging) private messaging: firebase.messaging.Messaging,
     private playerFacade: PlayerFacade,
+    private playersFacade: PlayersFacade,
     private updates: SwUpdate,
     private snackBar: MatSnackBar,
     private router: Router) {
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
         if (this.router.url === '/info/roles') {
           this.router.navigate(['/']);
         }
+        this.playersFacade.dispatch(PlayersActions.loadPlayers());
         // if (Notification.permission === "granted") {
         //   this.playerFacade.dispatch(PlayerActions.loadMessagingToken());
         // } else if (Notification.permission === 'denied') {
