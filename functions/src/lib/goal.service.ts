@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { Game, Match, PlayerPosition, Position, Team } from './model';
 
-const newMatch = () => ({ team1: 0, team2: 0, goals: [] });
+const newMatch = (): Match => ({ team1: 0, team2: 0, goals: [], createdAt: DateTime.local() });
 const countVictories = (team: 'team1' | 'team2') => (matches: Match[]) => matches.reduce((acc, match) => acc + (match[team] === 8 ? 1 : 0), 0);
 const switchSide = (playerPosition: PlayerPosition): PlayerPosition => ({
   redDefence: playerPosition.blueDefence,

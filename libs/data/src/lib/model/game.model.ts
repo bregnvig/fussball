@@ -16,12 +16,13 @@ export interface Goal {
   ownGoal?: boolean;
 }
 
-export type PlayerPosition = Partial<{[K in Position]: string}>;
+export type PlayerPosition = Partial<{ [K in Position]: string }>;
 
 export interface Match {
   team1: number;
   team2: number;
   goals: Goal[];
+  createdAt: DateTime;
 }
 
 export interface Game {
