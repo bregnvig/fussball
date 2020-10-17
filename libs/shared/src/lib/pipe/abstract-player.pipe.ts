@@ -28,7 +28,7 @@ export abstract class AbstractPlayerPipe implements PipeTransform {
         first(),
       ).subscribe(player => {
         this.value = player[this.getProperty()];
-        this.ref.markForCheck();
+        setTimeout(() => this.ref.markForCheck());
       });
     }
     return null;

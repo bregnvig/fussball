@@ -3,7 +3,8 @@ import { PlayersFacade } from '@fussball/api';
 import { AbstractPlayerPipe, PlayerProperty } from './abstract-player.pipe';
 
 @Pipe({
-  name: 'displayName'
+  name: 'displayName',
+  pure: false,
 })
 export class DisplayNamePipe extends AbstractPlayerPipe {
 
