@@ -16,7 +16,7 @@ export const environment = {
     measurementId: "G-PFNBC70XC6"
   },
   messaging: {
-    pubKey: 'BEKUF0EpZE-5I7XkoF_d35UIWTgTk7kYALgG4zWSPjoNinzKhQxxBCPanSFdzp3rnWjymIe5muXXYUE8ZfA_wLo'
+    pubKey: 'BEhMOOm3eAvhaqBb7JfLmgVERy2p9l1zznJ4ajadV6pp_Nzj7dcak7rh41Xe1M6E29agPruJI3SDnIbuCjoeABs'
   }
 };
 
