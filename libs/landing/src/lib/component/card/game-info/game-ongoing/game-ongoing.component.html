@@ -15,11 +15,12 @@
           <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
             <sha-game-score side="blue" [match]="match"></sha-game-score>
           </div>
+          <sha-game-players
+            avatarClass="avatar" 
+            [left]="[table.game.latestPosition.redDefence, table.game.latestPosition.redOffence]"
+            [right]="[table.game.latestPosition.blueDefence, table.game.latestPosition.blueOffence]">
+          </sha-game-players>
         </div>
-        <sha-game-players 
-          [left]="[table.game.latestPosition.redDefence, table.game.latestPosition.redOffence]"
-          [right]="[table.game.latestPosition.blueDefence, table.game.latestPosition.blueOffence]">
-        </sha-game-players>
       </div>
     </mat-card-content>
   </mat-card>
