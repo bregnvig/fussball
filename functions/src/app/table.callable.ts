@@ -28,7 +28,6 @@ const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' =>
 
 const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
     const game = table.game;
-    game.latestPosition
     const allPositions: Position[] = ['blueDefence', 'blueOffence', 'redDefence', 'redOffence'];
     const isFullGame = game.latestPosition && allPositions.every(position => !!game.latestPosition[position]);
     if (isFullGame) {
