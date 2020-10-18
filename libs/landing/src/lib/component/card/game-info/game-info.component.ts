@@ -3,6 +3,7 @@ import { TablesService } from '@fussball/api';
 import { Table } from '@fussball/data';
 import { trackByProperty } from '@fussball/tools';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'fuss-game-info',
@@ -17,7 +18,7 @@ export class GameInfoComponent implements OnInit {
   constructor(private service: TablesService) { }
 
   ngOnInit(): void {
-    this.tables$ = this.service.tables$;
+    this.tables$ = this.service.tables$.pipe(map(tables => tables.filter(t => t.game)));
   }
   
 

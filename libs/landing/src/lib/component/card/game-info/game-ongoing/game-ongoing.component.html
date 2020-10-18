@@ -2,9 +2,12 @@
     <mat-card-header>
       <i class="fas fa-futbol fa-2x" mat-card-avatar></i>
       <mat-card-title>
-        <span *ngIf="severalTables">{{table.name}} - </span>
-        <span>{{table.game.matches?.length || 1 }}. match</span>
+        <span *ngIf="severalTables">{{table.name}}</span>
       </mat-card-title>
+      <mat-card-subtitle fxLayout="column">
+        <span>Match {{matchNumber}}.</span>
+        <span *ngIf="table.game.players">{{team1Names}} VS {{team2Names}}</span>
+      </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div fxLayout="column">
