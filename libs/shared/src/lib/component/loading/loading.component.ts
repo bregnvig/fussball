@@ -2,27 +2,23 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 const random = (max: number): number => Math.floor(Math.random() * Math.floor(max));
 
-const tyres: string[] = [
-  'blue',
-  'green',
-  'red',
-  'white',
-  'yellow',
+const icons: string[] = [
+  'soccer',
 ];
 
 @Component({
   selector: 'sha-loading',
   template: `
     <div>
-      <img [src]="tyre" alt="loading">
+      <img [src]="icon" alt="loading">
     </div>
   `,
   styleUrls: ['./loading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingComponent {
-  readonly tyre: string;
+  readonly icon: string;
   constructor() {
-    this.tyre = `assets/loading/${tyres[random(5)]}.svg`;
+    this.icon = `assets/loading/${icons[random(icons.length)]}.svg`;
   }
 }
