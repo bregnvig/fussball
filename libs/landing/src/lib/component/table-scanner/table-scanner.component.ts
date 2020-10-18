@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { isPosition, Position } from '@fussball/data';
 import { of, Subject } from 'rxjs';
 import { catchError, debounceTime, filter, mapTo, switchMap, take } from 'rxjs/operators';
+import { JoinTableErrorDialogComponent } from '../join-table-error-dialog/join-table-error-dialog.component';
 
 interface TableScanResult {
   table: string;
@@ -34,23 +36,31 @@ export class TableScannerComponent implements OnInit {
   detailedError: string;
 
   private tableScanResult$ = new Subject<TableScanResult>();
+  private acceptedError = true;
 
-  constructor(private router: Router, private service: TablesService) {
+  constructor(
+    private router: Router,
+    private service: TablesService,
+    private dialog: MatDialog,
+  ) {
   }
 
   ngOnInit() {
     this.tableScanResult$.pipe(
       debounceTime(200),
+      filter(() => this.acceptedError),
       switchMap(result => this.service.joinTable(result.table, result.pos).pipe(
         mapTo(result),
         catchError((error) => {
+          this.acceptedError = false;
+          this.openDialog(error.message);
           console.error('error', error);
           return of(null);
         }),
       )),
       filter(x => !!x),
       take(1),
-    ).subscribe((result: TableScanResult) => this.router.navigate(['tables', result.table]));
+    ).subscribe((result: TableScanResult) => this.router.navigate(['tables', result.table, 'game']));
   }
 
   tableScanResult(scanResult: string): void {
@@ -65,6 +75,11 @@ export class TableScannerComponent implements OnInit {
       this.detailedError = error.message;
       console.error(error);
     }
+  }
+
+  private openDialog(errorMessage: string): void {
+    const dialogRef = this.dialog.open(JoinTableErrorDialogComponent, { width: '250px', data: { errorMessage } });
+    dialogRef.afterClosed().subscribe(result => this.acceptedError = true);
   }
 
 }
