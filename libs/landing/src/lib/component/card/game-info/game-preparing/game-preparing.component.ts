@@ -13,27 +13,31 @@ export class GamePreparingComponent implements OnChanges {
   @Input() table: Table;
   @Input() showTableName = true;
 
-  team1Players: PlayerPositions[];
-  team2Players: PlayerPositions[];
+  teamRedPlayers: PlayerPositions[];
+  teamBluePlayers: PlayerPositions[];
 
   ngOnChanges(changes: SimpleChanges): void {
     const tableChanges = changes.table;
     if (tableChanges) {
-      this.team1Players = this.getPlayerPositions('team1');
-      this.team2Players = this.getPlayerPositions('team2');
+      this.teamRedPlayers = this.getPlayerPositions('red');
+      this.teamBluePlayers = this.getPlayerPositions('blue');
     }
   }
 
-  private getPlayerPositions(team: 'team1' | 'team2'): PlayerPositions[] {
-    return this.table.game[team].map(uid => {
+  private getPlayerPositions(color: 'red' | 'blue'): PlayerPositions[] {
+    if(this.table.game.players) {
+      const colorPlayerUids = allPositions.filter(p => p.includes(color)).map(p => this.table.game.latestPosition[p]).filter(uid => !!uid);
+
+      return Array.from(new Set(colorPlayerUids)).map(uid => {
       const positions = allPositions.filter(p => this.table.game.latestPosition[p] === uid);
-      const {displayName, photoURL } = this.table.game.players[uid];
-      return { 
-        positions: positions.map(p => p.replace('red', '').replace('blue', '')), 
-        displayName: displayName.split(' ')[0], 
-        photoURL
-       };
-    });
+        const {displayName, photoURL } = this.table.game.players[uid];
+        return { 
+          positions: positions.map(p => p.replace('red', '').replace('blue', '')), 
+          displayName: displayName.split(' ')[0], 
+          photoURL
+         };
+      });
+    }
   }
 
 }
