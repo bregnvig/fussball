@@ -4,6 +4,6 @@
       <mat-card-title>{{table.name}}</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <a mat-button [routerLink]="[table.id, 'game']">Se kamp</a>
+      <a mat-button [routerLink]="['/tables', tableId, 'game']">Se kamp</a>
     </mat-card-actions>
 </mat-card>
