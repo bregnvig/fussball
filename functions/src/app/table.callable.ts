@@ -2,7 +2,7 @@ import { firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
 import { tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
-import { Game, isPosition, JoinTableData, Position, Table } from '../lib/model';
+import { allPositions, Game, isPosition, JoinTableData, Position, Table } from '../lib/model';
 
 function validateData(data: JoinTableData): void {
     if (data.action !== 'join') {
@@ -28,7 +28,6 @@ const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' =>
 
 const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
     const game = table.game;
-    const allPositions: Position[] = ['blueDefence', 'blueOffence', 'redDefence', 'redOffence'];
     const isFullGame = game.latestPosition && allPositions.every(position => !!game.latestPosition[position]);
     if (isFullGame) {
         throw new https.HttpsError('failed-precondition', 'Game is full');
