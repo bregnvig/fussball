@@ -2,7 +2,7 @@ import { firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
 import { tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
-import { Game, GameState, isPosition, JoinTableData, Position, Table } from '../lib/model';
+import { Game, isPosition, JoinTableData, Position, Table } from '../lib/model';
 
 function validateData(data: JoinTableData): void {
     if (data.action !== 'join') {
@@ -16,7 +16,7 @@ function validateData(data: JoinTableData): void {
     }
 }
 
-const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'red' : 'blue'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
+const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'blue' : 'red'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
 
 const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
     const teamMateUid: string | undefined = game.latestPosition[teamMatePosition];
@@ -28,7 +28,6 @@ const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' =>
 
 const joinGame = (table: Table, data: JoinTableData, uid: string): Table => {
     const game = table.game;
-    game.latestPosition
     const allPositions: Position[] = ['blueDefence', 'blueOffence', 'redDefence', 'redOffence'];
     const isFullGame = game.latestPosition && allPositions.every(position => !!game.latestPosition[position]);
     if (isFullGame) {
@@ -76,17 +75,13 @@ async function joinTable(uid: string, data: JoinTableData): Promise<void> {
     return firestore().runTransaction(transaction => {
         return transaction.get(tableRef).then(tableDoc => {
             const table = tableDoc.data() as Table;
-            const game = table.game;
-            const state = game.state;
+            const game = table?.game;
+            const state = game?.state;
             if (state === 'ongoing') {
                 throw new https.HttpsError('failed-precondition', 'A game is already being played on this table');
-            }
-
-            if (state === 'preparing') {
+            } else if (state === 'preparing') {
                 transaction.set(tableRef, joinGame(table, data, uid));
-            }
-
-            if ((<GameState[]>['completed', 'cancelled']).some(s => state)) {
+            } else {
                 transaction.set(tableRef, createGame(table, data, uid));
             }
         });
