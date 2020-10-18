@@ -10,17 +10,20 @@ import { map } from 'rxjs/operators';
 })
 export class TablesService {
 
-  tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECTION).valueChanges().pipe(map(firestoreUtils.convertTimestamps));
+  tables$: Observable<Table[]> = this.afs.collection<Table>(TABLES_COLLECTION).snapshotChanges().pipe(
+    map(snapshot => snapshot.map(s => ({ ...s.payload.doc.data(), id: s.payload.doc.id }))),
+    map(firestoreUtils.convertTimestamps)
+  );
 
   constructor(
     private afs: AngularFirestore,
-    @Inject(GoogleFunctions) private functions: firebase.functions.Functions,
-  ) {
+    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
   }
+
 
   table(tableId: string): Observable<Table> {
     return this.afs.doc<Table>(`${TABLES_COLLECTION}/${tableId}`).valueChanges().pipe(map(firestoreUtils.convertTimestamps));
-  }
+  };
 
   joinTable(tableId: string, position: Position): Observable<any> {
     const data: JoinTableData = { tableId, position, action: 'join' };

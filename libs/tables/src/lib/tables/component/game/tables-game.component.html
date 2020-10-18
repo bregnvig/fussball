@@ -1,5 +1,5 @@
 <main fxLayout fxFlex fxLayoutAlign="start stretch" class="mat-drawer-container" *ngIf="table$ | async as table">
-  <section fxFlex="50" class="p-4">
+  <section fxFlex="50" fxFlex.lt-md="100" class="p-4">
     <div class="score" fxLayout="column" fxFlex>
       <div fxFlex fxLayout>
         <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
@@ -15,7 +15,7 @@
       </sha-game-players>
     </div>
   </section>
-  <section fxFlex="50" class="p-4">
+  <section fxFlex="50" class="p-4" fxHide.lt-md>
     <div class="score">
       <fussball-game-goals [game]="table.game" [team1]="table.game.team1" [team2]="table.game.team2"></fussball-game-goals>
     </div>

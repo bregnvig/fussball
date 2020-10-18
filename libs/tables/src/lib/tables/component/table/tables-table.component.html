@@ -1,4 +1,9 @@
 <mat-card fxLayout="column">
-    <h2 fxLayoutAlign="center">{{table.name}}</h2>
-    <fussball-tables-game></fussball-tables-game>
+    <mat-card-header>
+      <i class="far fa-tablet-rugged fa-2x" mat-card-avatar></i>
+      <mat-card-title>{{table.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <a mat-button [routerLink]="[table.id, 'game']">Se kamp</a>
+    </mat-card-actions>
 </mat-card>

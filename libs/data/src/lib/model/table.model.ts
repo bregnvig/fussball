@@ -13,7 +13,6 @@ export interface Table {
   id: string;
   name: string;
   game: Game;
-  qrCodes: TableQrCodes;
 }
 
 export interface JoinTableData {

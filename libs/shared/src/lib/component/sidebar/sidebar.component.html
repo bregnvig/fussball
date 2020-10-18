@@ -1,6 +1,7 @@
 <mat-toolbar color="primary"><img class="avatar" [src]="(player$ | async)?.photoURL" alt="Profil billede">{{(player$ | async)?.displayName}}</mat-toolbar>
 <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
   <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-home" routerLink="/" (click)="closing.emit()">Forside</sha-sidenav-button>
+  <sha-sidenav-button *shaHasRole="'player'" iconSet="far" icon="fa-tablet-rugged" routerLink="/tables" (click)="closing.emit()">Borde</sha-sidenav-button>
   <sha-sidenav-button *shaHasRole="'admin'" iconSet="fas" icon="fa-futbol" [routerLink]="['players']" (click)="closing.emit()">Spillere</sha-sidenav-button>
   <sha-sidenav-button iconSet="far" icon="fa-user-friends" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
   <!-- <sha-sidenav-button *shaHasRole="'player'" iconSet="far" icon="fa-user" routerLink="player" (click)="closing.emit()">Profil</sha-sidenav-button> -->

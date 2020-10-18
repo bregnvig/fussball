@@ -8,6 +8,7 @@ main {
     border: white solid 3px;
     border-radius: 6px;
     font-size: 16rem;
+    position: relative;
     .left-field {
       background-color: darkred;
     }
@@ -18,8 +19,7 @@ main {
   sha-game-players {
     font-size: 2rem;
     position: absolute;
-    bottom: 64px;
-    width: calc(50vw - 3rem);
-    left: 1.5rem;
+    bottom: 32px;
+    width: 100%;
   }
 }
