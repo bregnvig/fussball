@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'fuss-join-table-error-dialog',
   template: `
-    <h1 mat-dialog-title>Fejl</h1>
     <div mat-dialog-content>
+      <h1 mat-dialog-title>Error</h1>
       <p>{{errorMessage}}</p>
     </div>
     <div mat-dialog-actions>
