@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Match, Table } from '@fussball/data';
+import { allPositions, Match, Table } from '@fussball/data';
 
 @Component({
   selector: 'fuss-game-ongoing',
@@ -12,12 +12,12 @@ export class GameOngoingComponent implements OnChanges {
   @Input() table: Table;
   @Input() severalTables = true;
   
-  team1Names: string;
-  team2Names: string;
+  teamRedNames: string;
+  teamBlueNames: string;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.team1Names = this.getTeamNames('team1');
-    this.team2Names = this.getTeamNames('team2');
+    this.teamRedNames = this.getNames('red');
+    this.teamBlueNames = this.getNames('blue');
   }
 
   get matchNumber(): number {
@@ -28,9 +28,11 @@ export class GameOngoingComponent implements OnChanges {
     return this.table.game.matches[this.table.game.matches.length - 1];
   }
 
-  private getTeamNames(team: 'team1' | 'team2'): string {
+  private getNames(color: 'red' | 'blue'): string {
     if(this.table.game.players) {
-      return this.table.game[team].map(uid => this.table.game.players[uid].displayName.split(' ')[0]).join(' og ');
+      const colorPlayerUids = allPositions.filter(p => p.includes(color)).map(p => this.table.game.latestPosition[p]);
+
+      return Array.from(new Set(colorPlayerUids)).map(uid => this.table.game.players[uid].displayName.split(' ')[0]).join(' og ');
     }
   }
 }
