@@ -5,15 +5,23 @@ main {
   top: 0;
   .score {
     height: 100%;
-    border: white solid 3px;
-    border-radius: 6px;
     font-size: 16rem;
     position: relative;
     .left-field {
-      background-color: darkred;
+      border-top: var(--red-border) solid 3px;
+      border-bottom: var(--red-border) solid 3px;
+      border-left: var(--red-border) solid 3px;
+      border-bottom-left-radius: 6px;
+      border-top-left-radius: 6px;
+      background-color: var(--red);
     }
     .right-field {
-      background-color: midnightblue;
+      border-top: var(--blue-border) solid 3px;
+      border-bottom: var(--blue-border) solid 3px;
+      border-right: var(--blue-border) solid 3px;
+      border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      background-color: var(--blue);
     }
   }
   sha-game-players {
