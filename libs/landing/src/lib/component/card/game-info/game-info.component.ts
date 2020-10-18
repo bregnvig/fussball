@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TablesService } from '@fussball/api';
 import { Table } from '@fussball/data';
+import { trackByProperty } from '@fussball/tools';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,13 +11,14 @@ import { Observable } from 'rxjs';
 })
 export class GameInfoComponent implements OnInit {
 
-  trackById = (index: number, table: Table) => table.name;
   tables$: Observable<Table[]>;
-
+  trackByFn = trackByProperty('name');
+  
   constructor(private service: TablesService) { }
 
   ngOnInit(): void {
     this.tables$ = this.service.tables$;
   }
+  
 
 }

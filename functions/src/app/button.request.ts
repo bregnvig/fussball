@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { Position, Table, tableURL } from '../lib';
+import { allPositions, Position, Table, tableURL } from '../lib';
 import { switchPosition } from '../lib/switch.service';
 import { converter } from '../lib/timestamp.converter';
 import { firestoreUtils } from './../lib/firestore-utils';
@@ -24,6 +24,12 @@ export const buttonRequest = functions.region('europe-west1').https.onRequest(as
     .withConverter(converter)
     .get()
     .then(snap => snap.data() as Table);
+
+  const isPreparing = table?.game.state === 'preparing';
+  const isAllPositionsTaken = allPositions.every(p => table?.game.latestPosition[p]);
+  if(isPreparing && isAllPositionsTaken) {
+    table.game.state = 'ongoing';
+  }
 
   if (table?.game.state !== 'ongoing') {
     res.status(409).send('Game not ongoing');
