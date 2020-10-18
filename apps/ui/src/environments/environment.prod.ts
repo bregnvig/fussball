@@ -1,16 +1,16 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyCz1m3SvBz1OpVWLFWX-FL-SCY_8HbgxEE",
-    authDomain: "f2020.bregnvig.dk",
-    databaseURL: "https://f1-2020-9dec0.firebaseio.com",
-    projectId: "f1-2020-9dec0",
-    storageBucket: "f1-2020-9dec0.appspot.com",
-    messagingSenderId: "209105975677",
-    appId: "1:209105975677:web:a18d0a67d142e0e85f3414",
-    measurementId: "G-BRDT1FLJ41"
+    apiKey: "AIzaSyDLsdZUiavtt8cS260ku3I-SnxD73V9xj0",
+    authDomain: "fussball-dev.firebaseapp.com",
+    databaseURL: "https://fussball-dev.firebaseio.com",
+    projectId: "fussball-dev",
+    storageBucket: "fussball-dev.appspot.com",
+    messagingSenderId: "250704051094",
+    appId: "1:250704051094:web:269b35fa702ba4b4d07bb7",
+    measurementId: "G-PFNBC70XC6"
   },
   messaging: {
-    pubKey: 'BBSlUc8IHB5zv1HkWXvuesGCGZZmRX3A0mDkV5c5qnCiVj3Vt3jJhcD9ldHsouZpjv3N3XXNfz5xSKB097SjdPk'
+    pubKey: 'BEhMOOm3eAvhaqBb7JfLmgVERy2p9l1zznJ4ajadV6pp_Nzj7dcak7rh41Xe1M6E29agPruJI3SDnIbuCjoeABs'
   }
 };
