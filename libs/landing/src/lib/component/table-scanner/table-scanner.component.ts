@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { isPosition, Position } from '@fussball/data';
 import { of, Subject } from 'rxjs';
-import { catchError, debounceTime, filter, mapTo, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, mapTo, switchMap, take } from 'rxjs/operators';
 import { JoinTableErrorDialogComponent } from '../join-table-error-dialog/join-table-error-dialog.component';
 
 interface TableScanResult {
@@ -47,7 +47,6 @@ export class TableScannerComponent implements OnInit {
 
   ngOnInit() {
     this.tableScanResult$.pipe(
-      debounceTime(200),
       filter(() => this.acceptedError),
       switchMap(result => this.service.joinTable(result.table, result.pos).pipe(
         mapTo(result),

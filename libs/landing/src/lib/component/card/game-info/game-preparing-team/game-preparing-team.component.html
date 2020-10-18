@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start start"> 
+<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start center"> 
     <h3 fxFlexAlign="center">{{teamName}}</h3>
     <div *ngFor="let player of playerPositions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
-        <img fxFlexOffset="36px" class="avatar" [src]="player.photoURL">
-        <span>{{player.displayName}}:</span>
+        <img class="avatar" [src]="player.photoURL">
+        <span class="ml-2">{{player.displayName}}:</span>
         <div>
             <span *ngFor="let position of player.positions; first as f">{{f ? '' : ', '}}{{position}}</span>
         </div>
