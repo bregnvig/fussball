@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { Player } from './player.model';
 
 export type Position = 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence';
 export const allPositions: Position[] = Object.keys(<{ [key in Position]: Required<boolean> }>{ 'redDefence': true, 'redOffence': true, 'blueDefence': true, 'blueOffence': true }) as Position[];
@@ -27,6 +28,9 @@ export interface Match {
   createdAt: DateTime;
 }
 
+export type GamePlayer = Pick<Player, 'displayName' | 'photoURL'>;
+export type GamePlayers = Record<string, GamePlayer>;
+
 export interface Game {
   team1: string[];
   team2: string[];
@@ -34,4 +38,5 @@ export interface Game {
   numberOfMatches: number;
   state: GameState;
   matches: Match[];
+  players: GamePlayers;
 }
