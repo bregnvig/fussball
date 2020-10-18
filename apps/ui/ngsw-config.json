@@ -14,7 +14,8 @@
           "/*.js"
         ]
       }
-    }, {
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
@@ -26,10 +27,5 @@
       }
     }
   ],
-  "appData": {
-    "version": {
-      "ui": 2,
-      "api": 2
-    }
-  }
+  "appData": {}
 }
