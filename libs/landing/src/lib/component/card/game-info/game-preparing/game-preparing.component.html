@@ -1,0 +1,14 @@
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <i class="fas fa-futbol fa-spin fa-2x"></i>
+      </div>
+      <mat-card-title>{{table.name}}</mat-card-title>
+      <mat-card-subtitle>Klargører spil...</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxLayout="row" fxLayoutAlign="space-around start" >
+      <fuss-game-preparing-team fxFlex [playerPositions]="team1Players" teamName="Team 1"></fuss-game-preparing-team>
+      <span fxFlexAlign="center">VS</span>
+      <fuss-game-preparing-team fxFlex [playerPositions]="team2Players" teamName="Team 2"></fuss-game-preparing-team>
+    </mat-card-content>
+  </mat-card>

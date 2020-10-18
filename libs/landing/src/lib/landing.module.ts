@@ -8,11 +8,14 @@ import { RouterModule } from "@angular/router";
 import { ControlModule } from '@fussball/control';
 import { SharedModule } from '@fussball/shared';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { GameCompletedComponent } from './component/card/game-info/game-completed/game-completed.component';
+import { GameInfoComponent } from './component/card/game-info/game-info.component';
+import { GameOngoingComponent } from './component/card/game-info/game-ongoing/game-ongoing.component';
+import { GamePreparingTeamComponent } from './component/card/game-info/game-preparing-team/game-preparing-team.component';
+import { GamePreparingComponent } from './component/card/game-info/game-preparing/game-preparing.component';
 import { WhatElseComponent } from './component/card/what-else/what-else.component';
 import { LandingComponent } from './component/landing/landing.component';
 import { TableScannerComponent } from './component/table-scanner/table-scanner.component';
-import { GameInfoComponent } from './component/card/game-info/game-info.component';
-import { GameOngoingComponent } from './component/card/game-info/game-ongoing/game-ongoing.component';
 
 const MatModules = [
   MatCardModule,
@@ -41,6 +44,9 @@ const MatModules = [
     TableScannerComponent,
     GameInfoComponent,
     GameOngoingComponent,
+    GameCompletedComponent,
+    GamePreparingComponent,
+    GamePreparingTeamComponent,
   ],
 })
 export class LandingModule { }
