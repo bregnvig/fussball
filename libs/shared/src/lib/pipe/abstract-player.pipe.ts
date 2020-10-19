@@ -27,11 +27,15 @@ export abstract class AbstractPlayerPipe implements PipeTransform {
         truthy(),
         first(),
       ).subscribe(player => {
-        this.value = player[this.getProperty()];
+        this.value = this.decorate(player[this.getProperty()]);
         setTimeout(() => this.ref.markForCheck());
       });
     }
     return null;
+  }
+
+  protected decorate(value: string): string {
+    return value;
   }
 
   protected abstract getProperty(): PlayerProperty;
