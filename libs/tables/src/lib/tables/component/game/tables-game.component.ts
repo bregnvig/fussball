@@ -35,11 +35,13 @@ export class TablesGameComponent extends AbstractSuperComponent implements OnIni
       map(params => params.get('id')),
       switchMap(id => this.service.table(id)),
       shareLatest(),
+      this.takeUntilDestroyed(),
     );
 
     this.match$ = this.table$.pipe(
       map(table => table.game.matches[table.game.matches.length - 1]),
       shareLatest(),
+      this.takeUntilDestroyed(),
     );
   }
 }
