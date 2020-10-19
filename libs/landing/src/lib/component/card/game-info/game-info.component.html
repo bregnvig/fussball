@@ -1,6 +1,6 @@
 <ng-container *ngFor="let table of tables$ | async; trackBy: trackByFn">
   <ng-container [ngSwitch]="table.game.state">
-    <fuss-game-completed *ngSwitchCase="'completed'">Resultat</fuss-game-completed>
+    <fuss-game-completed *ngSwitchCase="'completed'" [table]="table"></fuss-game-completed>
     <fuss-game-ongoing [table]="table" *ngSwitchCase="'ongoing'"></fuss-game-ongoing>
     <fuss-game-preparing [table]="table" *ngSwitchCase="'preparing'"></fuss-game-preparing>
   </ng-container>

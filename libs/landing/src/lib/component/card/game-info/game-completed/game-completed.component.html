@@ -9,10 +9,10 @@
     <mat-card-content>
       <div fxLayout="column">
         <div fxLayout class="field">
-          <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50"><span>{{team1}}</span></div>
-          <div class="right-field" fxLayoutAlign="center center" fxFlex="50"><span>{{team2}}</span></div>
+          <div class="team1" fxLayout="column" fxLayoutAlign="center center" fxFlex="50"><span>{{team1}}</span></div>
+          <div class="team2" fxLayoutAlign="center center" fxFlex="50"><span>{{team2}}</span></div>
+          <sha-game-players avatarClass="avatar" [left]="table.game.team1" [right]="table.game.team2"></sha-game-players>
         </div>
-        <sha-game-players [left]="table.game.team1" [right]="table.game.team2"></sha-game-players>
       </div>
     </mat-card-content>
   </mat-card>

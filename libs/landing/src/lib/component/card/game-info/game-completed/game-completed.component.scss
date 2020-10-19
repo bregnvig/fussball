@@ -1,6 +1,17 @@
 .field {
   height: 200px;
-  border: white solid 3px;
-  border-radius: 6px;
   font-size: 12rem;
-}
+  position: relative;
+  .team1 {
+    border-right: white solid 4px;
+  }
+  .team2 {
+    border-left: white solid 4px;
+  }
+  sha-game-players {
+    position: absolute;
+    bottom: 0.5rem;
+    width: 100%;
+  }
+
+ }
