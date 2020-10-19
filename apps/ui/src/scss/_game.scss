@@ -1,0 +1,25 @@
+
+@mixin red-field {
+  border-top: var(--red-border) solid 3px;
+  border-bottom: var(--red-border) solid 3px;
+  border-left: var(--red-border) solid 3px;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+  background-color: var(--red);
+}
+
+@mixin blue-field {
+  border-top: var(--blue-border) solid 3px;
+  border-bottom: var(--blue-border) solid 3px;
+  border-right: var(--blue-border) solid 3px;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: var(--blue);
+}
+
+.left-field {
+  @include red-field;
+}
+.right-field {
+  @include blue-field;
+}
