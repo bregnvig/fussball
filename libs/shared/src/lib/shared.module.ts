@@ -13,6 +13,7 @@ import { LoginComponent } from './component';
 import { CardPageComponent } from './component/card-page/card-page.component';
 import { GamePlayersComponent } from './component/game-players/game-players.component';
 import { GameScoreComponent } from './component/game-score/game-score.component';
+import { GameTeamPlayersComponent } from './component/game-team-players/game-team-players.component';
 import { HasRoleDirective } from './component/has-role.directive';
 import { LoadingComponent } from './component/loading/loading.component';
 import { PageComponent } from './component/page/page.component';
@@ -42,6 +43,7 @@ const exportComponents = [
   QrScannerComponent,
   GamePlayersComponent,
   GameScoreComponent,
+  GameTeamPlayersComponent,
 ];
 
 const pipes = [

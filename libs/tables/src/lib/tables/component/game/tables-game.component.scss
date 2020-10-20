@@ -1,17 +1,26 @@
 main {
+  section {
+    padding: 2rem;
+    height: 100%;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
   position: fixed;
   height: 100vh;
   width: 100vw;
   top: 0;
   .score {
-    height: 100%;
-    font-size: 16rem;
+    max-height: 100%;
+    sha-game-score {
+      font-size: 16rem;
+    }
     position: relative;
   }
-  sha-game-players {
-    font-size: 2rem;
+  sha-game-team-players {
+    padding: 1.5rem;
     position: absolute;
-    bottom: 32px;
-    width: 100%;
+    height: 100%;
   }
 }

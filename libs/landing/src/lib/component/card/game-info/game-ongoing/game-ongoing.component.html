@@ -13,16 +13,13 @@
       <div fxLayout="column">
         <div fxLayout class="field">
           <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
-            <sha-game-score side="red" [match]="match"></sha-game-score>
+            <sha-game-score side="blue" [match]="match"></sha-game-score>
+            <sha-game-team-players avatarClass="avatar" [defence]="table.game.latestPosition.blueDefence" [offence]="table.game.latestPosition.blueOffence"></sha-game-team-players>
           </div>
           <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
-            <sha-game-score side="blue" [match]="match"></sha-game-score>
+            <sha-game-score side="red" [match]="match"></sha-game-score>
+            <sha-game-team-players avatarClass="avatar" [defence]="table.game.latestPosition.redDefence" [offence]="table.game.latestPosition.redOffence"></sha-game-team-players>
           </div>
-          <sha-game-players
-            avatarClass="avatar" 
-            [left]="[table.game.latestPosition.redDefence, table.game.latestPosition.redOffence]"
-            [right]="[table.game.latestPosition.blueDefence, table.game.latestPosition.blueOffence]">
-          </sha-game-players>
         </div>
       </div>
     </mat-card-content>

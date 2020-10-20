@@ -1,10 +1,10 @@
 .field {
   position: relative;
   height: 200px;
-  font-size: 12rem;
-  sha-game-players {
-    position: absolute;
-    bottom: 0.5rem;
-    width: 100%;
+  sha-game-score {
+    font-size: 12rem;
+  }
+  sha-game-team-players {
+    padding: 1rem;
   }
 }

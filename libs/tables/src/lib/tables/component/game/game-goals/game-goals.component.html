@@ -1,5 +1,5 @@
-<sha-card-page widthClass="none">
-  <mat-card *ngFor="let match of matches; index as i; trackBy: trackByDate">
+
+<mat-card *ngFor="let match of matches; index as i; trackBy: trackByDate">
     <mat-card-header>
       <mat-card-title>{{matches.length - i}}. match</mat-card-title>
       <mat-card-subtitle>
@@ -39,4 +39,3 @@
       </table>
     </mat-card-content>
   </mat-card>
-</sha-card-page>

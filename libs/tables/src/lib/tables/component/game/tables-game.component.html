@@ -1,22 +1,19 @@
 <main fxLayout fxFlex fxLayoutAlign="start stretch" class="mat-drawer-container" *ngIf="table$ | async as table">
-  <section fxFlex="50" fxFlex.lt-md="100" class="p-4">
+  <section fxFlex="50" fxFlex.lt-md="100">
     <div class="score" fxLayout="column" fxFlex>
       <div fxFlex fxLayout>
         <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
-          <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
+          <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
+          <sha-game-team-players [avatarClass]="avatarClass" [defence]="table.game.latestPosition.blueDefence" [offence]="table.game.latestPosition.blueOffence"></sha-game-team-players>
         </div>
         <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
-          <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
+          <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
+          <sha-game-team-players [avatarClass]="avatarClass" [defence]="table.game.latestPosition.redDefence" [offence]="table.game.latestPosition.redOffence"></sha-game-team-players>
         </div>
       </div>
-      <sha-game-players
-        [avatarClass]="avatarClass" 
-        [left]="[table.game.latestPosition.redDefence, table.game.latestPosition.redOffence]"
-        [right]="[table.game.latestPosition.blueDefence, table.game.latestPosition.blueOffence]">
-      </sha-game-players>
     </div>
   </section>
-  <section fxFlex="50" class="py-2"  fxHide.lt-md>
+  <section fxFlex="50" fxHide.lt-md>
     <div>
       <fussball-game-goals [game]="table.game" [team1]="table.game.team1" [team2]="table.game.team2"></fussball-game-goals>
     </div>
