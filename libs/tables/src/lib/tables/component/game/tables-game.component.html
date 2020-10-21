@@ -4,11 +4,11 @@
       <div fxFlex fxLayout>
         <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
           <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
-          <sha-game-team-players [avatarClass]="avatarClass" [defence]="table.game.latestPosition.blueDefence" [offence]="table.game.latestPosition.blueOffence"></sha-game-team-players>
+          <sha-game-team-players [avatarClass]="avatarClass" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></sha-game-team-players>
         </div>
         <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
           <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
-          <sha-game-team-players [avatarClass]="avatarClass" [defence]="table.game.latestPosition.redDefence" [offence]="table.game.latestPosition.redOffence"></sha-game-team-players>
+          <sha-game-team-players [avatarClass]="avatarClass" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></sha-game-team-players>
         </div>
       </div>
     </div>

@@ -8,8 +8,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class GameTeamPlayersComponent {
 
-  @Input() defence: string;
-  @Input() offence: string;
+  @Input() top: string;
+  @Input() bottom: string;
   @Input() avatarClass: 'avatar' | 'gameAvatar' = 'gameAvatar';
 
 }
