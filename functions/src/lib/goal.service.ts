@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { Game, Match, PlayerPosition, Position, Team } from './model';
+import { Game, Match, PlayerPosition, Position, TeamPosition } from './model';
 
 const newMatch = (): Match => ({ team1: 0, team2: 0, goals: [], createdAt: DateTime.local() });
 const countVictories = (team: 'team1' | 'team2') => (matches: Match[]) => matches.reduce((acc, match) => acc + (match[team] === 8 ? 1 : 0), 0);
@@ -35,7 +35,7 @@ export const goal = (position: Position, game: Game, ownGoal = false): Game => {
 
   const player: string = clonedGame.latestPosition[position] as string;
   const match: Match = clonedGame.matches[clonedGame.matches.length - 1];
-  const team: Team = clonedGame.team1.some(uid => uid === player) ? 'team1' : 'team2';
+  const team: TeamPosition = clonedGame.team1.some(uid => uid === player) ? 'team1' : 'team2';
 
   match[!ownGoal ? team : (team === 'team1' ? 'team2' : 'team1')] += 1;
   match.goals.push({

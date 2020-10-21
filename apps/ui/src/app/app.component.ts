@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
           this.router.navigate(['/']);
         }
         this.playersFacade.dispatch(PlayersActions.loadPlayers());
+        this.playersFacade.dispatch(PlayersActions.loadTeams());
         // if (Notification.permission === "granted") {
         //   this.playerFacade.dispatch(PlayerActions.loadMessagingToken());
         // } else if (Notification.permission === 'denied') {

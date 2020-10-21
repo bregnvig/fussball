@@ -1,9 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import {
-  PLAYERS_FEATURE_KEY,
-  State,
-  PlayersPartialState,
-  playersAdapter
+  playersAdapter, PlayersPartialState, PLAYERS_FEATURE_KEY,
+  State
 } from "./players.reducer";
 
 // Lookup the 'Players' feature state managed by NgRx
@@ -42,4 +40,20 @@ export const getSelected = createSelector(
   getPlayersEntities,
   getSelectedId,
   (entities, selectedId) => selectedId && entities[selectedId]
+);
+
+const getAllTeams = createSelector(
+  getPlayersState,
+  state => state.teams
+);
+
+const getSelectedTeamId = createSelector(
+  getPlayersState,
+  (state: State) => state.selectedTeamId
+);
+
+export const getSelectedTeam = createSelector(
+  getPlayersState,
+  getSelectedTeamId,
+  (state, selectedId) => selectedId && state.teams && state.teams[selectedId]
 );

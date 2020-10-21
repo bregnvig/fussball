@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-
-import { select, Store, Action } from "@ngrx/store";
-
+import { Action, select, Store } from "@ngrx/store";
 import * as fromPlayers from "./players.reducer";
 import * as PlayersSelectors from "./players.selectors";
+
+
 
 @Injectable()
 export class PlayersFacade {
@@ -11,8 +11,10 @@ export class PlayersFacade {
   loaded$ = this.store.pipe(select(PlayersSelectors.getPlayersLoaded));
   allPlayers$ = this.store.pipe(select(PlayersSelectors.getAllPlayers));
   selectedPlayer$ = this.store.pipe(select(PlayersSelectors.getSelected));
+  allTeams$ = this.store.pipe(select(PlayersSelectors.getAllTeams));
+  selectedTeam$ = this.store.pipe(select(PlayersSelectors.getSelectedTeam));
 
-  constructor(private store: Store<fromPlayers.PlayersPartialState>) {}
+  constructor(private store: Store<fromPlayers.PlayersPartialState>) { }
 
   dispatch(action: Action) {
     this.store.dispatch(action);

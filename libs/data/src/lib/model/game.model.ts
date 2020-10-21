@@ -9,13 +9,13 @@ export function isPosition(value: any): value is Position {
 };
 
 export type GameState = 'completed' | 'cancelled' | 'ongoing' | 'preparing';
-export type Team = 'team1' | 'team2';
+export type TeamPosition = 'team1' | 'team2';
 
 export interface Goal {
   uid: string;
   position: Position;
   time: DateTime;
-  team: Team;
+  team: TeamPosition;
   ownGoal?: boolean;
 }
 
