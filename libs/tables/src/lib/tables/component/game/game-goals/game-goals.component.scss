@@ -7,6 +7,9 @@ mat-card {
     background-color: midnightblue;
   }
   .shame {
-    background-color: #FFFE03;
+    td {
+      color: black !important;
+    }
+    background-color: #ffeb3b;
   }
 }

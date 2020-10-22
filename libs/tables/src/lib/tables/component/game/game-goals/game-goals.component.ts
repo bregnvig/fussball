@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Game, Goal, Match, Position } from '@fussball/data';
+import { Game, Goal, Match, Position, Team } from '@fussball/data';
 
 @Component({
   selector: 'fussball-game-goals',
@@ -14,8 +14,8 @@ export class GameGoalsComponent {
   matches: Match[];
   trackByIndex = (index: number) => index;
 
-  @Input() team1: [string?, string?];
-  @Input() team2: [string?, string?];
+  @Input() team1: Team;
+  @Input() team2: Team;
 
   @Input() set game(value: Game) {
     this.matches = [...value.matches].reverse();
@@ -29,12 +29,12 @@ export class GameGoalsComponent {
     return !this.isRed(goal) && !goal.ownGoal;
   }
 
-  winningTeam(match: Match): 'team1' | 'team2' | null {
+  winningTeam(match: Match): string | null {
     if (match.goals.length >= 8) {
-      const team1GoalFn = (goal: Goal) => this.team1.some(uid => goal.uid === uid);
+      const team1GoalFn = (goal: Goal) => this.team1.players.some(uid => goal.uid === uid);
       const team1Goals = match.goals.reduce((acc, goal) => acc + (team1GoalFn(goal) ? 1 : 0), 0);
       const team2Goals = match.goals.length - team1Goals;
-      return team1Goals === 8 ? 'team1' : (team2Goals === 8 ? 'team2' : null);
+      return team1Goals === 8 ? this.team1.name : (team2Goals === 8 ? this.team2.name : null);
     }
     return null;
   }

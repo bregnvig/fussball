@@ -1,5 +1,4 @@
 export interface Team {
-  uid: string;
-  name: string;
+  name?: string;
   players: string[];
 }
