@@ -2,11 +2,33 @@ import { auth, firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
 import { playerURL, tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
-import { allPositions, Game, GamePlayer, GameState, isPosition, JoinTableData, Player, Position, Table, Team } from '../lib/model';
+import { allPositions, Game, GamePlayer, GameState, getTeamId, isPosition, JoinTableData, Player, Position, Table, Team } from '../lib/model';
 
-const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'blue' : 'red'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
+const defaultNumberOfMatches = 3;
+const createGame = (data: JoinTableData, uid: string, player: GamePlayer): Game => {
+  return {
+    latestPosition: { [data.position]: uid },
+    matches: [],
+    numberOfMatches: defaultNumberOfMatches,
+    team1: getTeam(undefined, player, uid),
+    team2: { players: [] },
+    state: 'preparing',
+    players: {
+      [uid]: player,
+    }
+  };
+};
 
-const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
+const getTeam = (team: Team | undefined, player: GamePlayer, uid: string): Team => {
+  const players = Array.from(new Set([...(team?.players || []), uid]).values()).sort();
+  const newTeam = { ...team, players, name: team?.name || player?.displayName };
+  if (players.length === 2) {
+    newTeam.id = getTeamId(players[0], players[1]);
+  }
+  return newTeam;
+};
+
+const getTeamNumber = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
   const teamMateUid: string | undefined = game.latestPosition[teamMatePosition];
   if (teamMateUid) {
     return game.team1.players.some(player => player === game.latestPosition[teamMatePosition]) ? 'team1' : 'team2';
@@ -14,14 +36,7 @@ const getTeamId = (game: Game, teamMatePosition: Position): 'team1' | 'team2' =>
   return game.team1.players.length ? 'team2' : 'team1';
 };
 
-const getGamePlayer = async (uid: string): Promise<GamePlayer> => {
-  const { displayName, photoURL } = await auth().getUser(uid);
-  if (displayName && photoURL) {
-    return { displayName, photoURL };
-  }
-  const dbUser = (await firestore().doc(playerURL(uid)).get()).data() as Player;
-  return { displayName: dbUser.displayName, photoURL: dbUser.photoURL };
-};
+const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'blue' : 'red'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
 
 const joinGame = (game: Game, data: JoinTableData, uid: string, player: GamePlayer): Game => {
   const isFullGame = game.latestPosition && allPositions.every(position => !!game.latestPosition[position]);
@@ -34,8 +49,8 @@ const joinGame = (game: Game, data: JoinTableData, uid: string, player: GamePlay
     throw new https.HttpsError('failed-precondition', `Position '${data.position}' is already taken`);
   }
 
-  const teamId = getTeamId(game, getTeamMatePosition(data));
-  const team: Team = { players: Array.from(new Set([...game[teamId].players, uid]).values()) };
+  const teamId = getTeamNumber(game, getTeamMatePosition(data));
+  const team: Team = getTeam(game[teamId], player, uid);
 
   return {
     ...game,
@@ -46,25 +61,6 @@ const joinGame = (game: Game, data: JoinTableData, uid: string, player: GamePlay
     [teamId]: team,
     players: {
       ...game.players,
-      [uid]: player,
-    }
-  };
-};
-
-const defaultNumberOfMatches = 3;
-const createGame = (data: JoinTableData, uid: string, player: GamePlayer): Game => {
-  return {
-    latestPosition: { [data.position]: uid },
-    matches: [],
-    numberOfMatches: defaultNumberOfMatches,
-    team1: {
-      players: [uid]
-    },
-    team2: {
-      players: []
-    },
-    state: 'preparing',
-    players: {
       [uid]: player,
     }
   };
@@ -87,6 +83,15 @@ const joinTable = async (uid: string, data: JoinTableData, player: GamePlayer): 
   });
 };
 
+const getGamePlayer = async (uid: string): Promise<GamePlayer> => {
+  const { displayName, photoURL } = await auth().getUser(uid);
+  if (displayName && photoURL) {
+    return { displayName, photoURL };
+  }
+  const dbUser = (await firestore().doc(playerURL(uid)).get()).data() as Player;
+  return { displayName: dbUser.displayName, photoURL: dbUser.photoURL };
+};
+
 const validateData = (data: JoinTableData): void => {
   if (data.action !== 'join') {
     throw new https.HttpsError('invalid-argument', `action has to be 'join'`);
@@ -97,7 +102,7 @@ const validateData = (data: JoinTableData): void => {
   if (isPosition(data.position) === false) {
     throw new https.HttpsError('invalid-argument', `position has to be 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence'`);
   }
-}
+};
 
 export const tableCallable = region('europe-west1').https.onCall(async (data: JoinTableData, context: https.CallableContext) => {
   const uid = getUid(context);
@@ -105,6 +110,6 @@ export const tableCallable = region('europe-west1').https.onCall(async (data: Jo
 
   const gamePlayer = await getGamePlayer(uid);
 
-  const updatedTable: Table = await joinTable(uid, data, gamePlayer);
-  
+  await joinTable(uid, data, gamePlayer);
+
 });

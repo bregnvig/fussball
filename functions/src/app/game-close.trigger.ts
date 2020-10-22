@@ -1,31 +1,33 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
-import { playedURL, playerURL, teamURL } from './../lib/collection-names';
+import { playedURL, tableURL, teamURL } from './../lib/collection-names';
 import { Table } from './../lib/model/table.model';
 
-/**
- * 
- * @param table 
- * @param team 
- * @returns null if team consists of one uid only
- */
-const getTeamOrPlayerRef = (table: Table, team: 'team1' | 'team2'): admin.firestore.DocumentReference | null => {
-  const uids = Array.from(new Set<string>(table.game[team].players)).sort();
-  return uids.length > 1 ? admin.firestore().doc(teamURL(`${uids[0]}_${uids[1]}`)) : null;
-};
 
-const getPlayerRef = (table: Table, team: 'team1' | 'team2'): admin.firestore.DocumentReference => {
-  return admin.firestore().doc(playerURL(table.game[team].players[0]))
-};
+const createTeams = async (table: Table): Promise<void> => {
+  const tableRef = admin.firestore().doc(tableURL(table.id));
+  const team1Ref = table.game?.team1?.id ? admin.firestore().doc(teamURL(table.game.team1.id)) : null;
+  const team2Ref = table.game?.team2?.id ? admin.firestore().doc(teamURL(table.game.team2.id)) : null;
 
-const createTeams = async (table: Table): Promise<any> => {
-  const team1Ref = getTeamRef(table, 'team1') || ;
-  const team2Ref = getTeamRef(table, 'team2');
-  return admin.firestore().runTransaction(transaction => {
-    return transaction.getAll(team1Ref).then(() => {
+  const transactions = [];
+  if (team1Ref) {
+    transactions.push(
+      admin.firestore().runTransaction(transaction => {
+        return transaction.getAll(team1Ref, tableRef).then(([team1Doc, tableDoc]) => {
+          if(!team1Doc.exists) {
+            const team: Team = {...table.game.team1, name: `${table.game.team1.name} & ${}` }
+            transaction.create(team1Ref, team);
+          }
+          return;
+        });
+      })
+    );
+  }
 
-    });
-  });
+
+
+
+  table.game.team1;
 };
 
 export const gameCloseTrigger = functions.region('europe-west1').firestore.document('tables/{tableId}')
