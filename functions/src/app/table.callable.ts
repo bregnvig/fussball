@@ -2,19 +2,7 @@ import { auth, firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
 import { playerURL, tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
-import { allPositions, Game, GamePlayer, isPosition, JoinTableData, Player, Position, Table } from '../lib/model';
-
-function validateData(data: JoinTableData): void {
-  if (data.action !== 'join') {
-    throw new https.HttpsError('invalid-argument', `action has to be 'join'`);
-  }
-  if (!data.tableId) {
-    throw new https.HttpsError('invalid-argument', 'tableId not set');
-  }
-  if (isPosition(data.position) === false) {
-    throw new https.HttpsError('invalid-argument', `position has to be 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence'`);
-  }
-}
+import { allPositions, Game, GamePlayer, GameState, isPosition, JoinTableData, Player, Position, Table, Team } from '../lib/model';
 
 const getTeamMatePosition = (data: JoinTableData): Position => `${data.position.includes('blue') ? 'blue' : 'red'}${data.position.includes('Offence') ? 'Defence' : 'Offence'}` as Position;
 
@@ -35,8 +23,7 @@ const getGamePlayer = async (uid: string): Promise<GamePlayer> => {
   return { displayName: dbUser.displayName, photoURL: dbUser.photoURL };
 };
 
-const joinGame = (table: Table, data: JoinTableData, uid: string, player: GamePlayer): Table => {
-  const game = table.game;
+const joinGame = (game: Game, data: JoinTableData, uid: string, player: GamePlayer): Game => {
   const isFullGame = game.latestPosition && allPositions.every(position => !!game.latestPosition[position]);
   if (isFullGame) {
     throw new https.HttpsError('failed-precondition', 'Game is full');
@@ -48,63 +35,68 @@ const joinGame = (table: Table, data: JoinTableData, uid: string, player: GamePl
   }
 
   const teamId = getTeamId(game, getTeamMatePosition(data));
-  const team = Array.from(new Set([...game[teamId].players, uid]).values());
+  const team: Team = { players: Array.from(new Set([...game[teamId].players, uid]).values()) };
 
   return {
-    ...table,
-    game: {
-      ...game,
-      latestPosition: {
-        ...game.latestPosition,
-        [data.position]: uid,
-      },
-      [teamId]: team,
-      players: {
-        ...game.players,
-        [uid]: player,
-      }
+    ...game,
+    latestPosition: {
+      ...game.latestPosition,
+      [data.position]: uid,
+    },
+    [teamId]: team,
+    players: {
+      ...game.players,
+      [uid]: player,
     }
   };
 };
 
 const defaultNumberOfMatches = 3;
-const createGame = (table: Table, data: JoinTableData, uid: string, player: GamePlayer): Table => {
+const createGame = (data: JoinTableData, uid: string, player: GamePlayer): Game => {
   return {
-    ...table,
-    game: {
-      latestPosition: { [data.position]: uid },
-      matches: [],
-      numberOfMatches: defaultNumberOfMatches,
-      team1: {
-        players: [uid]
-      },
-      team2: {
-        players: []
-      },
-      state: 'preparing',
-      players: {
-        [uid]: player,
-      }
+    latestPosition: { [data.position]: uid },
+    matches: [],
+    numberOfMatches: defaultNumberOfMatches,
+    team1: {
+      players: [uid]
+    },
+    team2: {
+      players: []
+    },
+    state: 'preparing',
+    players: {
+      [uid]: player,
     }
   };
 };
 
-async function joinTable(uid: string, data: JoinTableData, player: GamePlayer): Promise<void> {
+const joinTable = async (uid: string, data: JoinTableData, player: GamePlayer): Promise<Table> => {
   const tableRef = firestore().doc(tableURL(data.tableId));
   return firestore().runTransaction(transaction => {
     return transaction.get(tableRef).then(tableDoc => {
       const table = tableDoc.data() as Table;
-      const game = table?.game;
-      const state = game?.state;
-      if (state === 'ongoing') {
+      const gameState: GameState | undefined = table?.game?.state;
+
+      if (gameState === 'ongoing') {
         throw new https.HttpsError('failed-precondition', 'A game is already being played on this table');
-      } else if (state === 'preparing') {
-        transaction.set(tableRef, joinGame(table, data, uid, player));
-      } else {
-        transaction.set(tableRef, createGame(table, data, uid, player));
       }
+      const updatedTable: Table = { ...table, game: gameState === 'preparing' ? joinGame(table.game, data, uid, player) : createGame(data, uid, player) };
+      transaction.set(tableRef, updatedTable);
+      return updatedTable;
     });
   });
+};
+
+const validateData = (data: JoinTableData): void => {
+  if (data.action !== 'join') {
+    throw new https.HttpsError('invalid-argument', `action has to be 'join'`);
+  }
+  if (!data.tableId) {
+    throw new https.HttpsError('invalid-argument', 'tableId not set');
+  }
+  if (isPosition(data.position) === false) {
+    throw new https.HttpsError('invalid-argument', `position has to be 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence'`);
+  }
 }
 
 export const tableCallable = region('europe-west1').https.onCall(async (data: JoinTableData, context: https.CallableContext) => {
@@ -113,5 +105,6 @@ export const tableCallable = region('europe-west1').https.onCall(async (data: Jo
 
   const gamePlayer = await getGamePlayer(uid);
 
-  await joinTable(uid, data, gamePlayer);
+  const updatedTable: Table = await joinTable(uid, data, gamePlayer);
+  
 });

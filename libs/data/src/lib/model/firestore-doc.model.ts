@@ -1,0 +1,1 @@
+export type FirestoreDoc<T extends {}> = T & { id: string; };
