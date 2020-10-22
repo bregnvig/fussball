@@ -1,4 +1,14 @@
 main {
+  div.congrats {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background-color: rgba(0,0,0,0.8);
+    h5 {
+      font-size: 3em;
+    }
+  }
   section {
     padding: 2rem;
     height: 100%;

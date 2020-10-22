@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 import { TablesService } from '@fussball/api';
-import { Match, Table } from '@fussball/data';
+import { Match, Table, Team } from '@fussball/data';
 import { AbstractSuperComponent } from '@fussball/shared';
 import { shareLatest } from '@fussball/tools';
 import { Observable } from 'rxjs';
@@ -43,5 +43,9 @@ export class TablesGameComponent extends AbstractSuperComponent implements OnIni
       shareLatest(),
       this.takeUntilDestroyed(),
     );
+  }
+
+  winningTeam(table: Table): Team {
+    return table.game.matches.reduce((acc, match) => acc + (match.team1 === 8 ? 1 : 0), 0) > Math.floor(table.game.numberOfMatches / 2) ? table.game.team1 : table.game.team2;
   }
 }

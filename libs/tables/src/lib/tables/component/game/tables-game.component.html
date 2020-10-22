@@ -1,4 +1,9 @@
 <main fxLayout fxFlex fxLayoutAlign="start stretch" class="mat-drawer-container" *ngIf="table$ | async as table">
+  <div class="congrats" fxLayout fxLayoutAlign="center center" *ngIf="table.game.state === 'completed'">
+    <div fxLayout="column" fxLayoutAlign="start center" *ngIf="winningTeam(table) as team">
+      <h5>Tillykke til {{team.name}} 🥳</h5>
+    </div> 
+  </div>
   <section fxFlex="50" fxFlex.lt-md="100">
     <div class="score" fxLayout="column" fxFlex>
       <div fxFlex fxLayout>
@@ -18,6 +23,7 @@
       <fussball-game-goals [game]="table.game" [team1]="table.game.team1" [team2]="table.game.team2"></fussball-game-goals>
     </div>
   </section>
+
 </main>
 <aside fxLayout fxLayoutAlign="center center" routerLink="/">
   <i class="far fa-times-circle fa-3x"></i>
