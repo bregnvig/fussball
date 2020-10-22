@@ -22,11 +22,11 @@ export class GameGoalsComponent {
   }
 
   isRed(goal: Goal): boolean {
-    return (['redDefence', 'redOffence'] as Position[]).some(p => p === goal.position);
+    return (['redDefence', 'redOffence'] as Position[]).some(p => p === goal.position) && !goal.ownGoal;
   }
 
   isBlue(goal: Goal): boolean {
-    return !this.isRed(goal);
+    return !this.isRed(goal) && !goal.ownGoal;
   }
 
   winningTeam(match: Match): 'team1' | 'team2' | null {
