@@ -24,3 +24,17 @@ main {
     height: 100%;
   }
 }
+aside {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity .35s ease-in-out;
+  }
+}
