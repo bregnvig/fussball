@@ -16,6 +16,7 @@ import { PlayersApiModule } from '@fussball/api';
 import { SharedModule } from '@fussball/shared';
 import { PlayersListComponent } from './component/players-list/players-list.component';
 import { PlayersComponent } from './component/players/players.component';
+import { TeamsListComponent } from './component/teams-list/teams-list.component';
 import { EditPlayerComponent } from './edit-player/edit-player.component';
 
 const MatModules = [
@@ -37,6 +38,10 @@ const MatModules = [
         component: PlayersComponent,
         children: [
           {
+            path: 'teams',
+            component: TeamsListComponent
+          },
+          {
             path: '',
             component: PlayersListComponent
           },
@@ -54,7 +59,7 @@ const MatModules = [
     ReactiveFormsModule,
     MatModules,
   ],
-  declarations: [PlayersListComponent, PlayersComponent, EditPlayerComponent]
+  declarations: [PlayersListComponent, PlayersComponent, EditPlayerComponent, TeamsListComponent]
 })
 export class PlayersModule {
 

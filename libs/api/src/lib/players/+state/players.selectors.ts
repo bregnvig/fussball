@@ -42,18 +42,7 @@ export const getSelected = createSelector(
   (entities, selectedId) => selectedId && entities[selectedId]
 );
 
-const getAllTeams = createSelector(
+export const getAllTeams = createSelector(
   getPlayersState,
   state => state.teams
-);
-
-const getSelectedTeamId = createSelector(
-  getPlayersState,
-  (state: State) => state.selectedTeamId
-);
-
-export const getSelectedTeam = createSelector(
-  getPlayersState,
-  getSelectedTeamId,
-  (state, selectedId) => selectedId && state.teams && state.teams[selectedId]
 );

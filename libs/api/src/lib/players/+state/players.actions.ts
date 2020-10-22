@@ -1,4 +1,4 @@
-import { Player, TeamS } from '@fussball/data';
+import { Player, Team } from '@fussball/data';
 import { createAction, props } from "@ngrx/store";
 
 export const PlayersActions = {
@@ -21,7 +21,7 @@ export const PlayersActions = {
 
   loadTeamsSuccess: createAction(
     "[Teams] Load Teams Success",
-    props<{ [key: string]: TeamS, }>()
+    props<{ teams: Team[]; }>()
   ),
 
   loadTeamsFailure: createAction(

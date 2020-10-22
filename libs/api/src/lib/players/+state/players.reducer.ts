@@ -1,7 +1,7 @@
-import { PlayersActions } from '@fussball/api';
-import { Player, TeamPosition } from '@fussball/data';
+import { Player, Team } from '@fussball/data';
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Action, createReducer, on } from '@ngrx/store';
+import { PlayersActions } from './players.actions';
 
 export const PLAYERS_FEATURE_KEY = "players";
 
@@ -9,8 +9,7 @@ export interface State extends EntityState<Player> {
   selectedId?: string | number; // which Players record has been selected
   loaded: boolean; // has the Players list been loaded
   error?: string | null; // last none error (if any)
-  selectedTeamId?: string | number; // which Players record has been selected
-  teams?: { [key: string]: TeamPosition[]; };
+  teams?: Team[];
   teamsLoaded: boolean; // has the Players list been loaded
 }
 

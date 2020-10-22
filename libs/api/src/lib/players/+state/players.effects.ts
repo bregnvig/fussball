@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Player, TeamS } from '@fussball/data';
+import { Player, Team } from '@fussball/data';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { fetch } from "@nrwl/angular";
+import { truthy } from 'libs/tools/src/lib/rxjs-utils';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, takeUntil } from 'rxjs/operators';
+import { catchError, concatMap, debounce, map, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { PlayerActions } from '../../player';
+import { PlayerFacade } from '../../player/+state';
 import { PlayersActions } from './players.actions';
 
 
@@ -31,25 +33,16 @@ export class PlayersEffects {
   loadTeams$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayersActions.loadTeams),
-      concatMap(() => this.afs.collection<TeamS>('teams').valueChanges().pipe(
-        map(teams => PlayersActions.loadTeamsSuccess(teams.reduce((acc, team) => {
-          acc[`${team.player1}_${team.player2}`] = team;
-          return acc;
-        }, {}))),
+      debounce(() => this.playerFacade.authorized$.pipe(truthy())),
+      withLatestFrom(this.playerFacade.player$),
+      concatMap((([_, player]) => this.afs.collection<Team>('teams', ref => ref.where('players', 'array-contains', player.uid)).valueChanges().pipe(
+        map(teams => PlayersActions.loadTeamsSuccess({ teams })),
         catchError(error => of(PlayersActions.loadTeamsFailure({ error }))),
         takeUntil(this.actions$.pipe(ofType(PlayerActions.logoutPlayer))),
       )),
-    ),
-  );
+      ),
+    ));
 
-  constructor(private actions$: Actions, private afs: AngularFirestore) {
+  constructor(private actions$: Actions, private afs: AngularFirestore, private playerFacade: PlayerFacade) {
   }
 }
-
-/**
- *         map(teams => PlayersActions.loadTeamsSuccess({ teams: teams.reduce((acc, team) => {
-          acc[`${team.player1}_${team.player2}`] = team;
-          return acc;
-        }, {}) })),
-
- */

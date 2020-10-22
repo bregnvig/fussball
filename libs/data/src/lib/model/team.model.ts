@@ -1,5 +1,5 @@
-export interface TeamS {
+export interface Team {
+  uid: string;
   name: string;
-  player1: string;
-  player2: string;
+  players: string[];
 }

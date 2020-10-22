@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <span>Hold</span>
+</mat-toolbar>
+<mat-action-list *ngIf="teams$ | async as teams; else loading">
+  <mat-list-item *ngFor="let team of teams" [routerLink]="[team.uid]">
+    <h3 matLine>{{team.name}}</h3>
+    <img class="avatar"[src]="team.players[0] | photoURL">
+    <img class="avatar"[src]="team.players[1] | photoURL">
+  </mat-list-item>
+</mat-action-list>
+<ng-template #loading>
+  <sha-loading></sha-loading>
+</ng-template>

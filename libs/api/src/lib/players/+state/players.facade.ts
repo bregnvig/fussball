@@ -12,7 +12,6 @@ export class PlayersFacade {
   allPlayers$ = this.store.pipe(select(PlayersSelectors.getAllPlayers));
   selectedPlayer$ = this.store.pipe(select(PlayersSelectors.getSelected));
   allTeams$ = this.store.pipe(select(PlayersSelectors.getAllTeams));
-  selectedTeam$ = this.store.pipe(select(PlayersSelectors.getSelectedTeam));
 
   constructor(private store: Store<fromPlayers.PlayersPartialState>) { }
 
