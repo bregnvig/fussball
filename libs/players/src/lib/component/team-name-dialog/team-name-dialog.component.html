@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.team.name}}</h1>
+<div mat-dialog-content>
+  <p>Hvad skal holdet hedde?</p>
+  <mat-form-field>
+    <mat-label>Navn</mat-label>
+    <input [formControl]="nameControl" matInput placeholder="Holdets navn">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Luk</button>
+  <button mat-button (click)="onRename()" [disabled]="nameControl.invalid">OK</button>
+</div>

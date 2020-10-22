@@ -2,9 +2,9 @@
   <span>Hold</span>
 </mat-toolbar>
 <mat-action-list *ngIf="teams$ | async as teams; else loading">
-  <mat-list-item *ngFor="let team of teams" [routerLink]="[team.uid]">
+  <mat-list-item *ngFor="let team of teams" (click)="renameTeam(team)">
     <h3 matLine>{{team.name}}</h3>
-    <img class="avatar"[src]="team.players[0] | photoURL">
+    <img class="avatar mr-2"[src]="team.players[0] | photoURL">
     <img class="avatar"[src]="team.players[1] | photoURL">
   </mat-list-item>
 </mat-action-list>

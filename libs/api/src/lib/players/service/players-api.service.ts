@@ -16,4 +16,8 @@ export class PlayersApiService {
   updatePlayer(uid: string, player: Partial<Player>): Promise<void> {
     return this.afs.doc(`${PlayerApiService.playersURL}/${uid}`).update(player);
   }
+
+  updateTeamName(id: string, name: string): Promise<void> {
+    return this.afs.doc(`teams/${id}`).update({ name });
+  }
 }

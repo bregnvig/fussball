@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -16,6 +17,7 @@ import { PlayersApiModule } from '@fussball/api';
 import { SharedModule } from '@fussball/shared';
 import { PlayersListComponent } from './component/players-list/players-list.component';
 import { PlayersComponent } from './component/players/players.component';
+import { TeamNameDialogComponent } from './component/team-name-dialog/team-name-dialog.component';
 import { TeamsListComponent } from './component/teams-list/teams-list.component';
 import { EditPlayerComponent } from './edit-player/edit-player.component';
 
@@ -29,6 +31,8 @@ const MatModules = [
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
+  MatDialogModule,
+  MatSnackBarModule,
 ];
 @NgModule({
   imports: [
@@ -59,7 +63,7 @@ const MatModules = [
     ReactiveFormsModule,
     MatModules,
   ],
-  declarations: [PlayersListComponent, PlayersComponent, EditPlayerComponent, TeamsListComponent]
+  declarations: [PlayersListComponent, PlayersComponent, EditPlayerComponent, TeamsListComponent, TeamNameDialogComponent]
 })
 export class PlayersModule {
 
