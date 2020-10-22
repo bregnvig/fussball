@@ -10,6 +10,7 @@ import { TableComponent } from './table/table.component';
 import { TablesComponent, TablesGameComponent, TablesTableComponent } from './tables';
 import { TablesRoutingModule } from './tables-routing.module';
 import { GameGoalsComponent } from './tables/component/game/game-goals/game-goals.component';
+import { MatchGoalsComponent } from './tables/component/game/game-goals/match-goals/match-goals.component';
 
 const matModules = [
   MatCardModule,
@@ -24,6 +25,7 @@ const matModules = [
     TablesTableComponent,
     TablesGameComponent,
     GameGoalsComponent,
+    MatchGoalsComponent,
   ],
   imports: [
     TablesRoutingModule,
