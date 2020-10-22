@@ -1,27 +1,24 @@
-    <table mat-table fxFlex [trackBy]="trackByIndex" [dataSource]="match.goals" class="mat-elevation-z0">
+    <table mat-table fxFlex [trackBy]="trackByDate" [dataSource]="goals" class="mat-elevation-z0">
 
       <ng-container matColumnDef="player">
         <th mat-header-cell *matHeaderCellDef> Spiller </th>
         <td mat-cell *matCellDef="let element">
           <div  fxLayout fxLayoutAlign="flex-start center" >
-            <img class="avatar mr-3" [src]="element.uid | photoURL"> {{element.uid | displayName}} 
+            <img class="avatar mr-3" [src]="element.uid | photoURL"> 
+            <ng-container *ngIf="!element.ownGoal; else ownGoal">{{element.uid | displayName}} scorede {{element.time | relativeToNow}}</ng-container>
+            <ng-template #ownGoal>{{element.uid | displayName}} lavede selvmål {{element.time | relativeToNow}}</ng-template>
         </div> 
       </td>
+      </ng-container>
+
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Position </th>
+        <td mat-cell *matCellDef="let element"> {{element.position | position}}</td>
       </ng-container>
 
       <ng-container matColumnDef="team">
         <th mat-header-cell *matHeaderCellDef> Hold </th>
         <td mat-cell *matCellDef="let element"> {{element.team  === 'team1' ? team1.name : team2.name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> Position </th>
-        <td mat-cell *matCellDef="let element"> {{element.position | position}} <ng-container *ngIf="element.ownGoal"><i class="ml-2 far fa-lg fa-sad-tear"></i></ng-container></td>
-      </ng-container>
-
-      <ng-container matColumnDef="time">
-        <th mat-header-cell *matHeaderCellDef> Tidspunkt </th>
-        <td mat-cell *matCellDef="let element"> {{element.time | date: 'short'}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

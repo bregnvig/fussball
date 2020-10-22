@@ -11,10 +11,13 @@ export class MatchGoalsComponent implements OnInit {
 
   @Input() team1: Team;
   @Input() team2: Team;
-  @Input() match: Match;
+  @Input() set match(value: Match) {
+    this.goals = [...(value?.goals || [])].reverse();
+  };
+  goals: Goal[];
 
-  trackByIndex = (index: number) => index;
-  displayedColumns = ['player', 'team', 'position', 'time'];
+  trackByDate = (index: number, goal: Goal) => goal.time.toMillis();
+  displayedColumns = ['player', 'team', 'position'];
 
   constructor() { }
 
