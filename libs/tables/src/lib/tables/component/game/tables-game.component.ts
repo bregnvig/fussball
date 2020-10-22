@@ -18,6 +18,7 @@ export class TablesGameComponent extends AbstractSuperComponent implements OnIni
   table$: Observable<Table>;
   match$: Observable<Match>;
   avatarClass = "gameAvatar";
+  showCongrats = true;
 
   constructor(
     private service: TablesService,

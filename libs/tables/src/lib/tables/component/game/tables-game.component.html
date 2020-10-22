@@ -1,5 +1,5 @@
-<main fxLayout fxFlex fxLayoutAlign="start stretch" class="mat-drawer-container" *ngIf="table$ | async as table">
-  <div class="congrats" fxLayout fxLayoutAlign="center center" *ngIf="table.game.state === 'completed'">
+<main fxLayout fxFlex fxLayoutAlign="start stretch" class="mat-drawer-container" *ngIf="table$ | async as table" (click)="showCongrats = false">
+  <div class="congrats" fxLayout fxLayoutAlign="center center" *ngIf="table.game.state === 'completed' && showCongrats">
     <div fxLayout="column" fxLayoutAlign="start center" *ngIf="winningTeam(table) as team">
       <h5>Tillykke til {{team.name}} 🥳</h5>
     </div> 
