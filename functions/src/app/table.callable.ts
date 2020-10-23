@@ -4,7 +4,7 @@ import { playerURL, tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
 import { allPositions, Game, GamePlayer, GameState, getTeamId, isPosition, JoinTableData, Player, Position, Table, Team } from '../lib/model';
 
-const defaultNumberOfMatches = 3;
+const defaultNumberOfMatches = 1;
 const createGame = (data: JoinTableData, uid: string, player: GamePlayer): Game => {
   return {
     latestPosition: { [data.position]: uid },
