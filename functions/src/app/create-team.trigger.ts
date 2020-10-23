@@ -10,8 +10,8 @@ const createTeam = async (tableId: string, game: Game, teamNo: 'team1' | 'team2'
   const tableRef = admin.firestore().doc(tableURL(tableId));
   
   const teamRef = admin.firestore().doc(teamURL(teamId));
-  const player1Ref = admin.firestore().doc(playerURL(game?.team1.players[0]));
-  const player2Ref = admin.firestore().doc(playerURL(game?.team1.players[1]));
+  const player1Ref = admin.firestore().doc(playerURL(game[teamNo].players[0]));
+  const player2Ref = admin.firestore().doc(playerURL(game[teamNo].players[1]));
 
   await admin.firestore().runTransaction(transaction => {
     return transaction.getAll(tableRef, teamRef, player1Ref, player2Ref)
