@@ -28,7 +28,7 @@ const getTeam = (team: Team | undefined, player: GamePlayer, uid: string): Team 
   return newTeam;
 };
 
-const getTeamNumber = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
+const getTeamNo = (game: Game, teamMatePosition: Position): 'team1' | 'team2' => {
   const teamMateUid: string | undefined = game.latestPosition[teamMatePosition];
   if (teamMateUid) {
     return game.team1.players.some(player => player === game.latestPosition[teamMatePosition]) ? 'team1' : 'team2';
@@ -49,8 +49,8 @@ const joinGame = (game: Game, data: JoinTableData, uid: string, player: GamePlay
     throw new https.HttpsError('failed-precondition', `Position '${data.position}' is already taken`);
   }
 
-  const teamId = getTeamNumber(game, getTeamMatePosition(data));
-  const team: Team = getTeam(game[teamId], player, uid);
+  const teamNo = getTeamNo(game, getTeamMatePosition(data));
+  const team: Team = getTeam(game[teamNo], player, uid);
 
   return {
     ...game,
@@ -58,7 +58,7 @@ const joinGame = (game: Game, data: JoinTableData, uid: string, player: GamePlay
       ...game.latestPosition,
       [data.position]: uid,
     },
-    [teamId]: team,
+    [teamNo]: team,
     players: {
       ...game.players,
       [uid]: player,
