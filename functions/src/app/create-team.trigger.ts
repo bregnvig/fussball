@@ -25,7 +25,7 @@ const createTeam = async (tableId: string, game: Game, teamNo: 'team1' | 'team2'
         if (!teamDoc.exists) {
           transaction.create(teamRef, team);
         }
-        transaction.set(tableRef, { ...table, game: { ...table.game, [teamNo]: team } });
+        transaction.set(tableRef, { ...table, game: { ...table.game, [teamNo]: teamDoc.exists ? teamDoc.data() as Team : team } });
       });
   });
 
