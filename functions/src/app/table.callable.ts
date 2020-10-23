@@ -21,7 +21,7 @@ const createGame = (data: JoinTableData, uid: string, player: GamePlayer): Game 
 
 const getTeam = (team: Team | undefined, player: GamePlayer, uid: string): Team => {
   const players = Array.from(new Set([...(team?.players || []), uid]).values()).sort();
-  const newTeam = { ...team, players, name: team?.name || player?.displayName };
+  const newTeam: Team = { ...team, players, name: team?.name || player?.displayName };
   if (players.length === 2) {
     newTeam.id = getTeamId(players[0], players[1]);
   }
