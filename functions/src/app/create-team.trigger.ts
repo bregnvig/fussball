@@ -8,28 +8,26 @@ const getTeam = (id: string, player1: Player, player2: Player): Team => ({ id, p
 
 const createTeam = async (tableId: string, game: Game, teamNo: 'team1' | 'team2', teamId: string) => {
   const tableRef = admin.firestore().doc(tableURL(tableId));
+  
+  const teamRef = admin.firestore().doc(teamURL(teamId));
+  const player1Ref = admin.firestore().doc(playerURL(game?.team1.players[0]));
+  const player2Ref = admin.firestore().doc(playerURL(game?.team1.players[1]));
 
-  if (teamId) {
-    const teamRef = admin.firestore().doc(teamURL(teamId));
-    const player1Ref = admin.firestore().doc(playerURL(game?.team1.players[0]));
-    const player2Ref = admin.firestore().doc(playerURL(game?.team1.players[1]));
+  await admin.firestore().runTransaction(transaction => {
+    return transaction.getAll(tableRef, teamRef, player1Ref, player2Ref)
+      .then(([tableDoc, teamDoc, player1Doc, player2Doc]) => {
+        const table = tableDoc.data() as Table;
+        const player1 = player1Doc.data() as Player;
+        const player2 = player2Doc.data() as Player;
 
-    await admin.firestore().runTransaction(transaction => {
-      return transaction.getAll(tableRef, teamRef, player1Ref, player2Ref)
-        .then(([tableDoc, teamDoc, player1Doc, player2Doc]) => {
-          const table = tableDoc.data() as Table;
-          const player1 = player1Doc.data() as Player;
-          const player2 = player2Doc.data() as Player;
+        const team: Team = getTeam(teamId, player1, player2);
 
-          const team: Team = getTeam(teamId, player1, player2);
-
-          if (!teamDoc.exists) {
-            transaction.create(teamRef, team);
-          }
-          transaction.set(tableRef, { ...table, game: { ...table.game, [teamNo]: team } });
-        });
-    });
-  }
+        if (!teamDoc.exists) {
+          transaction.create(teamRef, team);
+        }
+        transaction.set(tableRef, { ...table, game: { ...table.game, [teamNo]: team } });
+      });
+  });
 
 };
 
