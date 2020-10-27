@@ -4,26 +4,27 @@
       <h5>Tillykke til {{team.name}} 🥳</h5>
     </div> 
   </div>
-  <section fxFlex="50" fxFlex.lt-md="100">
-    <div class="score" fxLayout="column" fxFlex>
-      <div fxFlex fxLayout>
-        <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
-          <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
-          <sha-game-team-players [avatarClass]="avatarClass" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></sha-game-team-players>
-        </div>
-        <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
-          <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
-          <sha-game-team-players [avatarClass]="avatarClass" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></sha-game-team-players>
+  <ng-container *ngIf="table?.game">
+    <section fxFlex="50" fxFlex.lt-md="100">
+      <div class="score" fxLayout="column" fxFlex>
+        <div fxFlex fxLayout>
+          <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
+            <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
+            <sha-game-team-players [avatarClass]="avatarClass" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></sha-game-team-players>
+          </div>
+          <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
+            <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
+            <sha-game-team-players [avatarClass]="avatarClass" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></sha-game-team-players>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section fxFlex="50" fxHide.lt-md>
-    <div>
-      <fussball-game-goals [game]="table.game" [team1]="table.game.team1" [team2]="table.game.team2"></fussball-game-goals>
-    </div>
-  </section>
-
+    </section>
+    <section fxFlex="50" fxHide.lt-md>
+      <div>
+        <fussball-game-goals [game]="table.game" [team1]="table.game.team1" [team2]="table.game.team2"></fussball-game-goals>
+      </div>
+    </section>
+  </ng-container>
 </main>
 <aside fxLayout fxLayoutAlign="center center" routerLink="/">
   <i class="far fa-times-circle fa-3x"></i>
