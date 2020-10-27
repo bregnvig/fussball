@@ -30,13 +30,13 @@ export const playerStatTrigger = functions.region('europe-west1').firestore.docu
       const createTeam1Stat = createStat('team1');
       teamRed.map(async uid => {
         const snap = await db.doc(playerURL(uid as string)).get();
-        transaction.update(snap.ref, { stat: createTeam1Stat(snap.data() as Player) });
+        transaction.update(db.doc(playerURL(uid as string)), { stat: createTeam1Stat(snap.data() as Player) });
       });
       const createTeam2Stat = createStat('team2');
       teamBlue.map(async uid => {
         const snap = await db.doc(playerURL(uid as string)).get();
-        transaction.update(snap.ref, { stat: createTeam2Stat(snap.data() as Player) });
+        transaction.update(db.doc(playerURL(uid as string)), { stat: createTeam2Stat(snap.data() as Player) });
       });
-      return Promise.resolve();
+      return transaction;
     });
   });
