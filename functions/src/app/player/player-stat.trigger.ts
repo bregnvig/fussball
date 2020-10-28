@@ -2,8 +2,8 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { Game, Match, Player, PlayerStat, playerURL, TeamPosition } from '../../lib';
 
-const numberOfGoals = (match: Match, uid: string): number => match.goals.reduce((acc, goal) => acc + goal.uid === uid && !goal.ownGoal ? 1 : 0, 0);
-const numberOfOwnGoals = (match: Match, uid: string): number => match.goals.reduce((acc, goal) => acc + goal.uid === uid && goal.ownGoal ? 1 : 0, 0);
+const numberOfGoals = (match: Match, uid: string): number => match.goals.reduce((acc, goal) => acc + (goal.uid === uid && !goal.ownGoal ? 1 : 0), 0);
+const numberOfOwnGoals = (match: Match, uid: string): number => match.goals.reduce((acc, goal) => acc + (goal.uid === uid && goal.ownGoal ? 1 : 0), 0);
 const numberOf = (matches: Match[], uid: string, counter: (match: Match, uid: string) => number): number => matches.reduce((acc, match) => acc + counter(match, uid), 0);
 const getUpdates = async (db: admin.firestore.Firestore, players: string[], statFn: (player: Player) => PlayerStat): Promise<{ ref: admin.firestore.DocumentReference, stat: PlayerStat; }[]> => {
   return Promise.all(players.map(async uid => {
