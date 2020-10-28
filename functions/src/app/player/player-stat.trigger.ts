@@ -16,7 +16,7 @@ const initalStat = (): PlayerStat => ({ won: 0, lost: 0, goals: 0, ownGoals: 0 }
 export const playerStatTrigger = functions.region('europe-west1').firestore.document('tables/{tableId}/played/{playedId}')
   .onCreate(async (snapshot: functions.firestore.DocumentSnapshot) => {
     const game: Game = snapshot.data() as Game;
-    const winner: TeamPosition = game.matches.reduce((acc, match) => acc + match.team1 === 8 ? 1 : 0, 0) === Math.floor((game.numberOfMatches / 2) + 1) ? 'team1' : 'team2';
+    const winner: TeamPosition = game.matches.reduce((acc, match) => acc + (match.team1 === 8 ? 1 : 0), 0) === Math.floor((game.numberOfMatches / 2) + 1) ? 'team1' : 'team2';
 
     const db = admin.firestore();
 
