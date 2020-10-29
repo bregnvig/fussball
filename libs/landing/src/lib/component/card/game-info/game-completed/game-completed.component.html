@@ -11,7 +11,7 @@
         <div fxLayout class="field">
           <div class="team1" fxLayout="column" fxLayoutAlign="center center" fxFlex="50"><span>{{team1}}</span></div>
           <div class="team2" fxLayoutAlign="center center" fxFlex="50"><span>{{team2}}</span></div>
-          <sha-game-players avatarClass="avatar" [left]="table.game.team1" [right]="table.game.team2"></sha-game-players>
+          <sha-game-players avatarClass="avatar" [left]="table.game.team1.players" [right]="table.game.team2.players"></sha-game-players>
         </div>
       </div>
     </mat-card-content>
