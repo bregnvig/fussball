@@ -26,6 +26,6 @@
     </section>
   </ng-container>
 </main>
-<aside fxLayout fxLayoutAlign="center center" routerLink="/">
+<aside fxLayout fxLayoutAlign="center center" routerLink="/" *ngIf="isPlayer$ | async">
   <i class="far fa-times-circle fa-3x"></i>
 </aside>

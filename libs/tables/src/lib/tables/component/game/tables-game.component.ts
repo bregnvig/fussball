@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
-import { TablesService } from '@fussball/api';
+import { PlayerFacade, TablesService } from '@fussball/api';
 import { Match, Table, Team } from '@fussball/data';
 import { AbstractSuperComponent } from '@fussball/shared';
-import { shareLatest } from '@fussball/tools';
+import { shareLatest, truthy } from '@fussball/tools';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -17,12 +17,14 @@ export class TablesGameComponent extends AbstractSuperComponent implements OnIni
 
   table$: Observable<Table>;
   match$: Observable<Match>;
+  isPlayer$: Observable<boolean>;
   avatarClass = "gameAvatar";
   showCongrats = true;
 
   constructor(
     private service: TablesService,
     private route: ActivatedRoute,
+    private facade: PlayerFacade,
     private mediaObserver: MediaObserver) {
     super();
   }
@@ -37,6 +39,10 @@ export class TablesGameComponent extends AbstractSuperComponent implements OnIni
       switchMap(id => this.service.table(id)),
       shareLatest(),
       this.takeUntilDestroyed(),
+    );
+    this.isPlayer$ = this.facade.player$.pipe(
+      truthy(),
+      map(player => player.roles.includes('player'))
     );
 
     this.match$ = this.table$.pipe(
