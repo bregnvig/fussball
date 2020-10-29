@@ -8,6 +8,7 @@ export interface Player {
   roles?: Role[];
   tokens?: string[];
   stat?: PlayerStat;
+  table?: string; // The table a viewer must see
 }
 
 export interface PlayerStat {

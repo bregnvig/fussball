@@ -1,4 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
+import { ViewerNoAccessService } from '@fussball/api';
 import { LoginComponent } from '@fussball/shared';
 
 const routes: Routes = [
@@ -8,14 +9,18 @@ const routes: Routes = [
   },
   {
     path: '',
+    canLoad: [ViewerNoAccessService],
+    pathMatch: 'full',
     loadChildren: () => import('@fussball/landing').then(m => m.LandingModule),
   },
   {
     path: 'players',
+    canLoad: [ViewerNoAccessService],
     loadChildren: () => import('@fussball/players').then(m => m.PlayersModule),
   },
   {
     path: 'player',
+    canLoad: [ViewerNoAccessService],
     loadChildren: () => import('@fussball/player').then(m => m.PlayerModule),
   },
   {

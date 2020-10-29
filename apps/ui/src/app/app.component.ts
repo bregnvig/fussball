@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { PlayerFacade, PlayersActions, PlayersFacade } from '@fussball/api';
-import { Player } from '@fussball/data';
+import { Player, Role } from '@fussball/data';
 import { GoogleMessaging } from '@fussball/firebase';
 import { truthy } from '@fussball/tools';
 import * as equal from 'fast-deep-equal/es6';
@@ -37,9 +37,12 @@ export class AppComponent implements OnInit {
       filter(([previous, current]) => !equal(previous, current)),
       map(([_, current]) => current)
     ).subscribe(player => {
-      if (player.roles && player.roles.includes('player')) {
+      if (player.roles && (['player', 'viewer'] as Role[]).some(role => player.roles.includes(role))) {
         if (this.router.url === '/info/roles') {
           this.router.navigate(['/']);
+        }
+        if (player.roles.includes('viewer')) {
+          this.router.navigate(['tables', player.table, 'game']);
         }
         this.playersFacade.dispatch(PlayersActions.loadPlayers());
         // if (Notification.permission === "granted") {
