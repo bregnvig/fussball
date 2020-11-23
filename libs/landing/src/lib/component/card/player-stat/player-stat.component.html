@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-header>
+    <i class="fal fa-2x" [ngClass]="icon$ | async" mat-card-avatar></i>
+    <mat-card-title>Din statistisk</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="2:1" *ngIf="stat$ | async as stat">
+      <mat-grid-tile>
+        <div fxLayout="column" fxFill>
+          <h1>Vundet</h1>
+          <p fxFlex fxLayout fxLayoutAlign="center center">{{stat.won}}</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxLayout="column" fxFill>
+          <h1>Mål</h1>
+          <p fxFlex fxLayout fxLayoutAlign="center center">{{stat.goals}}</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxLayout="column" fxFill>
+          <h1>Tabte</h1>
+          <p fxFlex fxLayout fxLayoutAlign="center center">{{stat.lost}}</p>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div fxLayout="column" fxFill>
+          <h1>Selvmål</h1>
+          <p fxFlex fxLayout fxLayoutAlign="center center">{{stat.ownGoals}}</p>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>
