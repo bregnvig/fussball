@@ -17,6 +17,7 @@
             <sha-game-team-players [avatarClass]="avatarClass" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></sha-game-team-players>
           </div>
         </div>
+        <div class="mt-2" fxLayout fxLayoutAlign="center">Spillet started {{(match$ | async)?.createdAt | relativeToNow  }}</div>
       </div>
     </section>
     <section fxFlex="50" fxHide.lt-md>
