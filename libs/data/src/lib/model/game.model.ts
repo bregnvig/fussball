@@ -37,6 +37,7 @@ export interface Game {
   team2: Team;
   latestPosition: PlayerPosition;
   numberOfMatches: number;
+  createdAt: DateTime,
   state: GameState;
   matches: Match[];
   players: GamePlayers;

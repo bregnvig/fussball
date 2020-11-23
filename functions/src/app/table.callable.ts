@@ -1,5 +1,6 @@
 import { auth, firestore } from 'firebase-admin';
 import { https, region } from 'firebase-functions';
+import { DateTime } from 'luxon';
 import { playerURL, tableURL } from '../lib';
 import { getUid } from '../lib/functions-utils';
 import { allPositions, Game, GamePlayer, GameState, getTeamId, isPosition, JoinTableData, Player, Position, Table, Team } from '../lib/model';
@@ -15,7 +16,8 @@ const createGame = (data: JoinTableData, uid: string, player: GamePlayer): Game 
     state: 'preparing',
     players: {
       [uid]: player,
-    }
+    },
+    createdAt: DateTime.local(),
   };
 };
 
