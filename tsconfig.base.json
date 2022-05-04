@@ -17,16 +17,16 @@
     "baseUrl": ".",
     "paths": {
       "@fussball/api": ["libs/api/src/index.ts"],
-      "@fussball/data": ["libs/data/src/index.ts"],
-      "@fussball/shared": ["libs/shared/src/index.ts"],
       "@fussball/control": ["libs/control/src/index.ts"],
-      "@fussball/player": ["libs/player/src/index.ts"],
-      "@fussball/players": ["libs/players/src/index.ts"],
+      "@fussball/data": ["libs/data/src/index.ts"],
+      "@fussball/firebase": ["libs/firebase/src/index.ts"],
       "@fussball/info": ["libs/info/src/index.ts"],
       "@fussball/landing": ["libs/landing/src/index.ts"],
-      "@fussball/tools": ["libs/tools/src/index.ts"],
-      "@fussball/firebase": ["libs/firebase/src/index.ts"],
-      "@fussball/tables": ["libs/tables/src/index.ts"]
+      "@fussball/player": ["libs/player/src/index.ts"],
+      "@fussball/players": ["libs/players/src/index.ts"],
+      "@fussball/shared": ["libs/shared/src/index.ts"],
+      "@fussball/tables": ["libs/tables/src/index.ts"],
+      "@fussball/tools": ["libs/tools/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
