@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'sha-sidenav-button',
+  selector: 'fuss-sidenav-button',
   template: `
     <button mat-list-item>
           <span fxLayout fxLayoutAlign="start center" fxLayoutGap="8px">
@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class SidenavButtonComponent {
 
   @Input() iconSet = 'fa';
-  @Input() icon: string;
-  @Input() title: string;
+  @Input() icon!: string;
+  @Input() title?: string;
 
 }

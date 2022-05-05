@@ -1,7 +1,8 @@
-import { DateTime } from 'luxon';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import { DateTime } from 'luxon';
 
+/* eslint-disable */ // For now
 export const regexISODate = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.{0,1}\d*))(?:Z|(\+|-)([\d|:]*))?$/;
 
 export const firestoreUtils = {
@@ -78,3 +79,4 @@ export const firestoreUtils = {
     return input;
   }
 };
+/* eslint-enable */

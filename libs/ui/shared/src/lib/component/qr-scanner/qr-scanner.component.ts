@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'sha-qr-scanner',
+  selector: 'fuss-qr-scanner',
   template: `
     <zxing-scanner #webScanner
                 *ngIf="scanning"

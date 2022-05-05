@@ -7,7 +7,7 @@ const goals = (goals: Goal[], teamsPositions: [Position, Position], otherPositio
 }, 0);
 
 @Component({
-  selector: 'sha-game-score',
+  selector: 'fuss-game-score',
   template: '{{score}}',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,10 +1,10 @@
 <mat-toolbar color="primary"><img class="avatar" [src]="(player$ | async)?.photoURL" alt="Profil billede">{{(player$ | async)?.displayName}}</mat-toolbar>
 <mat-action-list style="padding: 1rem 1.5rem 0 1.5rem">
-  <sha-sidenav-button *shaHasRole="'player'" iconSet="fas" icon="fa-home" routerLink="/" (click)="closing.emit()">Forside</sha-sidenav-button>
-  <sha-sidenav-button *shaHasRole="'player'" iconSet="far" icon="fa-user-friends" routerLink="/players/teams" (click)="closing.emit()">Mine hold</sha-sidenav-button>
-  <sha-sidenav-button *shaHasRole="'player'" iconSet="far" icon="fa-tablet-rugged" routerLink="/tables" (click)="closing.emit()">Borde</sha-sidenav-button>
-  <sha-sidenav-button *shaHasRole="'admin'" iconSet="fas" icon="fa-futbol" [routerLink]="['players']" (click)="closing.emit()">Spillere</sha-sidenav-button>
-  <sha-sidenav-button iconSet="fas" icon="fa-stars" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</sha-sidenav-button>
-  <!-- <sha-sidenav-button *shaHasRole="'player'" iconSet="far" icon="fa-user" routerLink="player" (click)="closing.emit()">Profil</sha-sidenav-button> -->
+  <fuss-sidenav-button *fussHasRole="'player'" iconSet="fas" icon="fa-home" routerLink="/" (click)="closing.emit()">Forside</fuss-sidenav-button>
+  <fuss-sidenav-button *fussHasRole="'player'" iconSet="far" icon="fa-user-friends" routerLink="/players/teams" (click)="closing.emit()">Mine hold</fuss-sidenav-button>
+  <fuss-sidenav-button *fussHasRole="'player'" iconSet="far" icon="fa-tablet-rugged" routerLink="/tables" (click)="closing.emit()">Borde</fuss-sidenav-button>
+  <fuss-sidenav-button *fussHasRole="'admin'" iconSet="fas" icon="fa-futbol" [routerLink]="['players']" (click)="closing.emit()">Spillere</fuss-sidenav-button>
+  <fuss-sidenav-button iconSet="fas" icon="fa-stars" [routerLink]="['info', 'about']" (click)="closing.emit()">Om spillet</fuss-sidenav-button>
+  <!-- <fuss-sidenav-button *fussHasRole="'player'" iconSet="far" icon="fa-user" routerLink="player" (click)="closing.emit()">Profil</fuss-sidenav-button> -->
   <button mat-list-item (click)="signOut()"><mat-icon fontSet="fa" fontIcon="fa-sign-out-alt" style="height: auto !important;"></mat-icon> Log ud</button>
 </mat-action-list>

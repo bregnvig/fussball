@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
       startWith(<Player>null),
       pairwise(),
       filter(([previous, current]) => !equal(previous, current)),
-      map(([_, current]) => current)
+      map(([, current]) => current)
     ).subscribe(player => {
       if (player.roles && (['player', 'viewer'] as Role[]).some(role => player.roles.includes(role))) {
         if (this.router.url === '/info/roles') {

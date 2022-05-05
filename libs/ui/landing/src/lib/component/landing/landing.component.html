@@ -1,11 +1,11 @@
 <ng-container *ngIf="player$ | async as player; else loading">
-  <sha-card-page>
+  <fuss-card-page>
     <fuss-table-scanner></fuss-table-scanner>
     <fuss-player-stat></fuss-player-stat>
     <fuss-game-info></fuss-game-info>
     <!-- <fuss-what-else></fuss-what-else> -->
-  </sha-card-page>
+  </fuss-card-page>
 </ng-container>
 <ng-template #loading>
-  <sha-loading></sha-loading>
+  <fuss-loading></fuss-loading>
 </ng-template>

@@ -5,7 +5,7 @@
     <mat-card-subtitle>Indtag din position ved at scanne QR koden ved din plads</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <sha-qr-scanner (scanResult)="tableScanResult($event)"></sha-qr-scanner>
+    <fuss-qr-scanner (scanResult)="tableScanResult($event)"></fuss-qr-scanner>
     <div *ngIf="error" fxLayout="column">
         <span fxLayoutAlign="center">{{error}}</span>
         <small fxLayoutAlign="center">{{detailedError}}</small>

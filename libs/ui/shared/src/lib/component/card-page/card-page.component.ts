@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'sha-card-page',
+  selector: 'fuss-card-page',
   template: `
     <div [ngClass]="widthClass" fxLayout="row" fxLayoutAlign="center stretch">
       <div fxFlex="90" fxLayout="column" style="margin-top: 16px">

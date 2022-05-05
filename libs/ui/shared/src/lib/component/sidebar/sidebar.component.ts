@@ -4,7 +4,7 @@ import { Player } from '@fussball/data';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'sha-sidebar',
+  selector: 'fuss-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

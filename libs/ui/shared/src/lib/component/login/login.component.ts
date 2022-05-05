@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { PlayerApiService } from '@fussball/api';
 
 @Component({
-  selector: 'sha-login',
+  selector: 'fuss-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

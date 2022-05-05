@@ -9,12 +9,12 @@
       <div class="score" fxLayout="column" fxFlex>
         <div fxFlex fxLayout>
           <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
-            <sha-game-score side="blue" [match]="match$ | async"></sha-game-score>
-            <sha-game-team-players [avatarClass]="avatarClass" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></sha-game-team-players>
+            <fuss-game-score side="blue" [match]="match$ | async"></fuss-game-score>
+            <fuss-game-team-players [avatarClass]="avatarClass" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></fuss-game-team-players>
           </div>
           <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
-            <sha-game-score side="red" [match]="match$ | async"></sha-game-score>
-            <sha-game-team-players [avatarClass]="avatarClass" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></sha-game-team-players>
+            <fuss-game-score side="red" [match]="match$ | async"></fuss-game-score>
+            <fuss-game-team-players [avatarClass]="avatarClass" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></fuss-game-team-players>
           </div>
         </div>
         <div class="mt-2" fxLayout fxLayoutAlign="center">Spillet started {{(match$ | async)?.createdAt | relativeToNow  }}</div>

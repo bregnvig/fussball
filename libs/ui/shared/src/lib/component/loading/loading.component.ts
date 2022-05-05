@@ -7,7 +7,7 @@ const icons: string[] = [
 ];
 
 @Component({
-  selector: 'sha-loading',
+  selector: 'fuss-loading',
   template: `
     <div>
       <img [src]="icon" alt="loading">

@@ -1,11 +1,11 @@
 import { NgIfContext } from '@angular/common';
 import { Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { PlayerFacade } from '@fussball/api';
+import { truthy } from '@fussball/utils';
 import { combineLatest, Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 @Directive({
-  selector: '[shaHasRole]'
+  selector: '[fussHasRole]'
 })
 export class HasRoleDirective {
 
@@ -17,10 +17,10 @@ export class HasRoleDirective {
 
   constructor(
     readonly service: PlayerFacade,
-    private templateRef: TemplateRef<any>,
+    private templateRef: TemplateRef<NgIfContext>,
     private viewContainer: ViewContainerRef) {
     combineLatest([
-      service.player$.pipe(filter(p => !!p)),
+      service.player$.pipe(truthy()),
       this.role$
     ]).subscribe(([player, roles]) => {
       this.condition = (player.roles || []).some(r => roles.some(role => role === r));
@@ -29,13 +29,13 @@ export class HasRoleDirective {
   }
 
   @Input()
-  set shaHasRoleElse(templateRef: TemplateRef<any> | null) {
+  set fussHasRoleElse(templateRef: TemplateRef<NgIfContext> | null) {
     this.elseTemplateRef = templateRef;
     this.elseViewRef = null;  // clear previous view if any.
     this.updateView();
   }
 
-  @Input() set shaHasRole(roles: string | string[]) {
+  @Input() set fussHasRole(roles: string | string[]) {
     this.role$.next(Array.isArray(roles) ? roles : [roles]);
   }
 

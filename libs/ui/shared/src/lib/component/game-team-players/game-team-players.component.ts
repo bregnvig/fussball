@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'sha-game-team-players',
+  selector: 'fuss-game-team-players',
   templateUrl: './game-team-players.component.html',
   styleUrls: ['./game-team-players.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

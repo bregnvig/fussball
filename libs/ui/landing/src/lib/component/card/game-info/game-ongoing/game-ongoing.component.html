@@ -13,12 +13,12 @@
       <div fxLayout="column">
         <div fxLayout class="field">
           <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
-            <sha-game-score side="blue" [match]="match"></sha-game-score>
-            <sha-game-team-players avatarClass="avatar" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></sha-game-team-players>
+            <fuss-game-score side="blue" [match]="match"></fuss-game-score>
+            <fuss-game-team-players avatarClass="avatar" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></fuss-game-team-players>
           </div>
           <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
-            <sha-game-score side="red" [match]="match"></sha-game-score>
-            <sha-game-team-players avatarClass="avatar" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></sha-game-team-players>
+            <fuss-game-score side="red" [match]="match"></fuss-game-score>
+            <fuss-game-team-players avatarClass="avatar" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></fuss-game-team-players>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
     <img class="avatar" [src]="player.photoURL" alt="Profil billede">
     <span fxFlex>{{player.displayName}}</span>
   </mat-toolbar>
-  <sha-card-page [formGroup]="fg">
+  <fuss-card-page [formGroup]="fg">
     <mat-card>
       <h2>Roller</h2>
       <mat-card-content formGroupName="roles">
@@ -17,8 +17,8 @@
         <button mat-button (click)="updateRoles()">OPDATER</button>
       </mat-card-actions>
     </mat-card>
-  </sha-card-page>
+  </fuss-card-page>
 </ng-container>
 <ng-template #loading>
-  <sha-loading></sha-loading>
+  <fuss-loading></fuss-loading>
 </ng-template>

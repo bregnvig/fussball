@@ -8,7 +8,7 @@ import { first, switchMap } from 'rxjs/operators';
 import { TeamNameDialogComponent } from './../team-name-dialog/team-name-dialog.component';
 
 @Component({
-  selector: 'pla-teams-list',
+  selector: 'fuss-teams-list',
   templateUrl: './teams-list.component.html',
   styleUrls: ['./teams-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
