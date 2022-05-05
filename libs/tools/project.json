@@ -4,10 +4,10 @@
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "tsConfig": ["libs/tools/tsconfig.lib.json", "libs/tools/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**", "!libs/tools/**/*"]
+        "lintFilePatterns": ["libs/tools/**/*.ts"]
       }
     },
     "test": {

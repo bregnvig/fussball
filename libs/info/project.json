@@ -4,10 +4,10 @@
   "prefix": "info",
   "targets": {
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "tsConfig": ["libs/info/tsconfig.lib.json", "libs/info/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**", "!libs/info/**/*"]
+        "lintFilePatterns": ["libs/info/**/*.ts"]
       }
     },
     "test": {

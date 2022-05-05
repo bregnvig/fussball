@@ -4,10 +4,10 @@
   "prefix": "fuss",
   "targets": {
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "tsConfig": ["libs/tables/tsconfig.lib.json", "libs/tables/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**", "!libs/tables/**/*"]
+        "lintFilePatterns": ["libs/tables/**/*.ts"]
       }
     },
     "test": {

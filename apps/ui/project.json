@@ -106,10 +106,9 @@
       }
     },
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
       "options": {
-        "tsConfig": ["apps/ui/tsconfig.app.json", "apps/ui/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**", "!apps/ui/**/*"]
+        "lintFilePatterns": ["apps/ui/**/*.ts", "apps/ui/**/*.html"]
       }
     },
     "test": {

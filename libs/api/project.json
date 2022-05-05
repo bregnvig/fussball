@@ -4,10 +4,10 @@
   "prefix": "api",
   "targets": {
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "tsConfig": ["libs/api/tsconfig.lib.json", "libs/api/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**", "!libs/api/**/*"]
+        "lintFilePatterns": ["libs/api/**/*.ts"]
       }
     },
     "test": {

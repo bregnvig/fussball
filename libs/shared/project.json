@@ -4,10 +4,10 @@
   "prefix": "sha",
   "targets": {
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "tsConfig": ["libs/shared/tsconfig.lib.json", "libs/shared/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**", "!libs/shared/**/*"]
+        "lintFilePatterns": ["libs/shared/**/*.ts"]
       }
     },
     "test": {
