@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "projects": {
+    "api": "libs/api",
+    "control": "libs/control",
+    "data": "libs/data",
+    "firebase": "libs/firebase",
+    "info": "libs/info",
+    "landing": "libs/landing",
+    "player": "libs/player",
+    "players": "libs/players",
+    "shared": "libs/shared",
+    "tables": "libs/tables",
+    "tools": "libs/tools",
+    "ui": "apps/ui",
+    "ui-e2e": "apps/ui-e2e"
+  }
+}

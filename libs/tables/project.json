@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/tables/src",
+  "prefix": "fussball",
+  "targets": {
+    "lint": {
+      "executor": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": ["libs/tables/tsconfig.lib.json", "libs/tables/tsconfig.spec.json"],
+        "exclude": ["**/node_modules/**", "!libs/tables/**/*"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/tables/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "tags": []
+}

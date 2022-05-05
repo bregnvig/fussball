@@ -1,0 +1,28 @@
+{
+  "sourceRoot": "apps/ui-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/ui-e2e/cypress.json",
+        "tsConfig": "apps/ui-e2e/tsconfig.e2e.json",
+        "devServerTarget": "ui:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ui:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": ["apps/ui-e2e/tsconfig.e2e.json"],
+        "exclude": ["**/node_modules/**", "!apps/ui-e2e/**/*"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["ui"]
+}
