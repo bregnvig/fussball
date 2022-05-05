@@ -15,7 +15,7 @@ export interface PlayerPositions extends GamePlayer {
 })
 export class GamePreparingTeamComponent {
 
-  @Input() teamName: string;
-  @Input() playerPositions: PlayerPositions[];
+  @Input() teamName?: string;
+  @Input() playerPositions: PlayerPositions[] = [];
 
 }

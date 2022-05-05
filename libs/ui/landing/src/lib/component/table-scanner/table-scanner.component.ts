@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { isPosition, Position } from '@fussball/data';
+import { truthy } from '@fussball/utils';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, mapTo, switchMap, take, tap } from 'rxjs/operators';
 import { JoinTableErrorDialogComponent } from '../join-table-error-dialog/join-table-error-dialog.component';
@@ -32,8 +33,8 @@ function assertTableScanResult(result: TableScanResult): asserts result is Table
 })
 export class TableScannerComponent implements OnInit {
 
-  error: string;
-  detailedError: string;
+  error?: string;
+  detailedError?: string;
 
   private tableScanResult$ = new Subject<TableScanResult>();
   private acceptedError = true;
@@ -57,19 +58,19 @@ export class TableScannerComponent implements OnInit {
           return of(null);
         }),
       )),
-      filter(x => !!x),
+      truthy(),
       take(1),
     ).subscribe((result: TableScanResult) => this.router.navigate(['tables', result.table, 'game']));
   }
 
   tableScanResult(scanResult: string): void {
-    this.error = null;
+    this.error = undefined;
     try {
       const result: TableScanResult = { table: scanResult.split('.')[0], pos: scanResult.split('.')[1] as Position };
       assertTableScanResult(result);
       console.log(result);
       this.tableScanResult$.next(result);
-    } catch (error) {
+    } catch (error: any) {
       this.error = 'Noget gik galt. Prøv at scanne igen';
       this.detailedError = error.message;
       console.error(error);

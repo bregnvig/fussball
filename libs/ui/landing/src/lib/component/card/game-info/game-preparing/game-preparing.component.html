@@ -3,7 +3,7 @@
       <div mat-card-avatar>
         <i class="fas fa-futbol fa-spin fa-2x"></i>
       </div>
-      <mat-card-title>{{table.name}}</mat-card-title>
+      <mat-card-title>{{table?.name}}</mat-card-title>
       <mat-card-subtitle>Klargører spil...</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content fxLayout="row" fxLayoutAlign="space-around start" >
@@ -12,6 +12,6 @@
       <fuss-game-preparing-team fxFlex [playerPositions]="teamBluePlayers" teamName="Starter som blå"></fuss-game-preparing-team>
     </mat-card-content>
     <mat-card-actions>
-      <a mat-button [routerLink]="['tables', table.id, 'game']">Se kamp</a>
+      <a mat-button [routerLink]="['tables', table?.id, 'game']">Se kamp</a>
     </mat-card-actions>
   </mat-card>

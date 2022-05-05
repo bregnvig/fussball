@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PlayerFacade } from '@fussball/api';
 import { PlayerStat } from '@fussball/data';
+import { truthy } from '@fussball/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,25 +11,11 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./player-stat.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerStatComponent implements OnInit {
+export class PlayerStatComponent {
 
-  stat$: Observable<PlayerStat>;
-  icon$: Observable<string>;
+  stat$: Observable<PlayerStat | undefined> = this.facade.player$.pipe(truthy(), map(({ stat }) => stat));
+  icon$: Observable<string> = this.facade.player$.pipe(truthy(), map(({ stat }) => stat?.won === stat?.lost ? 'fa-thermometer-half' : (stat?.won ?? 0) > (stat?.lost ?? 0) ? 'fa-temperature-hot' : 'fa-temperature-frigid'));
 
   constructor(private facade: PlayerFacade) { }
-
-  ngOnInit(): void {
-    this.stat$ = this.facade.player$.pipe(
-      map(player => player.stat)
-    );
-    this.icon$ = this.facade.player$.pipe(
-      map(player => player.stat),
-      map(stat => {
-        return stat.won === stat.lost
-          ? 'fa-thermometer-half'
-          : stat.won > stat.lost ? 'fa-temperature-hot' : 'fa-temperature-frigid';
-      })
-    );
-  }
 
 }

@@ -1,9 +1,9 @@
 <mat-card fxLayout="column">
     <mat-card-header>
       <i class="far fa-tablet-rugged fa-2x" mat-card-avatar></i>
-      <mat-card-title>{{table.name}}</mat-card-title>
+      <mat-card-title>{{table?.name}}</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <a mat-button [routerLink]="['/tables', tableId, 'game']">Se kamp</a>
+      <a *ngIf="tableId" mat-button [routerLink]="['/tables', tableId, 'game']">Se kamp</a>
     </mat-card-actions>
 </mat-card>

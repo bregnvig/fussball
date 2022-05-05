@@ -1,3 +1,3 @@
-export * from './login/login.component';
-export * from './has-role.directive';
 export * from './abstract-super.component';
+export * from './game-team-players/game-team-players.component';
+export * from './login/login.component';

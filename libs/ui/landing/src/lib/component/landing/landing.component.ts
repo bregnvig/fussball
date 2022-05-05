@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PlayerFacade } from '@fussball/api';
 import { Player } from '@fussball/data';
 import { Observable } from 'rxjs';
@@ -8,15 +8,11 @@ import { Observable } from 'rxjs';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent {
 
-  player$: Observable<Player>;
+  player$: Observable<Player | undefined> = this.facade.player$;
 
   constructor(private facade: PlayerFacade) {
-  }
-
-  ngOnInit(): void {
-    this.player$ = this.facade.player$;
   }
 
 }

@@ -9,26 +9,25 @@ import { Game, Goal, Match, Team } from '@fussball/data';
 })
 export class GameGoalsComponent {
 
-  @Input() team1: Team;
-  @Input() team2: Team;
-  
+  @Input() team1?: Team;
+  @Input() team2?: Team;
+
   @Input() set game(value: Game) {
     this.matches = [...value.matches].reverse();
   }
 
-  matches: Match[];
-  
+  matches: Match[] = [];
+
   trackByDate = (index: number, match: Match) => match.createdAt.toMillis();
 
-  winningTeam(match: Match): string | null {
+  winningTeam(match: Match): string | undefined {
     if (match.goals.length >= 8) {
-      const team1GoalFn = (goal: Goal) => this.team1.players.some(uid => goal.uid === uid) || (this.team2.players.some(uid => goal.uid === uid) && goal.ownGoal);
+      const team1GoalFn = (goal: Goal) => this.team1?.players.some(uid => goal.uid === uid) || (this.team2?.players.some(uid => goal.uid === uid) && !!goal.ownGoal);
       const team1Goals = match.goals.reduce((acc, goal) => acc + (team1GoalFn(goal) ? 1 : 0), 0);
       const team2Goals = match.goals.length - team1Goals;
-      return team1Goals === 8 ? this.team1.name : (team2Goals === 8 ? this.team2.name : null);
+      return team1Goals === 8 ? this.team1?.name : (team2Goals === 8 ? this.team2?.name : undefined);
     }
-    return null;
+    return undefined;
   }
-
 
 }

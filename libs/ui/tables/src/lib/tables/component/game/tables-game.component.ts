@@ -3,9 +3,9 @@ import { MediaObserver } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerFacade, TablesService } from '@fussball/api';
 import { Match, Table, Team } from '@fussball/data';
-import { AbstractSuperComponent } from '@fussball/shared';
+import { AbstractSuperComponent, AvatarClass } from '@fussball/shared';
 import { shareLatest, truthy } from '@fussball/utils';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -15,10 +15,10 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class TablesGameComponent extends AbstractSuperComponent implements OnInit {
 
-  table$: Observable<Table>;
-  match$: Observable<Match>;
-  isPlayer$: Observable<boolean>;
-  avatarClass = "gameAvatar";
+  table$: Observable<Table | undefined> = this.route.params.pipe(switchMap(({ id }) => id ? this.service.table(id) : of(undefined)), shareLatest());
+  match$: Observable<Match | undefined> = this.table$.pipe(map(table => table?.game?.matches?.[table.game.matches.length - 1]), shareLatest());
+  isPlayer$: Observable<boolean> = this.facade.player$.pipe(truthy(), map(({ roles }) => !!roles?.includes('player')));
+  avatarClass: AvatarClass = 'gameAvatar';
   showCongrats = true;
 
   constructor(
@@ -34,22 +34,6 @@ export class TablesGameComponent extends AbstractSuperComponent implements OnIni
       map(queries => queries.some(q => q.mqAlias === 'lt-sm')),
       this.takeUntilDestroyed(),
     ).subscribe(isSmall => this.avatarClass = isSmall ? 'avatar' : 'gameAvatar');
-    this.table$ = this.route.paramMap.pipe(
-      map(params => params.get('id')),
-      switchMap(id => this.service.table(id)),
-      shareLatest(),
-      this.takeUntilDestroyed(),
-    );
-    this.isPlayer$ = this.facade.player$.pipe(
-      truthy(),
-      map(player => player.roles.includes('player'))
-    );
-
-    this.match$ = this.table$.pipe(
-      map(table => table.game.matches[table.game.matches.length - 1]),
-      shareLatest(),
-      this.takeUntilDestroyed(),
-    );
   }
 
   winningTeam(table: Table): Team {

@@ -1,24 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TablesService } from '@fussball/api';
 import { Table } from '@fussball/data';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'fuss-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
 
-  tableId: string;
-  table$: Observable<Table>;
+  table$: Observable<Table | undefined> = this.route.params.pipe(switchMap(({ id }) => id ? this.service.table(id) : of(undefined)));
 
   constructor(private route: ActivatedRoute, private service: TablesService) { }
-
-  ngOnInit(): void {
-    this.tableId = this.route.snapshot.paramMap.get('id');
-    this.table$ = this.service.table(this.tableId);
-  }
 
 }

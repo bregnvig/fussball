@@ -1,8 +1,10 @@
 import { registerLocaleData } from '@angular/common';
 import localeDa from '@angular/common/locales/da';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,23 +16,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PlayerActions, PlayerApiModule, PlayerFacade, PlayersApiModule } from '@fussball/api';
-import { FirebaseModule } from '@fussball/firebase';
 import { SharedModule } from '@fussball/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/functions';
-import 'firebase/messaging';
 import { Settings } from 'luxon';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { metaReducers, reducers } from './reducers';
-
-firebase.initializeApp(environment.firebaseConfig);
 
 const materialModule = [
   MatSidenavModule,
@@ -47,13 +41,15 @@ const materialModule = [
     BrowserAnimationsModule,
     ServiceWorkerModule,
     GoogleMapsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig), // thx angular https://github.com/angular/angular/issues/34352
+    AngularFireMessagingModule, // thx angular https://github.com/angular/angular/issues/34352
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     materialModule,
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     PlayerApiModule,
     PlayersApiModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -65,7 +61,6 @@ const materialModule = [
     AppRoutingModule,
     SharedModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    FirebaseModule.forRoot(environment.messaging.pubKey),
   ],
   providers: [
     {

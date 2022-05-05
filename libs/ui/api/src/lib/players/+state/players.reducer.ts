@@ -6,7 +6,7 @@ import { PlayersActions } from './players.actions';
 export const PLAYERS_FEATURE_KEY = "players";
 
 export interface State extends EntityState<Player> {
-  selectedId?: string | number; // which Players record has been selected
+  selectedId?: string; // which Players record has been selected
   loaded: boolean; // has the Players list been loaded
   error?: string | null; // last none error (if any)
   teams?: Team[];

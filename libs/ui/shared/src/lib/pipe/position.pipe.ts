@@ -13,7 +13,7 @@ const names = new Map<Position, string>([
 })
 export class PositionPipe implements PipeTransform {
 
-  transform(value: Position): string {
+  transform(value: Position): string | undefined {
     return names.get(value);
   }
 

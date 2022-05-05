@@ -10,16 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '@fussball/shared';
 
-const exported = [
-];
-
-const components = [
-
-];
-
-const pipes = [
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -33,8 +23,6 @@ const pipes = [
     SharedModule,
     FlexModule,
   ],
-  declarations: [exported, components, pipes],
-  exports: [exported, pipes],
 })
 export class ControlModule {
 }

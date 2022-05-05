@@ -1,4 +1,4 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="space-between">
-    <div><img [ngClass]="avatarClass" [src]="top | photoURL"></div>
-    <div><img [ngClass]="avatarClass" [src]="bottom | photoURL"></div>
+    <div><img *ngIf="top" [ngClass]="avatarClass" [src]="top | photoURL"></div>
+    <div><img *ngIf="bottom" [ngClass]="avatarClass" [src]="bottom | photoURL"></div>
 </div>

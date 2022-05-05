@@ -18,8 +18,8 @@ export class QrScannerComponent {
   @Output() scanResult = new EventEmitter<string>();
 
   scanning = true;
-  availableDevices: MediaDeviceInfo[];
-  currentDevice: MediaDeviceInfo = null;
+  availableDevices: MediaDeviceInfo[] = [];
+  currentDevice?: MediaDeviceInfo;
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;

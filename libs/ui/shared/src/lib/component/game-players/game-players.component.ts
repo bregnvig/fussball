@@ -8,8 +8,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class GamePlayersComponent {
 
-  @Input() left: [string, string];
-  @Input() right: [string, string];
+  @Input() left?: [string, string];
+  @Input() right?: [string, string];
 
   @Input() avatarClass: 'avatar' | 'gameAvatar' = 'gameAvatar';
 }

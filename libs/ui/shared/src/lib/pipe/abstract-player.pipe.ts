@@ -15,7 +15,10 @@ export abstract class AbstractPlayerPipe implements PipeTransform {
   constructor(private facade: PlayersFacade, private ref: ChangeDetectorRef) {
   }
 
-  transform(uid: string): string | null {
+  transform(uid?: string): string | undefined {
+    if(!uid) {
+      return uid;
+    }
     if (this.previousUID !== uid) {
       this.previousUID = uid;
       this.facade.allPlayers$.pipe(
@@ -28,7 +31,7 @@ export abstract class AbstractPlayerPipe implements PipeTransform {
         setTimeout(() => this.ref.markForCheck());
       });
     }
-    return this.value || null;
+    return this.value || undefined;
   }
 
   protected decorate(value: string): string {

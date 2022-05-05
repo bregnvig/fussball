@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { PlayerActions, PlayerFacade } from '@fussball/api';
 import { Player } from '@fussball/data';
 import { Observable } from 'rxjs';
@@ -9,16 +9,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   @Output() closing = new EventEmitter<void>();
-  player$: Observable<Player>;
+  player$: Observable<Player | undefined> = this.playerFacade.player$;
 
   constructor(private playerFacade: PlayerFacade) { }
-
-  ngOnInit(): void {
-    this.player$ = this.playerFacade.player$;
-  }
 
   signOut() {
     this.playerFacade.dispatch(PlayerActions.logoutPlayer());

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PlayersApiService } from '@fussball/api';
@@ -8,9 +8,9 @@ import { Team } from '@fussball/data';
   templateUrl: './team-name-dialog.component.html',
   styleUrls: ['./team-name-dialog.component.scss']
 })
-export class TeamNameDialogComponent implements OnInit {
+export class TeamNameDialogComponent {
 
-  nameControl: FormControl;
+  nameControl: FormControl = new FormControl(this.data.team.name, Validators.required);
 
   constructor(
     private service: PlayersApiService,
@@ -23,10 +23,6 @@ export class TeamNameDialogComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  ngOnInit(): void {
-    this.nameControl = new FormControl(this.data.team.name, Validators.required);
   }
 
 }

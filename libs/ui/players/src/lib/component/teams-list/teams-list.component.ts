@@ -15,23 +15,19 @@ import { TeamNameDialogComponent } from './../team-name-dialog/team-name-dialog.
 })
 export class TeamsListComponent implements OnInit {
 
-  teams$: Observable<Team[]>;
+  teams$: Observable<Team[] | undefined> = this.facade.allTeams$;
 
   constructor(private facade: PlayersFacade, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.facade.dispatch(PlayersActions.loadTeams());
-    this.teams$ = this.facade.allTeams$;
   }
 
   renameTeam(team: Team) {
-    this.dialog.open(TeamNameDialogComponent, {
-      width: '250px',
-      data: { team }
-    }).afterClosed().pipe(
+    this.dialog.open(TeamNameDialogComponent, { width: '250px', data: { team } }).afterClosed().pipe(
       switchMap(result => result),
       first()
-    ).subscribe(name => this.snackBar.open(`Holdet hedder nu ${name} 🥳`, null, { duration: 3000 }));
+    ).subscribe(name => this.snackBar.open(`Holdet hedder nu ${name} 🥳`, undefined, { duration: 3000 }));
 
   }
 

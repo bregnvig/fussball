@@ -12,17 +12,13 @@ import { first } from 'rxjs/operators';
 })
 export class ProfileComponent implements OnInit {
 
-  receiveReminders$: Observable<boolean>;
-  player$: Observable<Player>;
-  players$: Observable<Player[]>;
+  player$: Observable<Player> = this.facade.player$.pipe(truthy(), first());
+  players$: Observable<Player[]>  = this.playersFacade.allPlayers$.pipe(truthy());
 
   constructor(private facade: PlayerFacade, private playersFacade: PlayersFacade) {
   }
 
   ngOnInit(): void {
     this.playersFacade.dispatch(PlayersActions.loadPlayers());
-
-    this.player$ = this.facade.player$.pipe(truthy(), first());
-    this.players$ = this.playersFacade.allPlayers$.pipe(truthy());
   }
 }

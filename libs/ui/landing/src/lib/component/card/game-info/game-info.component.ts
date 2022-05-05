@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TablesService } from '@fussball/api';
 import { Table } from '@fussball/data';
 import { trackByProperty } from '@fussball/utils';
@@ -11,16 +11,11 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./game-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GameInfoComponent implements OnInit {
+export class GameInfoComponent {
 
-  tables$: Observable<Table[]>;
-  trackByFn = trackByProperty('name');
+  tables$: Observable<Table[]> = this.service.tables$.pipe(map(tables => tables.map(table => table).filter(t => !!t.game)));
+  trackByFn = trackByProperty<Table>('name');
 
   constructor(private service: TablesService) { }
-
-  ngOnInit(): void {
-    this.tables$ = this.service.tables$.pipe(map(tables => tables.filter(t => t.game)));
-  }
-
 
 }

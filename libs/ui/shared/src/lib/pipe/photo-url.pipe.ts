@@ -16,7 +16,7 @@ export class PhotoURLPipe extends AbstractPlayerPipe implements PipeTransform {
     return 'photoURL';
   }
 
-  protected decorate(url: string): string {
+  protected override decorate(url: string): string {
     if (url.includes('facebook')) {
       return url + '?width=320';
     }

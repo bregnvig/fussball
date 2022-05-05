@@ -9,15 +9,15 @@ import { Table } from '@fussball/data';
 })
 export class TablesTableComponent implements OnInit {
   
-  @Input() table: Table;
+  @Input() table?: Table;
 
-  tableId: string;
+  tableId?: string;
   
   constructor(private route: ActivatedRoute) {
   }
   
   ngOnInit(): void {
-    this.tableId = this.route.snapshot.paramMap.get('id') ?? this.table.id;
+    this.tableId = this.route.snapshot.paramMap.get('id') ?? this.table?.id;
   }
 
 }

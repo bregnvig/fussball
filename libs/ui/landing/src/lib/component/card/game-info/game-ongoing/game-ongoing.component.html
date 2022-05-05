@@ -2,11 +2,11 @@
     <mat-card-header>
       <i class="fas fa-futbol fa-2x" mat-card-avatar></i>
       <mat-card-title>
-        <span *ngIf="severalTables">{{table.name}}</span>
+        <span *ngIf="severalTables">{{table?.name}}</span>
       </mat-card-title>
       <mat-card-subtitle fxLayout="column">
         <span>Match {{matchNumber}}.</span>
-        <span *ngIf="table.game.players">{{teamRedNames}} VS {{teamBlueNames}}</span>
+        <span *ngIf="table?.game?.players">{{teamRedNames}} VS {{teamBlueNames}}</span>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -14,16 +14,16 @@
         <div fxLayout class="field">
           <div fxLayout="column" fxLayoutAlign="center center" class="left-field" fxFlex="50">
             <fuss-game-score side="blue" [match]="match"></fuss-game-score>
-            <fuss-game-team-players avatarClass="avatar" [top]="table.game.latestPosition.blueDefence" [bottom]="table.game.latestPosition.blueOffence"></fuss-game-team-players>
+            <fuss-game-team-players avatarClass="avatar" [top]="table?.game?.latestPosition?.blueDefence" [bottom]="table?.game?.latestPosition?.blueOffence"></fuss-game-team-players>
           </div>
           <div class="right-field" fxLayoutAlign="center center" fxFlex="50">
             <fuss-game-score side="red" [match]="match"></fuss-game-score>
-            <fuss-game-team-players avatarClass="avatar" [bottom]="table.game.latestPosition.redDefence" [top]="table.game.latestPosition.redOffence"></fuss-game-team-players>
+            <fuss-game-team-players avatarClass="avatar" [bottom]="table?.game?.latestPosition?.redDefence" [top]="table?.game?.latestPosition?.redOffence"></fuss-game-team-players>
           </div>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <a mat-button [routerLink]="['tables', table.id, 'game']">Se kamp</a>
+      <a mat-button [routerLink]="['tables', table?.id, 'game']">Se kamp</a>
     </mat-card-actions>
   </mat-card>

@@ -1,5 +1,5 @@
 import { Directive, OnDestroy } from '@angular/core';
-import { Subscription, Subject, UnaryFunction, Observable, pipe } from 'rxjs';
+import { Observable, pipe, Subject, Subscription, UnaryFunction } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive()
@@ -14,17 +14,8 @@ export class AbstractSuperComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    // TODO FIX THIS WHEN V9 BEHAVES!!
-    const destroy = function () {
-      this.destroyed$.next(true);
-      this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    };
-    if (Array.isArray(this)) {
-      this.filter(component => component instanceof AbstractSuperComponent)
-        .forEach(component => destroy.bind(component)());
-    } else {
-      destroy.bind(this)();
-    }
+    this.destroyed$.next(true);
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   takeUntilDestroyed<T>(): UnaryFunction<Observable<T>, Observable<T>> {

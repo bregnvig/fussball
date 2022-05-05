@@ -9,12 +9,12 @@ import { Goal, Match, Position, Team } from '@fussball/data';
 })
 export class MatchGoalsComponent {
 
-  @Input() team1: Team;
-  @Input() team2: Team;
+  @Input() team1?: Team;
+  @Input() team2?: Team;
   @Input() set match(value: Match) {
     this.goals = [...(value?.goals || [])].reverse();
   };
-  goals: Goal[];
+  goals: Goal[] = [];
   displayedColumns = ['player', 'team', 'position'];
 
   trackByDate = (index: number, goal: Goal) => goal.time.toMillis();
