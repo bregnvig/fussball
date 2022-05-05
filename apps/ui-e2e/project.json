@@ -1,4 +1,5 @@
 {
+  "root": "apps/ui-e2e",
   "sourceRoot": "apps/ui-e2e/src",
   "projectType": "application",
   "targets": {
@@ -6,8 +7,7 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/ui-e2e/cypress.json",
-        "tsConfig": "apps/ui-e2e/tsconfig.e2e.json",
-        "devServerTarget": "ui:serve"
+        "devServerTarget": "ui:serve:development"
       },
       "configurations": {
         "production": {
@@ -16,10 +16,10 @@
       }
     },
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "tsConfig": ["apps/ui-e2e/tsconfig.e2e.json"],
-        "exclude": ["**/node_modules/**", "!apps/ui-e2e/**/*"]
+        "lintFilePatterns": ["apps/ui-e2e/**/*.{js,ts}"]
       }
     }
   },
