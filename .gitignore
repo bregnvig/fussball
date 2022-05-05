@@ -55,3 +55,4 @@ functions/src/lib/model
 
 # Cache
 /.angular
+.angular

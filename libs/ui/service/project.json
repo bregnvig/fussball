@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ui/service/src",
+  "prefix": "fussball",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ui/service"],
+      "options": {
+        "jestConfig": "libs/ui/service/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ui/service/**/*.ts",
+          "libs/ui/service/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

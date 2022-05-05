@@ -17,8 +17,16 @@
         "polyfills": "apps/ui/src/polyfills.ts",
         "tsConfig": "apps/ui/tsconfig.app.json",
         "aot": true,
-        "assets": ["apps/ui/src/favicon.ico", "apps/ui/src/assets", "apps/ui/src/firebase-messaging-sw.js", "apps/ui/src/manifest.webmanifest"],
-        "styles": ["./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css", "apps/ui/src/styles.scss"],
+        "assets": [
+          "apps/ui/src/favicon.ico",
+          "apps/ui/src/assets",
+          "apps/ui/src/firebase-messaging-sw.js",
+          "apps/ui/src/manifest.webmanifest"
+        ],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+          "apps/ui/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

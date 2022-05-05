@@ -27,7 +27,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "node ./decorate-angular-cli.js"
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main"
   },
   "private": true,
   "dependencies": {
@@ -66,6 +66,7 @@
     "luxon": "^2.3.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.4.0",
+    "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

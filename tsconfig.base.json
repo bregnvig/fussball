@@ -26,7 +26,8 @@
       "@fussball/players": ["libs/players/src/index.ts"],
       "@fussball/shared": ["libs/shared/src/index.ts"],
       "@fussball/tables": ["libs/tables/src/index.ts"],
-      "@fussball/tools": ["libs/tools/src/index.ts"]
+      "@fussball/tools": ["libs/tools/src/index.ts"],
+      "@fussball/ui/service": ["libs/ui/service/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
