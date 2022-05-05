@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/api/src",
+  "sourceRoot": "libs/ui/api/src",
   "prefix": "api",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/api/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/api/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/api/jest.config.ts",
+        "jestConfig": "libs/ui/api/jest.config.ts",
         "passWithNoTests": true
       }
     }

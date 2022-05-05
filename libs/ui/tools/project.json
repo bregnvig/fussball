@@ -1,5 +1,5 @@
 {
-  "sourceRoot": "libs/tools/src",
+  "sourceRoot": "libs/ui/tools/src",
   "projectType": "library",
   "generators": {},
   "targets": {
@@ -7,13 +7,13 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/tools/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/tools/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/tools/jest.config.ts",
+        "jestConfig": "libs/ui/tools/jest.config.ts",
         "passWithNoTests": true
       }
     }

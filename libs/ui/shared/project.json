@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/shared/src",
+  "sourceRoot": "libs/ui/shared/src",
   "prefix": "sha",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/shared/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/shared/jest.config.ts",
+        "jestConfig": "libs/ui/shared/jest.config.ts",
         "passWithNoTests": true
       }
     }

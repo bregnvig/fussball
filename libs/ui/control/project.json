@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/control/src",
+  "sourceRoot": "libs/ui/control/src",
   "prefix": "fuss",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/control/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/control/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/control/jest.config.ts",
+        "jestConfig": "libs/ui/control/jest.config.ts",
         "passWithNoTests": true
       }
     }

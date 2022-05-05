@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/landing/src",
+  "sourceRoot": "libs/ui/landing/src",
   "prefix": "fuss",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/landing/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/landing/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/landing/jest.config.ts",
+        "jestConfig": "libs/ui/landing/jest.config.ts",
         "passWithNoTests": true
       }
     }

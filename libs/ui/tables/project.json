@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/tables/src",
+  "sourceRoot": "libs/ui/tables/src",
   "prefix": "fuss",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/tables/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/tables/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/tables/jest.config.ts",
+        "jestConfig": "libs/ui/tables/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,13 +1,13 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/ui/service/src",
+  "sourceRoot": "libs/ui/ui/service/src",
   "prefix": "fussball",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/ui/service"],
       "options": {
-        "jestConfig": "libs/ui/service/jest.config.ts",
+        "jestConfig": "libs/ui/ui/service/jest.config.ts",
         "passWithNoTests": true
       }
     },

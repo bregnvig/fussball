@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/firebase/src",
+  "sourceRoot": "libs/ui/firebase/src",
   "prefix": "fuss",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/firebase/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/firebase/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/firebase/jest.config.ts",
+        "jestConfig": "libs/ui/firebase/jest.config.ts",
         "passWithNoTests": true
       }
     }

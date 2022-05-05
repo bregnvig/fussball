@@ -1,19 +1,19 @@
 {
   "projectType": "library",
-  "sourceRoot": "libs/info/src",
+  "sourceRoot": "libs/ui/info/src",
   "prefix": "info",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/info/**/*.ts"]
+        "lintFilePatterns": ["libs/ui/info/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "libs/info/jest.config.ts",
+        "jestConfig": "libs/ui/info/jest.config.ts",
         "passWithNoTests": true
       }
     }
