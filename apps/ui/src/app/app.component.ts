@@ -5,7 +5,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { PlayerFacade, PlayersActions, PlayersFacade } from '@fussball/api';
 import { Player, Role } from '@fussball/data';
 import { GoogleMessaging } from '@fussball/firebase';
-import { truthy } from '@fussball/tools';
+import { truthy } from '@fussball/utils';
 import * as equal from 'fast-deep-equal/es6';
 import { filter, first, map, pairwise, startWith, switchMap } from 'rxjs/operators';
 

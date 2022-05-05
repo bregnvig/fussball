@@ -1,10 +1,10 @@
-import { GithubService } from './../../service/github.service';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { angularLogo, firebaseLogo, firestoreLogo, functionsLogo, githubLogo, ngrxLogo, cloudMessagingLogo } from './assets';
+import { GithubService } from './../../service/github.service';
+import { angularLogo, cloudMessagingLogo, firebaseLogo, firestoreLogo, functionsLogo, githubLogo, ngrxLogo } from './assets';
 
 @Component({
-  selector: 'info-about',
+  selector: 'fuss-info-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

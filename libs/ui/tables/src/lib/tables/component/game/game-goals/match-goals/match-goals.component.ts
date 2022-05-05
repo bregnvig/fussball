@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Goal, Match, Position, Team } from '@fussball/data';
 
 @Component({
-  selector: 'fussball-match-goals',
+  selector: 'fuss-match-goals',
   templateUrl: './match-goals.component.html',
   styleUrls: ['./match-goals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatchGoalsComponent implements OnInit {
+export class MatchGoalsComponent {
 
   @Input() team1: Team;
   @Input() team2: Team;
@@ -15,14 +15,9 @@ export class MatchGoalsComponent implements OnInit {
     this.goals = [...(value?.goals || [])].reverse();
   };
   goals: Goal[];
-
-  trackByDate = (index: number, goal: Goal) => goal.time.toMillis();
   displayedColumns = ['player', 'team', 'position'];
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  trackByDate = (index: number, goal: Goal) => goal.time.toMillis();
 
   isRed(goal: Goal): boolean {
     return (['redDefence', 'redOffence'] as Position[]).some(p => p === goal.position) && !goal.ownGoal;

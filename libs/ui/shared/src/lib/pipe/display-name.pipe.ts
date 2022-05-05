@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Pipe } from '@angular/core';
+import { ChangeDetectorRef, Pipe, PipeTransform } from '@angular/core';
 import { PlayersFacade } from '@fussball/api';
 import { AbstractPlayerPipe, PlayerProperty } from './abstract-player.pipe';
 
@@ -6,7 +6,7 @@ import { AbstractPlayerPipe, PlayerProperty } from './abstract-player.pipe';
   name: 'displayName',
   pure: false,
 })
-export class DisplayNamePipe extends AbstractPlayerPipe {
+export class DisplayNamePipe extends AbstractPlayerPipe implements PipeTransform {
 
   constructor(facade: PlayersFacade, ref: ChangeDetectorRef) {
     super(facade, ref);

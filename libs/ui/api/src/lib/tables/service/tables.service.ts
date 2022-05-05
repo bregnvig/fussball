@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { firestoreUtils, JoinTableData, Position, Table, TABLES_COLLECTION } from '@fussball/data';
 import { GoogleFunctions } from '@fussball/firebase';
+import { truthy } from '@fussball/utils';
 import { combineLatest, from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { truthy } from './../../../../../tools/src/lib/rxjs-utils';
 import { PlayerFacade } from './../../player/+state/player.facade';
 
 @Injectable({

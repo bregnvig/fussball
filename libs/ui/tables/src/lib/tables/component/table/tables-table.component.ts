@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Table } from '@fussball/data';
 
 @Component({
-  selector: 'fussball-tables-table',
+  selector: 'fuss-tables-table',
   templateUrl: './tables-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,5 +1,5 @@
 module.exports = {
-  coverageDirectory: "../../coverage/libs/api",
+  coverageDirectory: "../../coverage/libs/ui/api",
 
   setupFilesAfterEnv: ["<rootDir>/src/test-setup.ts"],
   globals: {
@@ -16,5 +16,5 @@ module.exports = {
     "jest-preset-angular/build/serializers/html-comment",
   ],
   transform: { "^.+\\.(ts|js|html)$": "jest-preset-angular" },
-  preset: "../../jest.preset.ts",
+  preset: "../../../jest.preset.ts",
 };

@@ -5,7 +5,7 @@ import { Table } from '@fussball/data';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'fussball-table',
+  selector: 'fuss-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })

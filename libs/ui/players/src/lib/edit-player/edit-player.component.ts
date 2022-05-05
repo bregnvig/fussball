@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { PlayersActions, PlayersApiService, PlayersFacade } from '@fussball/api';
 import { Player, Role } from '@fussball/data';
 import { AbstractSuperComponent } from '@fussball/shared';
-import { truthy } from '@fussball/tools';
+import { truthy } from '@fussball/utils';
 import { Observable } from 'rxjs';
 import { first, pluck, switchMap } from 'rxjs/operators';
 

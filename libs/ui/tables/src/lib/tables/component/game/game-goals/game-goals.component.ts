@@ -2,22 +2,23 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Game, Goal, Match, Team } from '@fussball/data';
 
 @Component({
-  selector: 'fussball-game-goals',
+  selector: 'fuss-game-goals',
   templateUrl: './game-goals.component.html',
   styleUrls: ['./game-goals.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameGoalsComponent {
 
-  trackByDate = (index: number, match: Match) => match.createdAt.toMillis();
-  matches: Match[];
-
   @Input() team1: Team;
   @Input() team2: Team;
-
+  
   @Input() set game(value: Game) {
     this.matches = [...value.matches].reverse();
   }
+
+  matches: Match[];
+  
+  trackByDate = (index: number, match: Match) => match.createdAt.toMillis();
 
   winningTeam(match: Match): string | null {
     if (match.goals.length >= 8) {

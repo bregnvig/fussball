@@ -11,7 +11,7 @@
     "players": "libs/ui/players",
     "shared": "libs/ui/shared",
     "tables": "libs/ui/tables",
-    "tools": "libs/ui/tools",
+    "utils": "libs/utils",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e",
     "ui-service": "libs/ui/service"

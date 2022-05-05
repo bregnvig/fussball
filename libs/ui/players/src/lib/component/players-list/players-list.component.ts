@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PlayersFacade } from '@fussball/api';
 import { Player } from '@fussball/data';
-import { truthy } from '@fussball/tools';
+import { truthy } from '@fussball/utils';
 import { Observable } from 'rxjs';
 
 @Component({

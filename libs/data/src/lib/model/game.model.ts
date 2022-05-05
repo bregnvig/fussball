@@ -5,7 +5,7 @@ import { Team } from './team.model';
 export type Position = 'redDefence' | 'redOffence' | 'blueDefence' | 'blueOffence';
 export const allPositions: Position[] = Object.keys(<{ [key in Position]: Required<boolean> }>{ 'redDefence': true, 'redOffence': true, 'blueDefence': true, 'blueOffence': true }) as Position[];
 
-export function isPosition(value: any): value is Position {
+export function isPosition(value: unknown): value is Position {
   return allPositions.some(p => p === value);
 };
 

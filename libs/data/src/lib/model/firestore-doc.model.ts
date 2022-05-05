@@ -1,1 +1,1 @@
-export type FirestoreDoc<T extends {}> = T & { id: string; };
+export type FirestoreDoc<T extends Record<string, unknown>> = T & { id: string; };

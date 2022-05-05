@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TablesService } from '@fussball/api';
 import { Table } from '@fussball/data';
-import { trackByProperty } from '@fussball/tools';
+import { trackByProperty } from '@fussball/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerFacade, TablesService } from '@fussball/api';
 import { Match, Table, Team } from '@fussball/data';
 import { AbstractSuperComponent } from '@fussball/shared';
-import { shareLatest, truthy } from '@fussball/tools';
+import { shareLatest, truthy } from '@fussball/utils';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'fussball-tables-game',
+  selector: 'fuss-tables-game',
   templateUrl: './tables-game.component.html',
   styleUrls: ['./tables-game.component.scss']
 })

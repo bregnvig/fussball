@@ -4,7 +4,7 @@ import { Table } from '@fussball/data';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'fussball-tables',
+  selector: 'fuss-tables',
   templateUrl: './tables.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

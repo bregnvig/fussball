@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, CanLoad } from '@angular/router';
-import { truthy } from '@fussball/tools';
+import { truthy } from '@fussball/utils';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { PlayerFacade } from '../+state';
