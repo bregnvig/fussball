@@ -15,6 +15,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import { PlayerActions, PlayerApiModule, PlayerFacade, PlayersApiModule } from '@fussball/api';
 import { SharedModule } from '@fussball/shared';
 import { EffectsModule } from '@ngrx/effects';
@@ -26,6 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { metaReducers, reducers } from './reducers';
 
+library.add(fas, far);
 const materialModule = [
   MatSidenavModule,
   MatIconModule,
@@ -71,9 +76,10 @@ const materialModule = [
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private facade: PlayerFacade) {
+  constructor(private facade: PlayerFacade, library: FaIconLibrary) {
     Settings.defaultLocale = 'da';
     registerLocaleData(localeDa);
+    library.addIconPacks(fas, far);
     this.facade.dispatch(PlayerActions.loadPlayer());
   }
 }

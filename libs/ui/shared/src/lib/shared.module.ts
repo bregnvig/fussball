@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PlayerApiModule } from '@fussball/api';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { LoginComponent } from './component';
@@ -66,12 +67,14 @@ const pipes = [
     pipes,
     HasRoleDirective,
     FlexLayoutModule,
+    FontAwesomeModule,
   ],
   providers: [
   ],
   imports: [
     CommonModule,
     RouterModule,
+    FontAwesomeModule,
     PlayerApiModule,
     FlexLayoutModule,
     ZXingScannerModule,

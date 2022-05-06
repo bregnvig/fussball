@@ -5,10 +5,10 @@
   <mat-list-item *ngFor="let player of players" [routerLink]="[player.uid]">
     <img matListAvatar [src]="player.photoURL">
     <h3 matLine>{{player.displayName}}</h3>
-    <i *ngIf="isAnonymous(player)" class="far fa-fw fa-lg fa-car-crash"></i>
-    <i *ngIf="isAdmin(player)" class="far fa-lg fa-gavel"></i>
-    <i *ngIf="isPlayer(player)" class="far fa-fw fa-lg fa-futbol"></i>
-    <i *ngIf="isViewer(player)" class="far fa-fw fa-lg fa-eye"></i>
+    <fa-icon *ngIf="isAnonymous(player)" [icon]="['far', 'car-crash']" [fixedWidth]="true" size="lg"></fa-icon>
+    <fa-icon *ngIf="isAdmin(player)" [icon]="['far', 'gavel']" [fixedWidth]="true" size="lg"></fa-icon>
+    <fa-icon *ngIf="isPlayer(player)" [icon]="['far', 'futbol']" [fixedWidth]="true" size="lg"></fa-icon>
+    <fa-icon *ngIf="isViewer(player)" [icon]="['far', 'eye']" [fixedWidth]="true" size="lg"></fa-icon>
   </mat-list-item>
 </mat-action-list>
 <ng-template #loading>
