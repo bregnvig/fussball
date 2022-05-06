@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { PlayerFacade, PlayersActions, PlayersFacade } from '@fussball/api';
-import { Player, Role } from '@fussball/data';
-import { GoogleMessaging } from '@fussball/firebase';
+import { Role } from '@fussball/data';
 import { truthy } from '@fussball/utils';
 import * as equal from 'fast-deep-equal/es6';
 import { filter, first, map, pairwise, startWith, switchMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { filter, first, map, pairwise, startWith, switchMap } from 'rxjs/operato
 export class AppComponent implements OnInit {
 
   constructor(
-    @Inject(GoogleMessaging) private messaging: firebase.messaging.Messaging,
+    private messaging: AngularFireMessaging,
     private playerFacade: PlayerFacade,
     private playersFacade: PlayersFacade,
     private updates: SwUpdate,
@@ -32,12 +32,13 @@ export class AppComponent implements OnInit {
     this.playerFacade.authorized$.pipe(
       filter(authorized => authorized),
       switchMap(() => this.playerFacade.player$),
-      startWith(<Player>null),
+      startWith(null),
       pairwise(),
       filter(([previous, current]) => !equal(previous, current)),
-      map(([, current]) => current)
+      map(([, current]) => current),
+      truthy(),
     ).subscribe(player => {
-      if (player.roles && (['player', 'viewer'] as Role[]).some(role => player.roles.includes(role))) {
+      if (player.roles && (['player', 'viewer'] as Role[]).some(role => player.roles?.includes(role))) {
         if (this.router.url === '/info/roles') {
           this.router.navigate(['/']);
         }
@@ -64,6 +65,6 @@ export class AppComponent implements OnInit {
       switchMap(() => this.updates.activateUpdate()),
       first(),
     ).subscribe(() => location.reload());
-    this.messaging.onMessage(message => this.snackBar.open(message.notification.body, null, { duration: 2000 }));
+    this.messaging.onMessage(message => this.snackBar.open(message.notification.body, undefined, { duration: 2000 }));
   }
 }

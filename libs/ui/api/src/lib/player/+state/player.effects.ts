@@ -1,5 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
-import { GoogleMessaging } from '@fussball/firebase';
+import { Injectable } from '@angular/core';
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { Player } from '@fussball/data';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, concatMap, map, mapTo } from 'rxjs/operators';
@@ -18,7 +19,7 @@ export class PlayerEffects {
       concatMap(() => this.service.player$.pipe(
         map(player => {
           if (player?.uid) {
-            return PlayerActions.loadPlayerSuccess({ player });
+            return PlayerActions.loadPlayerSuccess({ player: player as Player });
           }
           return PlayerActions.loadPlayerUnauthorized();
         }),
@@ -28,10 +29,10 @@ export class PlayerEffects {
   );
   loadtoken$ = createEffect(() => this.actions$.pipe(
     ofType(PlayerActions.loadMessagingToken),
-    concatMap(() => this.messaging.getToken()
-      .then(token => PlayerActions.updatePlayer({ partialPlayer: { tokens: [token] } }))
-      .catch(error => PlayerActions.loadMessingTokenFailure({ error })
-      ))
+      concatMap(() => this.messaging.getToken.pipe(
+        map((token) => token && PlayerActions.updatePlayer({ partialPlayer: { tokens: [token] } }) || PlayerActions.loadMessingTokenFailure({ error: 'empty token!' })),
+        catchError(error => of(PlayerActions.loadMessingTokenFailure({ error })))
+      )),
   ));
   updatePlayer$ = createEffect(() =>
     this.actions$.pipe(
@@ -56,26 +57,27 @@ export class PlayerEffects {
   joinWBC$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.joinWBC),
-      concatMap(() => this.service.joinWBC()
-        .then(() => PlayerActions.joinWBCSuccess())
-        .catch(error => PlayerActions.joinWBCFailure({ error })),
-      ),
+      concatMap(() => this.service.joinWBC().pipe(
+        map(() => PlayerActions.joinWBCSuccess()),
+        catchError(error => of(PlayerActions.joinWBCFailure({ error })))
+      )),
     ),
   );
 
   undoWBC$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.undoWBC),
-      concatMap(() => this.service.undoWBC()
-        .then(() => PlayerActions.undoWBCSuccess())
-        .catch(error => PlayerActions.undoWBCFailure({ error })),
-      ),
+      concatMap(() => this.service.undoWBC().pipe(
+        map(() => PlayerActions.undoWBCSuccess()),
+        catchError(error => of(PlayerActions.undoWBCFailure({ error })))
+      )),
     ),
   );
 
   constructor(
     private actions$: Actions,
     private service: PlayerApiService,
-    @Inject(GoogleMessaging) private messaging: firebase.messaging.Messaging) {
+    private messaging: AngularFireMessaging,
+  ) {
   }
 }

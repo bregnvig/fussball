@@ -7,7 +7,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { PlayerApiModule, PlayersApiModule } from '@fussball/api';
-import { FirebaseModule } from '@fussball/firebase';
 import { ProfileComponent } from './compoent/profile/profile.component';
 
 const MaterialModulde = [
@@ -21,7 +20,6 @@ const MaterialModulde = [
 @NgModule({
   imports: [
     CommonModule,
-    FirebaseModule,
     MaterialModulde,
     PlayerApiModule,
     RouterModule.forChild([

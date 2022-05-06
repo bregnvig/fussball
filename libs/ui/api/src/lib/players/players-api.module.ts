@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FirebaseModule } from '@fussball/firebase';
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { PlayersEffects } from "./+state/players.effects";
@@ -15,8 +14,7 @@ import * as fromPlayers from "./+state/players.reducer";
       fromPlayers.reducer
     ),
     EffectsModule.forFeature([PlayersEffects]),
-    FirebaseModule,
   ],
-  providers: [PlayersFacade, PlayersEffects]
+  providers: [PlayersFacade]
 })
 export class PlayersApiModule { }

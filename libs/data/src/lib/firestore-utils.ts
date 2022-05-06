@@ -1,5 +1,4 @@
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 import { DateTime } from 'luxon';
 
 /* eslint-disable */ // For now
@@ -38,8 +37,8 @@ export const firestoreUtils = {
     });
     return input;
   },
-  convertTimestamp(input: firebase.firestore.Timestamp): DateTime | any {
-    if (input instanceof firebase.firestore.Timestamp) {
+  convertTimestamp(input: Timestamp): DateTime | any {
+    if (input instanceof Timestamp) {
       return DateTime.fromJSDate(input.toDate());
     }
     return input;
@@ -50,7 +49,7 @@ export const firestoreUtils = {
     }
     Object.keys(input).map(key => {
       const value = input[key];
-      if (value instanceof firebase.firestore.Timestamp) {
+      if (value instanceof Timestamp) {
         input[key] = firestoreUtils.convertTimestamp(value);
       } else if (typeof value === 'object') {
         firestoreUtils.convertTimestamps(value);
@@ -58,9 +57,9 @@ export const firestoreUtils = {
     });
     return input;
   },
-  convertDateTime(input: any): any | firebase.firestore.Timestamp {
+  convertDateTime(input: any): any | Timestamp {
     if (input instanceof DateTime) {
-      return firebase.firestore.Timestamp.fromMillis(input.toMillis());
+      return Timestamp.fromMillis(input.toMillis());
     }
     return input;
   },

@@ -16,7 +16,8 @@ export class ViewerNoAccessService implements CanLoad, CanActivate {
     this.guard$ = facade.authorized$.pipe(
       truthy(),
       switchMap(() => facade.player$),
-      map(player => !player.roles.includes('viewer'))
+      truthy(),
+      map(player => !player.roles?.includes('viewer'))
     );
   }
   canActivate(): Observable<boolean> {

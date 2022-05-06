@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { firestoreUtils, JoinTableData, Position, Table, TABLES_COLLECTION } from '@fussball/data';
-import { GoogleFunctions } from '@fussball/firebase';
 import { truthy } from '@fussball/utils';
 import { combineLatest, from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -24,13 +24,14 @@ export class TablesService {
     this.playerFacade.player$.pipe(truthy()),
     this.allTables$.pipe(truthy())
   ]).pipe(
-    map(([player, tables]) => tables.filter(t => t.name !== 'Test' || player.roles.includes('admin')))
+    map(([player, tables]) => tables.filter(t => t.name !== 'Test' || player.roles?.includes('admin')))
   );
 
   constructor(
     private afs: AngularFirestore,
     private playerFacade: PlayerFacade,
-    @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
+    private functions: AngularFireFunctions,
+  ) {
   }
 
 

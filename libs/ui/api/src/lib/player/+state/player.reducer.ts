@@ -36,9 +36,9 @@ const playerReducer = createReducer(
     ({ ...state, loading: false, loaded: true, unauthorized: false, authorized: true, player })
   ),
   on(PlayerActions.updatePlayerSuccess, (state, { partialPlayer }) => {
-    const newPlayer = { ...state.player, ...partialPlayer };
+    const newPlayer: Player = { ...state.player, ...partialPlayer } as Player;
     if (equal(newPlayer, state.player) === false) {
-      return ({ ...state, player: { ...state.player, ...partialPlayer } });
+      return ({ ...state, player: newPlayer });
     }
     return state;
   }),

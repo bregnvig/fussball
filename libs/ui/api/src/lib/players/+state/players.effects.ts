@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Player, Team } from '@fussball/data';
 import { truthy } from '@fussball/utils';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
@@ -11,7 +11,9 @@ import { PlayerFacade } from '../../player/+state';
 import { PlayersActions } from './players.actions';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PlayersEffects {
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(
@@ -34,7 +36,7 @@ export class PlayersEffects {
     this.actions$.pipe(
       ofType(PlayersActions.loadTeams),
       debounce(() => this.playerFacade.authorized$.pipe(truthy())),
-      withLatestFrom(this.playerFacade.player$),
+      withLatestFrom(this.playerFacade.player$.pipe(truthy())),
       concatMap((([_, player]) => this.afs.collection<Team>('teams', ref => ref.where('players', 'array-contains', player.uid)).valueChanges().pipe(
         map(teams => PlayersActions.loadTeamsSuccess({ teams })),
         catchError(error => of(PlayersActions.loadTeamsFailure({ error }))),

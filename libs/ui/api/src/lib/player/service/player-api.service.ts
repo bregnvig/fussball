@@ -1,12 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Player } from '@fussball/data';
-import { GoogleFunctions } from '@fussball/firebase';
-import * as firebase from 'firebase/app';
+import { truthy } from '@fussball/utils';
 import 'firebase/auth';
+import { UserInfo } from 'firebase/auth';
+import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
-import { merge, Observable, ReplaySubject } from 'rxjs';
-import { filter, first, mapTo, switchMap } from 'rxjs/operators';
+import { firstValueFrom, merge, Observable, ReplaySubject } from 'rxjs';
+import { filter, first, map, mapTo, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -15,28 +18,26 @@ export class PlayerApiService {
 
   static readonly playersURL = 'players';
 
-  readonly player$: Observable<Player>;
-  private currentUser$ = new ReplaySubject<firebase.UserInfo | null>(1);
+  readonly player$: Observable<Player | UserInfo | undefined>;
+  private currentUser$ = new ReplaySubject<UserInfo | null>(1);
 
-  constructor(private afs: AngularFirestore, @Inject(GoogleFunctions) private functions: firebase.functions.Functions) {
+  constructor(
+    private afs: AngularFirestore,
+    private auth: AngularFireAuth,
+    private functions: AngularFireFunctions,
+  ) {
     this.player$ = merge(
-      this.currentUser$.pipe(
-        filter(user => !!user?.uid),
-        switchMap(user => this.afs.doc<Player>(`${PlayerApiService.playersURL}/${user.uid}`).valueChanges()),
-      ),
-      this.currentUser$.pipe(
-        filter(user => !user || !(user?.uid))
-      )
-    );
-    firebase.auth().getRedirectResult().then(result => {
+      this.currentUser$.pipe(map(user => user?.uid), truthy(), switchMap(uid => this.afs.doc<Player>(`${PlayerApiService.playersURL}/${uid}`).valueChanges())),
+      this.currentUser$.pipe(truthy(), filter(user => !!user?.uid)));
+    this.auth.getRedirectResult().then(result => {
       if (result && result.user) {
-        this.updateBaseInformation(result.user).toPromise().then(() => console.log('Base information updated'));
+        firstValueFrom(this.updateBaseInformation(result.user as Player)).then(() => console.log('Base information updated'));
       }
     });
-    firebase.auth().onAuthStateChanged(user => {
-      this.currentUser$.next({ ...user });
+    this.auth.onAuthStateChanged(user => {
+      this.currentUser$.next(user && { ...user });
       if (user) {
-        this.updateBaseInformation(user).toPromise().then(() => console.log('Base information updated'));
+        firstValueFrom(this.updateBaseInformation(user as Player)).then(() => console.log('Base information updated'));
       }
       console.log(user);
     });
@@ -44,15 +45,15 @@ export class PlayerApiService {
 
 
   signInWithGoogle(): Promise<void> {
-    return firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider()).then(_ => console.log('Signed in using google'));
+    return this.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()).then(_ => console.log('Signed in using google'));
   }
 
   signInWithFacebook(): Promise<void> {
-    return firebase.auth().signInWithRedirect(new firebase.auth.FacebookAuthProvider()).then(_ => console.log('Signed in using facebook'));
+    return this.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider()).then(_ => console.log('Signed in using facebook'));
   }
 
   signOut(): Promise<void> {
-    return firebase.auth().signOut();
+    return this.auth.signOut();
   }
 
   updatePlayer(partialPlayer: Partial<Player>): Observable<Partial<Player>> {
@@ -64,20 +65,19 @@ export class PlayerApiService {
       };
     }
     return this.player$.pipe(
+      truthy(),
       switchMap(player => this.afs.doc(`${PlayerApiService.playersURL}/${player.uid}`).update(payload)),
       mapTo(partialPlayer),
       first()
     );
   }
 
-  joinWBC(): Promise<true> {
-    return this.functions.httpsCallable('joinWBC')()
-      .then(() => true);
+  joinWBC(): Observable<void> {
+    return this.functions.httpsCallable('joinWBC')({});
   }
 
-  undoWBC(): Promise<true> {
-    return this.functions.httpsCallable('undoWBC')()
-      .then(() => true);
+  undoWBC(): Observable<void> {
+    return this.functions.httpsCallable('undoWBC')({});
   }
 
   private updateBaseInformation(player: Player): Observable<void> {
