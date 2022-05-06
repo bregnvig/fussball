@@ -4,7 +4,6 @@
     "api": "libs/ui/api",
     "control": "libs/ui/control",
     "data": "libs/data",
-    "firebase": "libs/ui/firebase",
     "info": "libs/ui/info",
     "landing": "libs/ui/landing",
     "player": "libs/ui/player",

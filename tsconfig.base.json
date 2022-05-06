@@ -19,7 +19,6 @@
       "@fussball/api": ["libs/ui/api/src/index.ts"],
       "@fussball/control": ["libs/ui/control/src/index.ts"],
       "@fussball/data": ["libs/data/src/index.ts"],
-      "@fussball/firebase": ["libs/ui/firebase/src/index.ts"],
       "@fussball/info": ["libs/ui/info/src/index.ts"],
       "@fussball/landing": ["libs/ui/landing/src/index.ts"],
       "@fussball/player": ["libs/ui/player/src/index.ts"],
